@@ -115,10 +115,14 @@ export class Tutorial extends React.Component<any, any> {
             },
             {
                 direction: Direction.full,
-                body: [<video width="100%" controls>
+                body: [<video key="video" width="100%" controls>
                     <source src="/videos/tutorials/RobbieTutorial.mp4" type="video/mp4" />
                     Your browser does not support the video tag.
                     </video>]
+            },
+            {
+                direction: Direction.full,
+                body: [<a key="letsplay" className="btn-lg btn-success btn-block" href="/levels/Tutorial">Let's start playing</a>]
             }
         ];
 
