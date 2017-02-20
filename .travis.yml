@@ -6,7 +6,3 @@ node_js:
 before_install: npm i -g itbldz
 script: 
     - build-it
-deploy:
-  provider: heroku
-  app: robbie-the-robot
-  api_key: $heroku_api
