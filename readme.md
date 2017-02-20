@@ -1,5 +1,7 @@
 # Robbie The Robot
 
+[![travisci-build](https://api.travis-ci.org/MatthiasKainer/robbie-the-robot.svg?branch=master)](https://travis-ci.org/1and1/itBldz)
+
 Robbie the robot is a small, html based browser game for 3-6 year old children. Its aim is to help children develop a feeling for executing certain commands in advance before running them. 
 
 It is influenced by [Scratch](https://scratch.mit.edu/) which however proved to be too tricky for my little kids. 
