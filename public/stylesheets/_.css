@@ -6,7 +6,7 @@ html, body {
     margin:0;
     padding:0;
     height:100%;
-    background-image: url(/images/BG.png);
+    background: url(/images/BG.png) no-repeat center center fixed;
     background-size: cover;
 }
 *, *:before, *:after {
