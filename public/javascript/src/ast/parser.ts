@@ -52,7 +52,7 @@ export const Keywords = {
     },
     "switch": (language: string) => {
         if (language === "de") return ["falls"];
-        return ["case", "switch"];
+        return ["case", "switch", "if"];
     },
     "operation" : (language : string) => {
         return ["+", "-", "/", "*"]
