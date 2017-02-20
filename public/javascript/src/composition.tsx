@@ -12,7 +12,7 @@ import { ImageLoader } from './imagePreloader';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { performAction, startRobot, stopRobot, updateRobot, killRobot, win, setMap, storeAction, removeStatement } from './actions';
-import { Action, GameState, Goal, IState, Map, Robot, Way } from './models';
+import { Action, GameState, Goal, IState, Map, Robot, Way, Event as EventBody } from './models';
 
 interface AppProps {
     gameState: GameState;
@@ -24,7 +24,13 @@ interface AppProps {
     dispatch: Dispatch<any>;
 }
 
-interface GameBoardState extends IState {
+interface GameBoardState {
+    actions?: Action[],
+    robot?: Robot,
+    goal?: Goal,
+    map?: Map,
+    gameState?: GameState,
+    events?: EventBody[]
     boardCols: number;
     controlCols: number;
     editingMode : Way;
@@ -45,16 +51,12 @@ class Game extends React.Component<any, GameBoardState> {
 
     private setHeight() {
         let screenHeight = $(window).height() - $('nav').height();
-        if ($(this.boardColumn).height() > screenHeight && this.state.boardCols > 2) {
-            this.state.boardCols--;
-            this.state.controlCols++;
-            this.setState(this.state);
+        if ($(this.boardColumn).height() > screenHeight && this.state.boardCols > 6) {
+            this.setState((Object.assign(this.state, { boardCols : this.state.boardCols-1, controlCols: this.state.controlCols+1 }) as any));
             setTimeout(() => this.setHeight(), 50);
         }
         else if ($(this.boardColumn).height() <= (screenHeight /2) && this.state.controlCols > 2) {
-            this.state.boardCols++;
-            this.state.controlCols--;
-            this.setState(this.state);
+            this.setState((Object.assign(this.state, { boardCols : this.state.boardCols+1, controlCols: this.state.controlCols-1 }) as any));
             setTimeout(() => this.setHeight(), 50);
         }
     }
@@ -62,9 +64,9 @@ class Game extends React.Component<any, GameBoardState> {
     public componentWillMount() {
         ApiGateway.get(new Routes.EditingMode())
             .then((result : any) => 
-                this.setState(Object.assign(this.state, { 
+                this.setState((Object.assign(this.state, { 
                     editingMode : result.way 
-                }))
+                })) as any)
             )
     }
 

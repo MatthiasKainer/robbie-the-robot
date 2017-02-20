@@ -10,9 +10,12 @@
     "sources": {
         "TypeScript": {
             "files": [
-                "<%= config.directories['TypeScript'].src %>/**/*.ts",
-                "<%= config.directories['TypeScript'].src %>/**/*.tsx",
-                "!<%= config.directories['TypeScript'].src %>/node_modules/**/*"
+                "<%= config.directories['TypeScript'].src %>/app.ts",
+                "<%= config.directories['TypeScript'].src %>/bin/**/*.ts",
+                "<%= config.directories['TypeScript'].src %>/public/javascript/**/*.ts",
+                "<%= config.directories['TypeScript'].src %>/public/javascript/**/*.tsx",
+                "<%= config.directories['TypeScript'].src %>/routes/**/*.ts",
+                "<%= config.directories['TypeScript'].src %>/test/**/*.ts"
             ],
             "tests": {
                 "unit": [

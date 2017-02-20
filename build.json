@@ -17,7 +17,8 @@
                     "emitDecoratorMetadata": true,
                     "experimentalDecorators": true,
                     "sourceMap": true,
-                    "jsx": "react"
+                    "jsx": "react",
+                    "fast" : "never"
                 },
                 "src": "<%= config.sources.TypeScript.files %>"
             }
@@ -58,7 +59,8 @@
                 ],
                 "test": {
                     "options": {
-                        "reporter": "spec"
+                        "reporter": "spec",
+                        "require": "babel-register"
                     },
                     "src": [
                         "<%= config.sources.TypeScript.tests.unit %>"
