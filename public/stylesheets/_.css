@@ -30,6 +30,8 @@ figure {
 .btn-matrix > .btn {
     flex-grow: 1;
     width: 33%;
+}
+.btn-matrix.btn-group-lg > .btn  {
     font-size: 2.25rem;
 }
 .btn-matrix > .btn:nth-child(3n+4) {
