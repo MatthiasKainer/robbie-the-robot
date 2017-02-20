@@ -8,6 +8,8 @@ It is influenced by [Scratch](https://scratch.mit.edu/) which however proved to 
 
 You can see a live demo on [robbie-the-robot.herokuapp.com/](https://robbie-the-robot.herokuapp.com/)
 
+Graphics from freebies @[GameArt2D.com](http://www.gameart2d.com/)
+
 ## Develop/Run it
 
 _Requirements:_
