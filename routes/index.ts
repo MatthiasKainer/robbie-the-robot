@@ -41,6 +41,12 @@ router.get('/levels/:level', (req: express.Request, res: express.Response, next:
     });
 });
 
+router.get('/parents', (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    res.render('parents', {
+        title: 'parental guide'
+    });
+});
+
 router.get('/tutorial', (req: express.Request, res: express.Response, next: express.NextFunction) => {
     res.render('tutorial', {
         title: 'robbiebot'
