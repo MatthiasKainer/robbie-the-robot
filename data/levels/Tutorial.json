@@ -1,0 +1,18 @@
+{
+    "name" : "Tutorial",
+    "columns" : 4,
+    "rows" : 4,
+    "robot" : { 
+        "row": 1, "column": 1 
+    },
+    "goal" : { 
+        "row" : 3, "column" : 3 
+    },
+    "goals" : {
+        "maxStars" : 2,
+        "results" : [
+            { "stars" : 2, "moves" : 6, "runs" : 1 },
+            { "stars" : 1, "moves" : 10, "runs" : 2 }
+        ]
+    }
+}

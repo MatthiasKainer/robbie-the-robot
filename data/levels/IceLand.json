@@ -1,0 +1,61 @@
+{
+    "name" : "Ice Land",
+    "description" : "",
+    "columns" : 6,
+    "rows" : 6,
+    "robot" : { 
+        "row": 1, "column": 1 
+    },
+    "goal" : { 
+        "row" : 1, "column" : 5 
+    },
+    "goals" : {
+        "maxStars" : 2,
+        "results" : [
+            { "stars" : 2, "moves" : 14, "runs" : 1 },
+            { "stars" : 1, "moves" : 20, "runs" : 3 }
+        ]
+    },
+    "fields" : [
+        { 
+            "sprite": "ice",
+            "position" : { "row": 1, "column": 2 }
+        },
+        { 
+            "sprite": "ice",
+            "position" : { "row": 2, "column": 1 }
+        },
+        { 
+            "sprite": "ice",
+            "position" : { "row": 2, "column": 2 }
+        },
+        { 
+            "sprite": "ice",
+            "position" : { "row": 0, "column": 4 }
+        },
+        { 
+            "sprite": "ice",
+            "position" : { "row": 1, "column": 4 }
+        },
+        { 
+            "sprite": "ice",
+            "position" : { "row": 2, "column": 4 }
+        },
+        { 
+            "sprite": "ice",
+            "position" : { "row": 3, "column": 4 }
+        },
+        { 
+            "sprite": "ice",
+            "position" : { "row": 4, "column": 4 }
+        },
+        { 
+            "sprite": "ice",
+            "position" : { "row": 4, "column": 3 }
+        },
+        { 
+            "sprite": "ice",
+            "position" : { "row": 4, "column": 2 }
+        }
+    ]
+}

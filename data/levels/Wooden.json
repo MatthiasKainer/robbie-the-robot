@@ -1,0 +1,73 @@
+{
+    "name" : "Wooden",
+    "description" : "",
+    "columns" : 6,
+    "rows" : 6,
+    "robot" : { 
+        "row": 5, "column": 5 
+    },
+    "goal" : { 
+        "row" : 0, "column" : 1
+    },
+    "goals" : {
+        "maxStars" : 2,
+        "results" : [
+            { "stars" : 2, "moves" : 19, "runs" : 1 },
+            { "stars" : 1, "moves" : 20, "runs" : 5 }
+        ]
+    },
+    "fields" : [
+        { 
+            "sprite": "wood",
+            "position" : { "row": 1, "column": 0 }
+        },
+        { 
+            "sprite": "wood",
+            "position" : { "row": 0, "column": 0 }
+        },
+        { 
+            "sprite": "wood",
+            "position" : { "row": 3, "column": 1 }
+        },
+        { 
+            "sprite": "wood",
+            "position" : { "row": 1, "column": 2 }
+        },
+        { 
+            "sprite": "wood",
+            "position" : { "row": 0, "column": 2 }
+        },
+        { 
+            "sprite": "wood",
+            "position" : { "row": 2, "column": 2 }
+        },
+        { 
+            "sprite": "wood",
+            "position" : { "row": 1, "column": 4 }
+        },
+        { 
+            "sprite": "wood",
+            "position" : { "row": 2, "column": 4 }
+        },
+        { 
+            "sprite": "wood",
+            "position" : { "row": 3, "column": 4 }
+        },
+        { 
+            "sprite": "wood",
+            "position" : { "row": 4, "column": 4 }
+        },
+        { 
+            "sprite": "wood",
+            "position" : { "row": 4, "column": 3 }
+        },
+        { 
+            "sprite": "wood",
+            "position" : { "row": 5, "column": 4 }
+        },
+        { 
+            "sprite": "wood",
+            "position" : { "row": 5, "column": 2 }
+        }
+    ]
+}

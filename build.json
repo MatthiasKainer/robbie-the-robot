@@ -1,0 +1,70 @@
+{
+    "prepare": {},
+    "compile": {
+        "typescript": {
+            "task": "ts",
+            "package": "grunt-ts",
+            "default": {
+                "options": {
+                    "target": "es6",
+                    "module": "commonjs",
+                    "moduleResolution": "node",
+                    "declaration": false,
+                    "noImplicitAny": true,
+                    "suppressImplicitAnyIndexErrors": true,
+                    "removeComments": false,
+                    "noLib": false,
+                    "emitDecoratorMetadata": true,
+                    "experimentalDecorators": true,
+                    "sourceMap": true,
+                    "jsx": "react"
+                },
+                "src": "<%= config.sources.TypeScript.files %>"
+            }
+        },
+        "browser": {
+            "task": "browserify",
+            "package": "grunt-browserify",
+            "dependencies": [
+                "babelify"
+            ],
+            "web": {
+                "files": [
+                    {
+                        "expand": true,
+                        "cwd": "<%= config.sources.JavaScript.public %>/",
+                        "src": [
+                            "**/*app.js"
+                        ],
+                        "dest": "<%= config.deployables['browser-js'] %>"
+                    }
+                ],
+                "options": {
+                    "transform": [
+                        "babelify"
+                    ]
+                }
+            }
+        }
+    },
+    "test": {
+        "typescript": {
+            "unit": {
+                "task": "mochaTest",
+                "package": "grunt-mocha-test",
+                "dependencies": [
+                    "chai",
+                    "sinon"
+                ],
+                "test": {
+                    "options": {
+                        "reporter": "spec"
+                    },
+                    "src": [
+                        "<%= config.sources.TypeScript.tests.unit %>"
+                    ]
+                }
+            }
+        }
+    }
+}

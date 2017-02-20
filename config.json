@@ -1,0 +1,52 @@
+{
+    "directories": {
+        "target": "C:/Users/mkainer/Dropbox/Apps/Heroku/robbie-the-robot",
+        "TypeScript": {
+            "src": "<%= config.directories.root %>/",
+            "unit": "<%= config.directories.root %>/test/",
+            "acceptance": ""
+        }
+    },
+    "sources": {
+        "TypeScript": {
+            "files": [
+                "<%= config.directories['TypeScript'].src %>/**/*.ts",
+                "<%= config.directories['TypeScript'].src %>/**/*.tsx",
+                "!<%= config.directories['TypeScript'].src %>/node_modules/**/*"
+            ],
+            "tests": {
+                "unit": [
+                    "<%= config.directories['TypeScript'].unit %>/**/*.js"
+                ]
+            }
+        },
+        "JavaScript": {
+            "public" : "<%= config.directories.root %>/public/javascript/src"
+        }
+    },
+    "deployables": {
+        "browser-js" : "<%= config.directories.root %>/public/javascript/",
+        "files": [
+            {
+                "expand": true,
+                "cwd": "<%= config.directories['TypeScript'].src %>/",
+                "src": [
+                    "bin/**/*.js",
+                    "data/**/*",
+                    "public/javascript/*.js",
+                    "public/javascript/src/models.js",
+                    "public/fonts/**/*",
+                    "public/images/**/*",
+                    "public/stylesheets/**/*",
+                    "public/videos/**/*",
+                    "routes/**/*.js",
+                    "views/**/*",
+                    "app.js",
+                    "package.json",
+                    "readme.md"
+                ],
+                "dest": "<%= config.directories.target %>"
+            }
+        ]
+    }
+}

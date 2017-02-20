@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  h1= title
+  
+  .row
+    #game
+    .col-8
+      .map
+        - for (var row=0; row < map.rows; row++)
+          .map-row 
+            -for (var col=0; col<map.columns; col++) 
+              .map-column!= map.getTileForPosition({ y : row, x : col}).tile.get()
+                -if(map.getPositionForRobot({ y : row, x : col}))
+                  .robot.idle
+    .col-4
+      .controls
+        .up 
+          button.fa.fa-arrow-circle-o-up(data-control="up")
+        .right 
+          button.fa.fa-arrow-circle-o-right(data-control="right")
+        .left 
+          button.fa.fa-arrow-circle-o-left(data-control="left")
+        .down 
+          button.fa.fa-arrow-circle-o-down(data-control="down")

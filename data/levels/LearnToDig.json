@@ -1,0 +1,60 @@
+{
+    "name" : "First Digging",
+    "description" : "",
+    "columns" : 4,
+    "rows" : 4,
+    "robot" : { 
+        "row": 0, "column": 0 
+    },
+    "goal" : { 
+        "row" : 3, "column" : 3 
+    },
+    "goals" : {
+        "maxStars" : 2,
+        "results" : [
+            { "stars" : 2, "moves" : 9, "runs" : 1 },
+            { "stars" : 1, "moves" : 16, "runs" : 5 }
+        ]
+    },
+    "actions": [
+        "Movement",
+        "Attack"
+    ],
+    "fields" : [
+        { 
+            "sprite": "stone",
+            "position" : { "row": 0, "column": 2 },
+            "durability": 10000
+        },
+        { 
+            "sprite": "stone",
+            "position" : { "row": 0, "column": 1 },
+            "durability": 10000
+        },
+        { 
+            "sprite": "ice",
+            "position" : { "row": 1, "column": 0 },
+            "durability": 1
+        },
+        { 
+            "sprite": "ice",
+            "position" : { "row": 1, "column": 1 },
+            "durability": 1
+        },
+        { 
+            "sprite": "mud",
+            "position" : { "row": 1, "column": 2 },
+            "durability": 2
+        },
+        { 
+            "sprite": "stone",
+            "position" : { "row": 1, "column": 3 },
+            "durability": 10000
+        },
+        { 
+            "sprite": "stone",
+            "position" : { "row": 2, "column": 0 },
+            "durability": 10000
+        }
+    ]
+}

@@ -1,0 +1,72 @@
+{
+    "name" : "The Wall",
+    "columns" : 8,
+    "rows" : 8,
+    "robot" : { 
+        "row": 2, "column": 3 
+    },
+    "goal" : { 
+        "row" : 7, "column" : 7 
+    },
+    "fields" : [
+        { 
+            "sprite": "stone",
+            "position" : { "row": 1, "column": 0 }
+        },
+        { 
+            "sprite": "stone",
+            "position" : { "row": 3, "column": 1 }
+        },
+        { 
+            "sprite": "stone",
+            "position" : { "row": 1, "column": 1 }
+        },
+        { 
+            "sprite": "stone",
+            "position" : { "row": 4, "column": 3 }
+        },
+        { 
+            "sprite": "stone",
+            "position" : { "row": 3, "column": 3 }
+        },
+        { 
+            "sprite": "stone",
+            "position" : { "row": 3, "column": 4 }
+        },
+        { 
+            "sprite": "stone",
+            "position" : { "row": 2, "column": 4 }
+        },
+        { 
+            "sprite": "stone",
+            "position" : { "row": 6, "column": 7 }
+        },
+        { 
+            "sprite": "stone",
+            "position" : { "row": 6, "column": 6 }
+        },
+        { 
+            "sprite": "stone",
+            "position" : { "row": 6, "column": 5 }
+        },
+        { 
+            "sprite": "stone",
+            "position" : { "row": 6, "column": 4 }
+        },
+        { 
+            "sprite": "stone",
+            "position" : { "row": 6, "column": 2 }
+        },
+        { 
+            "sprite": "stone",
+            "position" : { "row": 6, "column": 1 }
+        }
+    ],
+    "goals" : {
+        "maxStars" : 2,
+        "results" : [
+            { "stars" : 2, "moves" : 11, "runs" : 1 },
+            { "stars" : 1, "moves" : 16, "runs" : 2 }
+        ]
+    }
+}

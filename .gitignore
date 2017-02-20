@@ -1,0 +1,8 @@
+node_modules/
+typings/
+**/*.js
+**/*.js.map
+.tscache
+.vscode
+tscommand-*
+npm-debug.log

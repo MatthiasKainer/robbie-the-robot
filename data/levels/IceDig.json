@@ -1,0 +1,95 @@
+{
+    "name" : "Ice Wall",
+    "description" : "",
+    "columns" : 6,
+    "rows" : 6,
+    "robot" : { 
+        "row": 0, "column": 0 
+    },
+    "goal" : { 
+        "row" : 3, "column" : 5 
+    },
+    "goals" : {
+        "maxStars" : 2,
+        "results" : [
+            { "stars" : 2, "moves" : 10, "runs" : 1 },
+            { "stars" : 1, "moves" : 20, "runs" : 3 }
+        ]
+    },
+    "actions": [
+        "Movement",
+        "Attack"
+    ],
+    "fields" : [
+        { 
+            "sprite": "ice",
+            "position" : { "row": 0, "column": 1 },
+            "durability": 1
+        },
+        { 
+            "sprite": "ice",
+            "position" : { "row": 1, "column": 1 },
+            "durability": 1
+        },
+        { 
+            "sprite": "ice",
+            "position" : { "row": 1, "column": 0 },
+            "durability": 1
+        },
+        { 
+            "sprite": "ice",
+            "position" : { "row": 0, "column": 2 },
+            "durability": 1
+        },
+        { 
+            "sprite": "ice",
+            "position" : { "row": 1, "column": 2 },
+            "durability": 1
+        },
+        { 
+            "sprite": "ice",
+            "position" : { "row": 2, "column": 0 },
+            "durability": 1
+        },
+        { 
+            "sprite": "ice",
+            "position" : { "row": 2, "column": 1 },
+            "durability": 1
+        },
+        { 
+            "sprite": "ice",
+            "position" : { "row": 2, "column": 2 },
+            "durability": 1
+        },
+        { 
+            "sprite": "ice",
+            "position" : { "row": 1, "column": 4 },
+            "durability": 1
+        },
+        { 
+            "sprite": "ice",
+            "position" : { "row": 2, "column": 4 },
+            "durability": 1
+        },
+        { 
+            "sprite": "ice",
+            "position" : { "row": 3, "column": 4 },
+            "durability": 1
+        },
+        { 
+            "sprite": "ice",
+            "position" : { "row": 4, "column": 4 },
+            "durability": 1
+        },
+        { 
+            "sprite": "ice",
+            "position" : { "row": 4, "column": 3 },
+            "durability": 1
+        },
+        { 
+            "sprite": "ice",
+            "position" : { "row": 4, "column": 2 },
+            "durability": 1
+        }
+    ]
+}
