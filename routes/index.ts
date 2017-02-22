@@ -46,6 +46,11 @@ router.get('/parents', (req: express.Request, res: express.Response, next: expre
         title: 'parental guide'
     });
 });
+router.get('/offline', (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    res.render('offline', {
+        title: 'Free "Robbie the Robot" Board Game'
+    });
+});
 
 router.get('/tutorial', (req: express.Request, res: express.Response, next: express.NextFunction) => {
     res.render('tutorial', {
