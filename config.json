@@ -46,6 +46,7 @@
                     "public/images/**/*",
                     "public/stylesheets/**/*",
                     "public/videos/**/*",
+                    "public/offline/**/*",
                     "routes/**/*.js",
                     "views/**/*",
                     "app.js",
