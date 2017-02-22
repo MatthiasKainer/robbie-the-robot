@@ -15,6 +15,7 @@ interface PanelProperties {
     robot : Robot;
     onMove(action: Action): any;
     onRemoveStatement(index: number): any;
+    onChangeStatementCount(index: number, value : number) : void;
     onUpdate(action : Action) : any;
     onStart(): any;
 }
@@ -72,7 +73,7 @@ export default class Panel extends React.Component<PanelProperties, any> {
                     /**
                      * Calling this twice is unefficient, but required to 
                      * make cheating harder - users cannot overwrite move/robot position
-                     * that easy when separating execution and interpretation                    
+                     * that easy (i.e. by `robot.position.row is 5`) when separating execution and interpretation
                      */
                     new RobotProcessor(this.props.map, this.props.robot)
                         .runCode(this.state.editor.getValue(), {
@@ -94,7 +95,8 @@ export default class Panel extends React.Component<PanelProperties, any> {
         let history = this.props.way === Way.Click ? <HistoryList 
                 events={this.props.events}
                 gameState={this.props.gameState}
-                onRemoveStatement={(index) => this.handleRemove(index)} 
+                onChangeStatementCount={(index, value) => this.props.onChangeStatementCount(index, value)}
+                onRemoveStatement={(index) => this.props.onRemoveStatement(index)} 
                 actions={this.props.actions} /> : <div />
 
         return <div className="controls">

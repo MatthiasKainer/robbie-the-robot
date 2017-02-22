@@ -11,7 +11,18 @@ import { LevelForwarder, LevelRouter } from './game/levels';
 import { ImageLoader } from './imagePreloader';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { performAction, startRobot, stopRobot, updateRobot, killRobot, win, setMap, storeAction, removeStatement } from './actions';
+import {
+    changeStatementCount,
+    killRobot,
+    performAction,
+    removeStatement,
+    setMap,
+    startRobot,
+    stopRobot,
+    storeAction,
+    updateRobot,
+    win
+} from './actions';
 import { Action, GameState, Goal, IState, Map, Robot, Way, Event as EventBody } from './models';
 
 interface AppProps {
@@ -109,6 +120,7 @@ class Game extends React.Component<any, GameBoardState> {
                     events={this.props.events}
                     way={this.state.editingMode}
                     onMove={(movement: Action) => dispatch(storeAction(movement))}
+                    onChangeStatementCount={(index : number, value : number) => dispatch(changeStatementCount({ index, count : value }))}
                     onRemoveStatement={(index: number) => dispatch(removeStatement(index))}
                     onUpdate={(movement) => {
                         dispatch(storeAction(movement))

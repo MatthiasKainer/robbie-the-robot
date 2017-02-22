@@ -109,3 +109,8 @@ export interface IState {
     gameState?: GameState,
     events?: Event[]
 };
+
+export interface ChangeCountOfCommand {
+    index : number;
+    count : number;
+}

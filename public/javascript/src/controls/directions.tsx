@@ -72,15 +72,7 @@ export default class DirectionControls extends React.Component<DirectionProperti
         }
 
         return <div>
-            <div className="btn-group btn-matrix btn-group-sm hidden-sm-up" role="group">
-                {left}
-                <button className={`btn btn-outline-${buttonStyle} btn-sm fa fa-arrow-circle-o-up`} onClick={e => this.handleMove(e, Direction.UP)}></button>
-                {right}
-                <button className={`btn btn-outline-${buttonStyle} btn-sm fa fa-arrow-circle-o-left`} onClick={e => this.handleMove(e, Direction.LEFT)}></button>
-                <button className={`btn btn-outline-${buttonStyle} btn-sm fa fa-arrow-circle-o-down`} onClick={e => this.handleMove(e, Direction.DOWN)}></button>
-                <button className={`btn btn-outline-${buttonStyle} btn-sm fa fa-arrow-circle-o-right`} onClick={e => this.handleMove(e, Direction.RIGHT)}></button>
-            </div>
-            <div className="btn-group btn-matrix btn-group hidden-xs-down hidden-lg-up" role="group">
+            <div className="btn-group btn-matrix btn-group hidden-lg-up" role="group">
                 {left}
                 <button className={`btn btn-outline-${buttonStyle} fa fa-arrow-circle-o-up`} onClick={e => this.handleMove(e, Direction.UP)}></button>
                 {right}

@@ -8,16 +8,26 @@ import {
     StringNode
 } from './ast/availableNodes';
 import { handleActions, Action } from 'redux-actions';
-import { Action as RobotAction, ActionType, Direction, GameState, IState, Map, Robot } from './models';
 import {
+    Action as RobotAction,
+    ActionType,
+    ChangeCountOfCommand,
+    Direction,
+    GameState,
+    IState,
+    Map,
+    Robot
+} from './models';
+import {
+    CHANGE_STATEMENT_COUNT,
     DIE,
-    UPDATE_ROBOT,
     PERFORM_ACTION,
     REMOVE_STATEMENT,
     SET_MAP,
     START,
     STOP,
     STORE_ACTION,
+    UPDATE_ROBOT,
     WIN
 } from './actions';
 import RobotProcessor from './game/robot/processor';
@@ -94,7 +104,7 @@ export default handleActions<IState, Action<IState>>({
                 robot.currentAction = robotAction;
                 for (let i = 0; i < map.fields.length; i++) {
                     if (map.fields[i].position.column === fieldUnderAttack.position.column &&
-                        map.fields[i].position.row === fieldUnderAttack.position.row) {                        
+                        map.fields[i].position.row === fieldUnderAttack.position.row) {
                         map.fields[i].durability--;
                         if (map.fields[i].durability < 1)
                             map.fields.splice(i, 1);
@@ -129,6 +139,33 @@ export default handleActions<IState, Action<IState>>({
             robot: robot,
             goal: state.goal,
             events: [...state.events, { name: UPDATE_ROBOT, body: action.payload }]
+        };
+    },
+    [CHANGE_STATEMENT_COUNT]: (state: IState, action: Action<ChangeCountOfCommand>): IState => {
+        console.log(`Changing count to ${action.payload.count} on action with index ${action.payload.index}`);
+        let change = action.payload;
+        let actions = [...state.actions];
+        if (actions.length < change.index) return state;
+        let targetAction = actions[change.index];
+        let equal = (a: RobotAction, b: RobotAction) => a.direction === b.direction && a.type === b.type;
+        let remainder = actions.slice(change.index).some(_ => !equal(_, targetAction)) ?
+            actions.slice(actions.slice(change.index).findIndex(_ => !equal(_, targetAction))) :
+            [];
+
+        actions = change.index === 0 ? [] : actions.slice(0, change.index);
+
+        for (let i = 0; i < change.count; i++) {
+            actions.push(Object.assign({}, targetAction));
+        }
+
+        actions.push(...remainder);
+        return {
+            gameState: state.gameState,
+            actions: actions,
+            map: state.map,
+            robot: state.robot,
+            goal: state.goal,
+            events: [...state.events, { name: CHANGE_STATEMENT_COUNT, body: action.payload }]
         };
     },
     [REMOVE_STATEMENT]: (state: IState, action: Action<number>): IState => {

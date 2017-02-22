@@ -1,9 +1,10 @@
 import { createAction } from 'redux-actions';
-import { Action, Robot, Map } from './models';
+import { Action, ChangeCountOfCommand, Map, Robot } from './models';
 
 export const SET_MAP = 'SET_MAP'; 
 export const STORE_ACTION = 'STORE_ACTION';
 export const REMOVE_STATEMENT = 'REMOVE_STATEMENT';
+export const CHANGE_STATEMENT_COUNT = 'CHANGE_STATEMENT_COUNT';
 export const PERFORM_ACTION = 'PERFORM_ACTION';
 export const UPDATE_ROBOT = 'UPDATE_ROBOT';
 export const START = 'START';
@@ -24,6 +25,11 @@ export const storeAction = createAction<Action, Action>(
 export const removeStatement = createAction<number, number>(
     REMOVE_STATEMENT,
     (index : number) => index
+);
+
+export const changeStatementCount = createAction<ChangeCountOfCommand, ChangeCountOfCommand>(
+    CHANGE_STATEMENT_COUNT,
+    (command : ChangeCountOfCommand) => command
 );
 
 export const performAction = createAction<Action, Action>(
