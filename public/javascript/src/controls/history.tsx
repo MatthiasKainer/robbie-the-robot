@@ -102,11 +102,11 @@ export default class HistoryList extends React.Component<HistoryProperties, any>
                 </div>;
 
                 return <li className={`list-group-item  list-group-item-${getActionTypeColor(action.type)}`} key={action.index}>
-                    {count}
                     <div style={{ fontSize: "3rem" }}>
                         <i className={`fa fa-${getActionTypeIcon(action.type)}`}></i>&nbsp;
                         <i className={`fa fa-arrow-circle-o-${Direction[action.direction].toLowerCase()}`}></i>
                     </div>
+                    {count}
                     <div>
                         <i className="fa fa-trash-o" style={{ cursor: "pointer" }} onClick={e => this.handleRemove(action.index)}></i>
                     </div>
