@@ -1,8 +1,13 @@
 language: node_js
 node_js:
-    - "6.9"
-    - "7.5"
+- '6.9'
+- '7.5'
 before_install: npm i -g itbldz
-script: 
-    - build-it
-    - cat ./coverage/lcov.info | ./node_modules/.bin/codacy-coverage --language typescript
+script:
+- build-it
+- cat ./coverage/lcov.info | ./node_modules/.bin/codacy-coverage --language typescript
+deploy:
+  provider: heroku
+  skip_cleanup: true
+  api_key:
+    secure: YJ/qBcm9xoKhewvPec6cTGEj+XJk622l3ZqQdLkfxzir5ViSWe5JJ1h6EMW8cjulH71a7uQMFnzQjQIk4wBs9dhEK3X+FcdoVllIx1k7sYSNNDzwdcWJLp+1L5i/lSGPDbLtGIxVRv9WaRR0J0tlQHdZT5w6xHzdnR4EHObBAfZHlzxXkg+mrvxmVNTEw8ER2naEZFVHVkaF4TIIyy53BxOAqk7j14Lljyv9sTLx9H9swOf1pY3Mh0rY/carpSzipaghP02MLoXhmUQB8omBQ6qrMywImsx/t7nGy50DxKzZcOh6l80eEuNp9pvYtBQcMTbgOsFYlewj7gN0gPWxndM+sYdxu1upl/7M5FLu/5UCBGKxw6hSW2Gbi1OFyPEiRgBFUV4c5kgS/wh9q7LjGMifxvprJsiCu3JFNiWWJdPy36kIsHw05Ef7vO3J01OBrcdmy6uatpDxKBw8M9XQkv3drHph2yLKoPkAuc0HID/JkzRWUY9EiWCcOKjQr+rGl9U8AWNspbNOyWX9d9Jf6m5BMtkEaYF6/2GSlUbf+C4XyPB2jVtKCKDCBL84i/PnT8cXeGMxcpq4aY3sztPoYTiwBUZPz+yobZxmnPi0nN5nAGzeyQj64IU8uSq7GJ1tLfOaIccxYumlWQCM0usE9w6w1cCfC73x3WDRN8vN3gg=
