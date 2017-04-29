@@ -6,3 +6,5 @@ typings/
 .vscode
 tscommand-*
 npm-debug.log
+
+coverage/

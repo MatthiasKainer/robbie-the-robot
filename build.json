@@ -66,6 +66,24 @@
                         "<%= config.sources.TypeScript.tests.unit %>"
                     ]
                 }
+            },
+            "coverage": {
+                "task": "mocha_istanbul",
+                "package": "grunt-mocha-istanbul",
+                "dependencies": [
+                    "istanbul@v1.0.0-alpha.2",
+                    "chai",
+                    "sinon"
+                ],
+                "test": {
+                    "options": {
+                        "mochaOptions": [ "--reporter", "spec", "--require", "babel-register"],
+                        "reportFormats": ["lcovonly"]
+                    },
+                    "src": [
+                        "<%= config.sources.TypeScript.tests.unit %>"
+                    ]
+                }
             }
         }
     }
