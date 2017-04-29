@@ -50,24 +50,7 @@
     },
     "test": {
         "typescript": {
-            "unit": {
-                "task": "mochaTest",
-                "package": "grunt-mocha-test",
-                "dependencies": [
-                    "chai",
-                    "sinon"
-                ],
-                "test": {
-                    "options": {
-                        "reporter": "spec",
-                        "require": "babel-register"
-                    },
-                    "src": [
-                        "<%= config.sources.TypeScript.tests.unit %>"
-                    ]
-                }
-            },
-            "coverage": {
+            "test-and-coverage": {
                 "task": "mocha_istanbul",
                 "package": "grunt-mocha-istanbul",
                 "dependencies": [

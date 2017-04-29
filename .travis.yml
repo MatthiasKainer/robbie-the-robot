@@ -5,4 +5,4 @@ node_js:
 before_install: npm i -g itbldz
 script: 
     - build-it
-    - cat ./coverage/lcov.info | ./node_modules/.bin/codacy-coverage
+    - cat ./coverage/lcov.info | ./node_modules/.bin/codacy-coverage --language typescript
