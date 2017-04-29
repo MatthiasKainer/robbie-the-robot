@@ -22,21 +22,18 @@ class CanHandle {
         this.processor = new VariableProcessor(this.machine);
     }
 
-    @test("it can handle, it should have responded with can handle")
-    asserts_classNode() {
+    @test "it can handle, it should have responded with can handle"() {
         let result = this.processor.canHandle(node);
         expect(result).to.be.true;
     }
 
-    @test("it's not a ClassNode handle, it should have responded with cannot handle")
-    asserts_otherNode() {
+    @test "it's not a ClassNode handle, it should have responded with cannot handle"() {
         let node = new AnyValueNode("class");
         let result = this.processor.canHandle(node);
         expect(result).to.be.false;
     }
 
-    @test("it's null, it should have responded with cannot handle")
-    asserts_emptyNode() {
+    @test "it's null, it should have responded with cannot handle"() {
         let node = null;
         let result = this.processor.canHandle(node);
         expect(result).to.be.false;
@@ -53,16 +50,14 @@ class Process {
         this.processor = new VariableProcessor(this.machine);
     }
 
-    @test("a perfect class")
-    asserts_classNode() {       
+    @test "a perfect class"() {       
         let result = this.processor.process(node);
         expect(result).not.undefined;
         expect(result).not.null;
         expect(result).to.be.true;
     }
 
-    @test("an existing variable with the same name")
-    asserts_nonMatching() { 
+    @test "an existing variable with the same name"() { 
         let error = null;      
         this.processor.process(node);
         try {
@@ -74,8 +69,7 @@ class Process {
         expect(error.message).to.be.eq("Variable 'name' was already defined in this scope");
     }
     
-    @test("an existing variable with the same name in an outer scope")
-    asserts_default() {       
+    @test "an existing variable with the same name in an outer scope"() {       
         let error = null;      
         this.processor.process(node);
         try {

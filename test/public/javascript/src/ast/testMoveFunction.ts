@@ -100,8 +100,7 @@ then move in the direction up`;
             new AssignmentNode(new StringNode("direction"), new StringNode("up"))));
     }
 
-    @test("given the word should start the parser")
-    public start() {
+    @test "given the word should start the parser"() {
         let parser = new ParsingService(WordService.create(this.sentence), "en");
         let result = parser.parse();
         if (console.debug) console.log(JSON.stringify(result, undefined, 2));

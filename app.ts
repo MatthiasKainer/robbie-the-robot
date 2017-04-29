@@ -5,7 +5,6 @@ import * as logger from 'morgan';
 import * as cookieParser from 'cookie-parser';
 import * as  bodyParser from 'body-parser';
 
-
 import { router as routes } from './routes/index';
 import { router as users } from './routes/users';
 import { router as api } from './routes/api';

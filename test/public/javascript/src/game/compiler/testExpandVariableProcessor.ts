@@ -34,21 +34,18 @@ class CanHandle {
         this.processor = new ExpandVariableProcessor(this.machine);
     }
 
-    @test("it can handle, it should have responded with can handle")
-    asserts_classNode() {
+    @test "it can handle, it should have responded with can handle"() {
         let result = this.processor.canHandle(node);
         expect(result).to.be.true;
     }
 
-    @test("it's not a ClassNode handle, it should have responded with cannot handle")
-    asserts_otherNode() {
+    @test "it's not a ClassNode handle, it should have responded with cannot handle"() {
         let node = new AnyValueNode("class");
         let result = this.processor.canHandle(node);
         expect(result).to.be.false;
     }
 
-    @test("it's null, it should have responded with cannot handle")
-    asserts_emptyNode() {
+    @test "it's null, it should have responded with cannot handle"() {
         let node = null;
         let result = this.processor.canHandle(node);
         expect(result).to.be.false;
@@ -69,16 +66,14 @@ class Process {
         this.processor = new ExpandVariableProcessor(this.machine);
     }
 
-    @test("an existing variable")
-    asserts_classNode() {
+    @test "an existing variable"() {
         let result = this.processor.process(node);
         expect(result).not.undefined;
         expect(result).not.null;
         expect(result).to.be.eq("value");
     }
 
-    @test("an non-existing variable")
-    asserts_nonMatching() {
+    @test "an non-existing variable"() {
         let error = null;
         try {
             this.processor.process(
@@ -90,8 +85,7 @@ class Process {
         expect(error.message).to.be.eq("Variable 'nonexisting' does not exist");
     }
 
-    @test("access variable in inner scope should work")
-    asserts_default() {
+    @test "access variable in inner scope should work"() {
         let error = null;
         this.machine.pushScope();
         let result = this.processor.process(node)
@@ -101,8 +95,7 @@ class Process {
         expect(result).to.be.eq("value");
     }
 
-    @test("access variable in outer scope should not work")
-    asserts_outer() {
+    @test "access variable in outer scope should not work"() {
         let error = null;
         this.machine.popScope();
 

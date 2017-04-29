@@ -33,21 +33,18 @@ class CanHandle {
         this.processor = new SwitchProcessor(this.machine);
     }
 
-    @test("it can handle, it should have responded with can handle")
-    asserts_classNode() {
+    @test "it can handle, it should have responded with can handle"() {
         let result = this.processor.canHandle(switchNode);
         expect(result).to.be.true;
     }
 
-    @test("it's not a ClassNode handle, it should have responded with cannot handle")
-    asserts_otherNode() {
+    @test "it's not a ClassNode handle, it should have responded with cannot handle"() {
         let node = new AnyValueNode("class");
         let result = this.processor.canHandle(node);
         expect(result).to.be.false;
     }
 
-    @test("it's null, it should have responded with cannot handle")
-    asserts_emptyNode() {
+    @test "it's null, it should have responded with cannot handle"() {
         let node = null;
         let result = this.processor.canHandle(node);
         expect(result).to.be.false;
@@ -64,8 +61,7 @@ class Process {
         this.processor = new SwitchProcessor(this.machine);
     }
 
-    @test("a perfect class")
-    asserts_classNode() {       
+    @test "a perfect class"() {       
 
         let result = this.processor.process(switchNode);
         expect(result).not.undefined;
@@ -73,8 +69,7 @@ class Process {
         expect(result).to.be.true;
     }
 
-    @test("a non-matching switch")
-    asserts_nonMatching() {       
+    @test "a non-matching switch"() {       
         let switchNode = new SwitchNode(new AnyValueNode("DOWN"), 
             new SwitchComparisonNode(new AnyValueNode("UP"), 
                 new AnyValueNode(false)),
@@ -87,8 +82,7 @@ class Process {
         expect(result).to.be.null;
     }
     
-    @test("a default matcher for the switch")
-    asserts_default() {       
+    @test "a default matcher for the switch"() {       
         let switchNode = new SwitchNode(new AnyValueNode("DOWN"), 
             new SwitchComparisonNode(new AnyValueNode("UP"), 
                 new AnyValueNode(false)),

@@ -1,7 +1,7 @@
-import { Operator } from '../../../../../public/javascript/src/ast/node';
-import * as stringDecoder from 'string_decoder';
-import { stringify } from 'querystring';
-import { Parser, ParsingService, WordService } from '../../../../../public/javascript/src/ast/parser';
+import { Operator } from "../../../../../public/javascript/src/ast/node";
+import * as stringDecoder from "string_decoder";
+import { stringify } from "querystring";
+import { Parser, ParsingService, WordService } from "../../../../../public/javascript/src/ast/parser";
 import {
     AssignmentNode,
     CallFunctionNode,
@@ -14,11 +14,11 @@ import {
     StringNode,
     UnwrapSequenceNode,
     VariableNode
-} from '../../../../../public/javascript/src/ast/availableNodes';
-import { VariableParser } from '../../../../../public/javascript/src/ast/availableParsers';
+} from "../../../../../public/javascript/src/ast/availableNodes";
+import { VariableParser } from "../../../../../public/javascript/src/ast/availableParsers";
 import { suite, test, slow, timeout, skip, only } from "mocha-typescript";
-import chai = require('chai');
-import * as sinon from 'sinon';
+import chai = require("chai");
+import * as sinon from "sinon";
 const expect = chai.expect;
 
 let trigger = "let";
@@ -27,13 +27,11 @@ let trigger = "let";
 class ShouldParseVariable {
     parser = new VariableParser(new ParsingService([]));
 
-    @test("given the word should start the parser")
-    public start() {
+    @test "given the word should start the parser"() {
         expect(this.parser.activate(trigger)).to.be.true;
     }
 
-    @test("given the word should not start the parser")
-    public dont() {
+    @test "given the word should not start the parser"() {
         expect(this.parser.activate("anythingnotatrigger")).to.be.false;
         expect(this.parser.activate("")).to.be.false;
     }
@@ -53,8 +51,7 @@ class TransformToAst {
     */
     parser: ParsingService;
 
-    @test("given name is missing")
-    public createMissingName() {
+    @test "given name is missing"() {
         let statement = "let";
         let error = null;
         try {
@@ -69,16 +66,14 @@ class TransformToAst {
         expect(error.message).contains("Incomplete code");
     }
 
-    @test("given variable is created")
-    public createOnly() {
+    @test "given variable is created"() {
         let statement = "the robot";
         this.parser = new ParsingService(WordService.create(statement));
         let result = this.parser.parse();
         expect(result).to.be.deep.eq(new VariableNode(new StringNode("robot")));
     }
 
-    @test("given double variable is created")
-    public doubleCreate() {
+    @test "given double variable is created"() {
         // its a language for kids, this is most propably a copy and paste error - be tolerant
         let statement = "the the robot";
         this.parser = new ParsingService(WordService.create(statement));
@@ -86,8 +81,7 @@ class TransformToAst {
         expect(result).to.be.deep.eq(new VariableNode(new StringNode("robot")));
     }
 
-    @test("given assigned to nothing")
-    public assignToNothing() {
+    @test "given assigned to nothing"() {
         let statement = `is 5`;
         let error = null;
         try {
@@ -100,8 +94,7 @@ class TransformToAst {
         expect(error.message).to.contains("Variable assignment cannot be the first statement");
     }
 
-    @test("given variable is created and assigned with a primitive")
-    public createAssignPrimitive() {
+    @test "given variable is created and assigned with a primitive"() {
         let statement = `the robot is 5`;
         this.parser = new ParsingService(WordService.create(statement));
         let result = this.parser.parse();
@@ -110,8 +103,7 @@ class TransformToAst {
             new AssignmentNode(new StringNode("robot"), new NumberNode(5))));
     }
 
-    @test("given variable is created and assigned with a string")
-    public createAssignString() {
+    @test "given variable is created and assigned with a multiline and escaped string"() {
         let statement = `the robot is "a string 
         spanning multiple lines and an\\" escaped \\" "`;
         this.parser = new ParsingService(WordService.create(statement));
@@ -122,8 +114,7 @@ class TransformToAst {
         spanning multiple lines and an\\" escaped \\" `))));
     }
 
-    @test("given variable is created and assigned with a string")
-    public createAssignKeywordString() {
+    @test "given variable is created and assigned with a string"() {
         let statement = `the robot is "the"`;
         this.parser = new ParsingService(WordService.create(statement));
         let result = this.parser.parse();
@@ -132,8 +123,7 @@ class TransformToAst {
             new AssignmentNode(new StringNode("robot"), new StringNode(`the`))));
     }
 
-    @test("given variable is created, assigned with a primitive and exported")
-    public createAssignPrimitiveAndExport() {
+    @test "given variable is created, assigned with a primitive and exported"() {
         let statement = `let robot is 5
         export robot`;
         this.parser = new ParsingService(WordService.create(statement));
@@ -144,8 +134,7 @@ class TransformToAst {
             new ExportNode(new StringNode("robot"))));
     }
 
-    @test("given variable is created and assigned with a class")
-    public createAssignClass() {
+    @test "given variable is created and assigned with a class"() {
         let statement = `the robot is a Robot ()`;
         this.parser = new ParsingService(WordService.create(statement));
         let result = this.parser.parse();
@@ -155,8 +144,7 @@ class TransformToAst {
             new AssignmentNode(new StringNode("robot"), robotData)));
     }
 
-    @test("given variable is deep")
-    public accessDeepField() {
+    @test "given variable is deep"() {
         let statement = `export our robot.position.row`;
         this.parser = new ParsingService(WordService.create(statement));
         let result = this.parser.parse();
@@ -165,8 +153,7 @@ class TransformToAst {
             new ExpandVariableNode(new StringNode("row")))));
     }
 
-    @test("given assigning simple variable with a deep variable")
-    public assignSimpleField() {
+    @test "given assigning simple variable with a deep variable"() {
         let statement = `robot is our robot.position.row`;
         this.parser = new ParsingService(WordService.create(statement));
         let result = this.parser.parse();
@@ -176,8 +163,7 @@ class TransformToAst {
         expect(result).to.be.deep.eq(new AssignmentNode(new StringNode("robot"), assignment));
     }
 
-    @test("given assigning deep variable with a simple variable")
-    public assignDeepFieldSimple() {
+    @test "given assigning deep variable with a simple variable"() {
         let statement = `robot.position.column is our row`;
         this.parser = new ParsingService(WordService.create(statement));
         let result = this.parser.parse();
@@ -187,8 +173,7 @@ class TransformToAst {
             new AssignmentNode(new StringNode("column"), assignment)));
     }
 
-    @test("given assigning deep variable with a string")
-    public assignDeepFieldString() {
+    @test "given assigning deep variable with a string"() {
         let statement = `robot.position.column is row`;
         this.parser = new ParsingService(WordService.create(statement));
         let result = this.parser.parse();
@@ -198,8 +183,7 @@ class TransformToAst {
             new AssignmentNode(new StringNode("column"), assignment)));
     }
 
-    @test("given assigning deep variable with a deep variable")
-    public assignDeepField() {
+    @test "given assigning deep variable with a deep variable"() {
         let statement = `robot.position.column is our robot.position.row`;
         this.parser = new ParsingService(WordService.create(statement));
         let result = this.parser.parse();
@@ -211,8 +195,7 @@ class TransformToAst {
             new AssignmentNode(new StringNode("column"), assignment)));
     }
 
-    @test("given assigning deep variable with a deep variable")
-    public assignComputedDeepField() {
+    @test "given assigning deep variable with a deep variable that is incremented"() {
         let statement = `robot.position.column is our robot.position.row + 1`;
         this.parser = new ParsingService(WordService.create(statement));
         let result = this.parser.parse();
@@ -224,8 +207,7 @@ class TransformToAst {
             new AssignmentNode(new StringNode("column"), assignment)));
     }
 
-    @test("given assigning deep variable with a deep variable")
-    public assignComputedField() {
+    @test "given assigning deep variable with a variable that is incremented"() {
         let statement = `robot is our robot + 1`;
         this.parser = new ParsingService(WordService.create(statement));
         let result = this.parser.parse();
@@ -235,8 +217,7 @@ class TransformToAst {
             new AssignmentNode(new StringNode("robot"), assignment));
     }
 
-    @test("given variable is created and assigned with a complex class")
-    public createAssignComplexClass() {
+    @test "given variable is created and assigned with a complex class"() {
         let statement = `the robot is a Robot (
             the position is 2
         )`;
@@ -250,8 +231,7 @@ class TransformToAst {
             new AssignmentNode(new StringNode("robot"), robotData)));
     }
 
-    @test("given variable is created and assigned with a complex nested class")
-    public createAssignComplexNestedClass() {
+    @test "given variable is created and assigned with a complex nested class"() {
         let statement = `the robot is a Robot (
             the position is a Position (
                 the row is 1

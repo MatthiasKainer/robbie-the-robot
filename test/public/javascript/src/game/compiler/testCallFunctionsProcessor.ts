@@ -37,21 +37,18 @@ class CanHandle {
         this.processor = new CallFunctionProcessor(this.machine);
     }
 
-    @test("it can handle, it should have responded with can handle")
-    asserts_classNode() {
+    @test "it can handle, it should have responded with can handle"() {
         let result = this.processor.canHandle(node);
         expect(result).to.be.true;
     }
 
-    @test("it's not a ClassNode handle, it should have responded with cannot handle")
-    asserts_otherNode() {
+    @test "it's not a ClassNode handle, it should have responded with cannot handle"() {
         let node = new AnyValueNode("class");
         let result = this.processor.canHandle(node);
         expect(result).to.be.false;
     }
 
-    @test("it's null, it should have responded with cannot handle")
-    asserts_emptyNode() {
+    @test "it's null, it should have responded with cannot handle"() {
         let node = null;
         let result = this.processor.canHandle(node);
         expect(result).to.be.false;
@@ -66,8 +63,7 @@ class Process {
         this.machine = new Machine();
     }
 
-    @test("an equal comparison")
-    asserts_classNode() {
+    @test "an equal comparison"() {
         let root= new SequenceNode(fun, node);
         let result = this.machine.run(root);
         expect(result).not.undefined;

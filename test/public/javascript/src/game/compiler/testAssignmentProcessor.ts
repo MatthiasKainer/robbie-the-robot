@@ -31,21 +31,18 @@ class CanHandle {
         this.processor = new AssignmentProcessor(this.machine);
     }
 
-    @test("it can handle, it should have responded with can handle")
-    asserts_classNode() {
+    @test "it can handle, it should have responded with can handle"() {
         let result = this.processor.canHandle(node);
         expect(result).to.be.true;
     }
 
-    @test("it's not a ClassNode handle, it should have responded with cannot handle")
-    asserts_otherNode() {
+    @test "it's not a ClassNode handle, it should have responded with cannot handle"() {
         let node = new AnyValueNode("class");
         let result = this.processor.canHandle(node);
         expect(result).to.be.false;
     }
 
-    @test("it's null, it should have responded with cannot handle")
-    asserts_emptyNode() {
+    @test "it's null, it should have responded with cannot handle"() {
         let node = null;
         let result = this.processor.canHandle(node);
         expect(result).to.be.false;
@@ -63,8 +60,7 @@ class Process {
         this.processor = new AssignmentProcessor(this.machine);
     }
 
-    @test("an existing variable")
-    asserts_classNode() {
+    @test "an existing variable"() {
         let result = this.processor.process(node);
         expect(result).not.undefined;
         expect(result).not.null;
@@ -72,8 +68,7 @@ class Process {
         expect(this.machine.getScope().getVariable(name)).to.be.equal("value");
     }
 
-    @test("an non-existing variable")
-    asserts_nonMatching() {
+    @test "an non-existing variable"() {
         let error = null;
         try {
             this.processor.process(
@@ -85,8 +80,7 @@ class Process {
         expect(error.message).to.be.eq("Variable 'nonexisting' does not exist");
     }
 
-    @test("overwrite an existing variable with the same name in an inner scope should keep value")
-    asserts_default() {
+    @test "overwrite an existing variable with the same name in an inner scope should keep value"() {
         let error = null;
         this.processor.process(node);
         this.machine.pushScope();
@@ -97,8 +91,7 @@ class Process {
         expect(this.machine.getScope().getVariable(name)).to.be.equal("overwrite");
     }
 
-    @test("overwrite an new variable with the same name in an inner scope should keep value")
-    asserts_scoping() {
+    @test "overwrite an new variable with the same name in an inner scope should keep value"() {
         let error = null;
         this.processor.process(node);
         this.machine.pushScope();

@@ -34,22 +34,19 @@ class CanHandle {
         this.processor = new LoopProcessor(this.machine);
     }
 
-    @test("that it can handle, it should have responded with can handle")
-    asserts_classNode() {
+    @test "that it can handle, it should have responded with can handle"() {
         let node = new LoopNode(null, null);
         let result = this.processor.canHandle(node);
         expect(result).to.be.true;
     }
 
-    @test("that's not a SequenceNode, it should have responded with cannot handle")
-    asserts_otherNode() {
+    @test "that's not a SequenceNode, it should have responded with cannot handle"() {
         let node = new AnyValueNode("class");
         let result = this.processor.canHandle(node);
         expect(result).to.be.false;
     }
 
-    @test("that's null, it should have responded with cannot handle")
-    asserts_emptyNode() {
+    @test "that's null, it should have responded with cannot handle"() {
         let node = null;
         let result = this.processor.canHandle(node);
         expect(result).to.be.false;
@@ -66,8 +63,7 @@ class Process {
         this.processor = new LoopProcessor(this.machine);
     }
     
-    @test("a while(until) loop")
-    asserts_classNode() {
+    @test "a while(until) loop"() {
         let body =  new AssignmentNode(new StringNode("result"), 
                 new OperationNode(Operator.Add, new ExpandVariableNode(new StringNode("result")), new NumberNode(1))
             );
@@ -83,8 +79,7 @@ class Process {
         expect(result).to.deep.eq(11);
     }
 
-    @test("a for;until;do loop")
-    asserts_forUntilDoLoop() {
+    @test "a for;until;do loop"() {
         let from = new ExportSequenceNode(new VariableNode(new StringNode("i")), 
             new AssignmentNode(new StringNode("i"), new NumberNode(0)),
             new ExportNode(new StringNode("i")));

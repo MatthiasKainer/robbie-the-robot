@@ -17,22 +17,19 @@ class CanHandle {
         this.classProcessor = new ClassProcessor(this.machine);
     }
 
-    @test("it can handle, it should have responded with can handle")
-    asserts_classNode() {
+    @test "it can handle, it should have responded with can handle"() {
         let classNode = new ClassNode("class");
         let result = this.classProcessor.canHandle(classNode);
         expect(result).to.be.true;
     }
 
-    @test("it's not a ClassNode handle, it should have responded with cannot handle")
-    asserts_otherNode() {
+    @test "it's not a ClassNode handle, it should have responded with cannot handle"() {
         let classNode = new AnyValueNode("class");
         let result = this.classProcessor.canHandle(classNode);
         expect(result).to.be.false;
     }
 
-    @test("it's null, it should have responded with cannot handle")
-    asserts_emptyNode() {
+    @test "it's null, it should have responded with cannot handle"() {
         let classNode = null;
         let result = this.classProcessor.canHandle(classNode);
         expect(result).to.be.false;
@@ -49,8 +46,7 @@ class Process {
         this.classProcessor = new ClassProcessor(this.machine);
     }
 
-    @test("a perfect class")
-    asserts_classNode() {
+    @test "a perfect class"() {
         let classNode = new ClassNode("class", {
             "field1" : new AnyValueNode("1"),
             "field2" : new AnyValueNode("2")

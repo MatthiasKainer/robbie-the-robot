@@ -113,10 +113,11 @@ export default class HistoryList extends React.Component<HistoryProperties, any>
                 </li>
             });
 
-        let style = {
+        let style : React.CSSProperties = {
             height: "50vh",
             overflow: "auto"
-        }
+        };
+
         return <div className="history" style={style} ref={(ele) => this.historyElement = ele}>
             <ul className="list-group">
                 {history}

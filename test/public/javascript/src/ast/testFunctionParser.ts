@@ -7,13 +7,13 @@ import {
     FunctionNode,
     StringNode,
     VariableNode
-} from '../../../../../public/javascript/src/ast/availableNodes';
-import { DeclareFunctionParser } from '../../../../../public/javascript/src/ast/availableParsers';
-import { ParsingService, WordService } from '../../../../../public/javascript/src/ast/parser';
+} from "../../../../../public/javascript/src/ast/availableNodes";
+import { DeclareFunctionParser } from "../../../../../public/javascript/src/ast/availableParsers";
+import { ParsingService, WordService } from "../../../../../public/javascript/src/ast/parser";
 
 import { suite, test, slow, timeout, skip, only } from "mocha-typescript";
-import chai = require('chai');
-import * as sinon from 'sinon';
+import chai = require("chai");
+import * as sinon from "sinon";
 const expect = chai.expect;
 
 let trigger = "when";
@@ -22,13 +22,11 @@ let trigger = "when";
 class ShouldParseFunction {
     parser = new DeclareFunctionParser(new ParsingService([]));
 
-    @test("given the word should start the parser")
-    public start() {
+    @test "given the word should start the parser"() {
         expect(this.parser.activate(trigger)).to.be.true;
     }
 
-    @test("given the word should not start the parser")
-    public dont() {
+    @test "given the word should not start the parser"() {
         expect(this.parser.activate("anythingnotatrigger")).to.be.false;
         expect(this.parser.activate("")).to.be.false;
     }
@@ -37,8 +35,7 @@ class ShouldParseFunction {
 @suite("[DeclareFunctionParser] When trying to parse a function")
 class TestFunctionParser {
 
-    @test("given function is created")
-    public createOnly() {
+    @test "given function is created"() {
         let statement = `when move in the direction ( 
     export "when" 
 )`;
@@ -51,8 +48,7 @@ class TestFunctionParser {
         );
     }
 
-    @test("given function is created and called")
-    public createAndCalled() {
+    @test "given function is created and called"() {
         let statement = `when move in the direction ( export "when" ) then move `;
         let parser = new ParsingService(WordService.create(statement));
         let result = parser.parse();
@@ -64,8 +60,7 @@ class TestFunctionParser {
         );
     }
 
-    @test("given complex function is created and called")
-    public createComplexAndCalled() {
+    @test "given complex function is created and called"() {
         let statement = `when move in the direction ( the result export our result ) then move `;
         let parser = new ParsingService(WordService.create(statement));
         let result = parser.parse();
@@ -77,8 +72,7 @@ class TestFunctionParser {
         );
     }
 
-    @test("given function is created and called with arguments")
-    public createAndCalledWithArguments() {
+    @test "given function is created and called with arguments"() {
         let statement = `when move in the direction (
     export "when" 
 ) 
@@ -93,8 +87,7 @@ then move in the direction UP`;
         );
     }
 
-    @test("given function is called twice")
-    public functionCalledTwice() {
+    @test "given function is called twice"() {
         let statement = `then move in the direction UP then move in the direction down`;
         let parser = new ParsingService(WordService.create(statement));
         let result = parser.parse();

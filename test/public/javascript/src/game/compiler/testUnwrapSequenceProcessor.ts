@@ -30,22 +30,19 @@ class CanHandle {
         this.processor = new UnwrapSequenceProcessor(this.machine);
     }
 
-    @test("that it can handle, it should have responded with can handle")
-    asserts_classNode() {
+    @test "that it can handle, it should have responded with can handle"() {
         let node = new UnwrapSequenceNode();
         let result = this.processor.canHandle(node);
         expect(result).to.be.true;
     }
 
-    @test("that's not a SequenceNode, it should have responded with cannot handle")
-    asserts_otherNode() {
+    @test "that's not a SequenceNode, it should have responded with cannot handle"() {
         let node = new AnyValueNode("class");
         let result = this.processor.canHandle(node);
         expect(result).to.be.false;
     }
 
-    @test("that's null, it should have responded with cannot handle")
-    asserts_emptyNode() {
+    @test "that's null, it should have responded with cannot handle"() {
         let node = null;
         let result = this.processor.canHandle(node);
         expect(result).to.be.false;
@@ -62,8 +59,7 @@ class Process {
         this.processor = new UnwrapSequenceProcessor(this.machine);
     }
 
-    @test("a perfect sequence")
-    asserts_classNode() {
+    @test "a perfect sequence"() {
         
         let positionData = new ClassNode("Position", {
             "row": new NumberNode(5),

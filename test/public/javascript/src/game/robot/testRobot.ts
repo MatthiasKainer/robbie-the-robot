@@ -43,8 +43,7 @@ class MovingRobot {
         };
     }
 
-    @test("given the move to the right is valid, the robot should move")
-    asserts_moveRight() {
+    @test "given the move to the right is valid, the robot should move"() {
         let robotProcessor = new RobotProcessor(state.map, state.robot);
         let { position } = robotProcessor.robot;
         let row = position.row;
@@ -59,8 +58,7 @@ class MovingRobot {
         expect(robot.position.column).be.eq(column + 1);
     }
 
-    @test("given the move to the left is valid, the robot should move")
-    asserts_moveLeft() {
+    @test "given the move to the left is valid, the robot should move"() {
         let robotProcessor = new RobotProcessor(state.map, state.robot);
         let { position } = robotProcessor.robot;
         let row = position.row;
@@ -75,8 +73,7 @@ class MovingRobot {
         expect(robot.position.column).be.eq(column - 1);
     }
 
-    @test("given the move up is valid, the robot should move")
-    asserts_moveUp() {
+    @test "given the move up is valid, the robot should move"() {
         let robotProcessor = new RobotProcessor(state.map, state.robot);
         let { position } = robotProcessor.robot;
         let row = position.row;
@@ -91,8 +88,7 @@ class MovingRobot {
         expect(robot.position.column).be.eq(column);
     }
 
-    @test("given the move down is valid, the robot should move")
-    asserts_moveDown() {
+    @test "given the move down is valid, the robot should move"() {
         let robotProcessor = new RobotProcessor(state.map, state.robot);
         let { position } = robotProcessor.robot;
         let row = position.row;
@@ -107,8 +103,7 @@ class MovingRobot {
         expect(robot.position.column).be.eq(column);
     }
 
-    @test("given the move down is valid loop, the robot should move")
-    asserts_moveDownLoopTwice() {
+    @test "given the move down is valid loop, the robot should move"() {
         let robotProcessor = new RobotProcessor(state.map, state.robot);
         let { position } = robotProcessor.robot;
         let row = position.row;
@@ -125,8 +120,7 @@ then move in the direction down
         expect(robot.position.column).be.eq(column);
     }
 
-    @test("given there is a collision, game should end")
-    asserts_collision() {
+    @test "given there is a collision, game should end"() {
         let robotProcessor = new RobotProcessor(state.map, state.robot);
         let { position } = robotProcessor.robot;
         let row = position.row;
@@ -152,8 +146,7 @@ then move in the direction down
         expect(exception).to.contains("died because collision with");
     }
 
-    @test("given the move down is too far, the game should end")
-    asserts_moveDownOut() {
+    @test "given the move down is too far, the game should end"() {
         let robotProcessor = new RobotProcessor(state.map, state.robot);
         let { position } = robotProcessor.robot;
         let row = position.row;
@@ -181,8 +174,7 @@ then move in the direction down
         expect(robot.position.column).be.eq(column);
     }
 
-    @test("given the move up is too far, the game should end")
-    asserts_moveUpOut() {
+    @test "given the move up is too far, the game should end"() {
         let robotProcessor = new RobotProcessor(state.map, state.robot);
         let { position } = robotProcessor.robot;
         let row = position.row;
@@ -211,8 +203,7 @@ then move in the direction down
         expect(exception).to.contains("died because outside the map:");
     }
 
-    @test("given the move left is too far, the game should end")
-    asserts_moveLeftOut() {
+    @test "given the move left is too far, the game should end"() {
         let robotProcessor = new RobotProcessor(state.map, state.robot);
         let { position } = robotProcessor.robot;
         let row = position.row;
@@ -244,8 +235,7 @@ then move in the direction down
         expect(robot.position.column).be.eq(0);
     }
 
-    @test("given the move right is too far, the game should end")
-    asserts_moveRightOut() {
+    @test "given the move right is too far, the game should end"() {
         let robotProcessor = new RobotProcessor(state.map, state.robot);
         let { position } = robotProcessor.robot;
         let row = position.row;

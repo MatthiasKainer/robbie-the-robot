@@ -20,22 +20,19 @@ class CanHandle {
         this.processor = new NumberProcessor();
     }
 
-    @test("it can handle, it should have responded with can handle")
-    asserts_classNode() {
+    @test "it can handle, it should have responded with can handle"() {
         let node = new NumberNode(0);
         let result = this.processor.canHandle(node);
         expect(result).to.be.true;
     }
 
-    @test("it's a different node type, it should have responded with cannot handle")
-    asserts_otherNode() {
+    @test "it's a different node type, it should have responded with cannot handle"() {
         let node = new StringNode("class");
         let result = this.processor.canHandle(node);
         expect(result).to.be.false;
     }
 
-    @test("it's null, it should have responded with cannot handle")
-    asserts_emptyNode() {
+    @test "it's null, it should have responded with cannot handle"() {
         let node = null;
         let result = this.processor.canHandle(node);
         expect(result).to.be.false;
@@ -50,8 +47,7 @@ class Process {
         this.processor = new NumberProcessor();
     }
 
-    @test("a perfect class")
-    asserts_classNode() {
+    @test "a perfect class"() {
         let node = new NumberNode(1);
 
         let result = this.processor.process(node);
