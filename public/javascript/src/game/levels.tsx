@@ -14,8 +14,8 @@ export class LevelLoader {
         return ApiGateway.get(new Routes.NextLevel(name));
     }
 
-    public map(name: string): any {
-        return ApiGateway.getSync(new Routes.Level(name));
+    public map<T>(name: string): Promise<T> {
+        return ApiGateway.get(new Routes.Level(name));
     }
 }
 

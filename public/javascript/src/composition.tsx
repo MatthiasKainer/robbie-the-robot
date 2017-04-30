@@ -105,6 +105,7 @@ class Game extends React.Component<any, GameBoardState> {
                     onMapSet={(map: Map) => dispatch(setMap(map))}
                     onWin={() => dispatch(win())}
                     level={level}
+                    onRendered={() => this.setHeight()}
                 />
             </div>
             <div className={`col-${this.state.controlCols}`} ref="controls">
