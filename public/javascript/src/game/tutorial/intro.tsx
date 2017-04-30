@@ -1,48 +1,49 @@
-import { dirname } from 'path';
-declare var $: any;
-import * as React from 'react';
-import { Overlay } from '../utils/modal';
-import { Carousel } from '../utils/carousel';
+import { dirname } from "path";
+declare const $: any;
+import * as React from "react";
+import { Overlay } from "../utils/modal";
+import { Carousel } from "../utils/carousel";
 
 interface SpeechBubble {
     element: JSX.Element;
 }
 
-let robotStyle = {
+const robotStyle = {
     width: "30%",
     backgroundPosition: "center center",
     backgroundSize: "contain",
     backgroundRepeat: "no-repeat",
-    backgroundImage: "/images/Tutorial/robbie_bubble-right.png"
-}
+    backgroundImage: "/images/Tutorial/robbie_bubble-right.png",
+};
 
-let textStyle = (image : string) => {
-    let textStyle = {
+const textStyle = (image: string) => {
+    const textStyle = {
         width: "100%",
         height: "100%",
         backgroundPosition: "center center",
         backgroundSize: "contain",
         backgroundRepeat: "no-repeat",
-        backgroundImage: "/images/Tutorial/"
-    }
-    textStyle.backgroundImage = `url('/images/Tutorial/page${image}.png')`;
+        backgroundImage: "/images/Tutorial/",
+    };
+
+    textStyle.backgroundImage = `url("/images/Tutorial/page${image}.png")`;
     return <div key={image} style={textStyle} alt={image} />;
-}
+};
 
 class SpeechBubbleRight implements SpeechBubble {
-    private style(): React.CSSProperties {
-        return Object.assign({}, robotStyle, {backgroundImage : "url('/images/Tutorial/robbie_bubble-right.png')"});
-    }
+    public element = <div style={this.style()} alt="Intro" />;
 
-    element = <div style={this.style()} alt="Intro" />;
+    private style(): React.CSSProperties {
+        return Object.assign({}, robotStyle, { backgroundImage: "url(\"/images/Tutorial/robbie_bubble-right.png\")"});
+    }
 }
 
 class SpeechBubbleLeft implements SpeechBubble {
-    private style(): React.CSSProperties {
-        return Object.assign({}, robotStyle, {backgroundImage : "url('/images/Tutorial/robbie_bubble-left.png')"});
-    }
+    public element = <div style={this.style()} alt="Intro" />;
 
-    element = <div style={this.style()} alt="Intro" />;
+    private style(): React.CSSProperties {
+        return Object.assign({}, robotStyle, { backgroundImage: "url(\"/images/Tutorial/robbie_bubble-left.png\")"});
+    }
 }
 
 interface TutorialItem {
@@ -52,33 +53,34 @@ interface TutorialItem {
 }
 
 interface TutorialItemsProperty {
-    items: TutorialItem[]
+    items: TutorialItem[];
 }
 
 enum Direction {
     left,
     right,
-    full
+    full,
 }
 
 class TutorialItems extends React.Component<TutorialItemsProperty, any> {
-    getRight(direction: Direction) {
+    public getRight(direction: Direction) {
         return (direction !== undefined && direction === Direction.right) ? new SpeechBubbleRight().element : "";
     }
-    getLeft(direction: Direction) {
+
+    public getLeft(direction: Direction) {
         return (direction !== undefined && direction === Direction.left) ? new SpeechBubbleLeft().element : "";
     }
 
     public render() {
-        let items = this.props.items.map((item, index) => {
-            return <div key={`carousel-item-${index}`} style={{ height: $('html').height() * 0.65 }} className={`carousel-item ${item.isActive ? "active" : ""}`}>
+        const items = this.props.items.map((item, index) => {
+            return <div key={`carousel-item-${index}`} style={{ height: $("html").height() * 0.65 }} className={`carousel-item ${item.isActive ? "active" : ""}`}>
                 {this.getRight(item.direction)}
                 <div className={`tutorial-body ${Direction[item.direction]}`}>
                     {item.body}
                 </div>
                 {this.getLeft(item.direction)}
             </div>;
-        })
+        });
 
         return <div>
             {items}
@@ -88,42 +90,42 @@ class TutorialItems extends React.Component<TutorialItemsProperty, any> {
 
 export class Tutorial extends React.Component<any, any> {
     public openTutorial() {
-        $('.tutorial').modal('show');
+        $(".tutorial").modal("show");
     }
 
     public render() {
-        let items: TutorialItem[] = [
+        const items: TutorialItem[] = [
             {
                 direction: Direction.right, isActive: true,
-                body: [textStyle("01")]
+                body: [textStyle("01")],
             },
             {
                 direction: Direction.full,
-                body: [textStyle("02")]
+                body: [textStyle("02")],
             },
             {
                 direction: Direction.left,
-                body: [textStyle("03")]
+                body: [textStyle("03")],
             },
             {
                 direction: Direction.right,
-                body: [textStyle("04")]
+                body: [textStyle("04")],
             },
             {
                 direction: Direction.full,
-                body: [textStyle("05")]
+                body: [textStyle("05")],
             },
             {
                 direction: Direction.full,
                 body: [<video key="video" width="100%" controls>
                     <source src="/videos/tutorials/RobbieTutorial.mp4" type="video/mp4" />
                     Your browser does not support the video tag.
-                    </video>]
+                    </video>],
             },
             {
                 direction: Direction.full,
-                body: [<a key="letsplay" className="btn-lg btn-success btn-block" href="/levels/Tutorial">Let's start playing</a>]
-            }
+                body: [<a key="letsplay" className="btn-lg btn-success btn-block" href="/levels/Tutorial">Let"s start playing</a>],
+            },
         ];
 
         return <Carousel count={items.length}>
