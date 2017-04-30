@@ -1,10 +1,10 @@
-import { ComparingNode } from '../../../ast/availableNodes';
-import { Comparator, SyntaxNode } from '../../../ast/node';
-import Machine from '../machine';
-import { NodeProcessor } from '../nodeProcessor';
+import { ComparingNode } from "../../../ast/availableNodes";
+import { Comparator, SyntaxNode } from "../../../ast/node";
+import Machine from "../machine";
+import { NodeProcessor } from "../nodeProcessor";
 
 export class ComparingProcessor implements NodeProcessor {
-    machine: Machine;
+    private machine: Machine;
 
     public constructor(machine: Machine) {
         this.machine = machine;
@@ -15,7 +15,7 @@ export class ComparingProcessor implements NodeProcessor {
     }
 
     public process(node: SyntaxNode): any {
-        let compare = node as ComparingNode;
+        const compare = node as ComparingNode;
         switch (compare.comparator) {
             case Comparator.Equal:
                 return this.machine.run(compare.left) === this.machine.run(compare.right);
