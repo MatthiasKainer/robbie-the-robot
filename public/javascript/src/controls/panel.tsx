@@ -65,10 +65,10 @@ export default class Panel extends React.Component<PanelProperties, any> {
         let program_controls = this.props.way === Way.Click ? <div>
             <DirectionControls onMove={(direction) => this.handleMove(direction)} actions={this.props.map.actions} />
             <div className="play">
-                <button className="btn-lg btn-primary btn-block fa fa-play" onClick={e => this.handleStart(e)}></button>
+                <button data-test="run program" className="btn-lg btn-primary btn-block fa fa-play" onClick={e => this.handleStart(e)}></button>
             </div>
             </div> : 
-            <button className="btn-lg btn-primary btn-block fa fa-play" 
+            <button data-test="run program" className="btn-lg btn-primary btn-block fa fa-play" 
                 onClick={e => {
                     /**
                      * Calling this twice is unefficient, but required to 
@@ -100,6 +100,7 @@ export default class Panel extends React.Component<PanelProperties, any> {
                 actions={this.props.actions} /> : <div />
 
         return <div className="controls">
+            <input type="hidden" data-test="game state" value={GameState[this.props.gameState]} />
             {this.props.way === Way.Code ? code_controls : ""}
             {this.props.gameState === GameState.STOP ? program_controls : ""}
             {this.props.gameState === GameState.LOOSE ? restart_controls : ""}

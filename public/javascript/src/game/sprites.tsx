@@ -100,7 +100,7 @@ export class RobotSprite extends Sprite {
             case GameState.LOOSE:
                 return <div key={key} className="sprite once robot die"></div>;
             case GameState.STOP:
-                return <div key={key} className="sprite loop robot idle"></div>;
+                return <div key={key} data-test="robot" className="sprite loop robot idle"></div>;
         }
 
         return <div className="sprite loop robot idle"></div>;

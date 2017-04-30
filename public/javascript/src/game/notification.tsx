@@ -9,14 +9,14 @@ interface NotificationProperties {
 class Win extends React.Component<any, any> {
     public render() {
         return <Modal header="You won!" className={this.props.className}>
-            <div className="sprite loop big goal success"></div>
+            <div data-test="win notification" className="sprite loop big goal success"></div>
         </Modal>;
     }
 }
 class Loose extends React.Component<any, any> {
     public render() {
         return <Modal header="You lost!" className={this.props.className}>
-            <div className="sprite once big robot die"></div>
+            <div data-test="loose notification" className="sprite once big robot die"></div>
         </Modal>;
     }
 }
