@@ -2,7 +2,7 @@ export enum Operator {
     Add,
     Substract,
     Multiply,
-    Divide
+    Divide,
 }
 
 export enum Comparator {
@@ -11,10 +11,10 @@ export enum Comparator {
     Larger,
     Smaller,
     LargerOrEqual,
-    SmallerOrEqual
+    SmallerOrEqual,
 }
 
 export interface SyntaxNode {
-    type : string;
-    parent : SyntaxNode;
+    type: string;
+    parent: SyntaxNode;
 }
