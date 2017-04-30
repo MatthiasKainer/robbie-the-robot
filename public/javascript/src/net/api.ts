@@ -1,4 +1,4 @@
-declare var $: any;
+declare const $: any;
 
 interface Route {
     path: string;
@@ -66,9 +66,10 @@ export namespace Routes {
 
 class ApiRoutes {
     public static expand(route: Route, tail: string = ""): string {
-        let path = route.path + tail;
-        if (route.parent)
+        const path = route.path + tail;
+        if (route.parent) {
             return this.expand(route.parent, path);
+        }
         return path;
     }
 }
@@ -78,7 +79,7 @@ export class ApiGateway {
         return new Promise((resolve, reject) => {
             $.ajax({
                 type: "GET",
-                url: ApiRoutes.expand(route)
+                url: ApiRoutes.expand(route),
             }).done(resolve).fail(reject);
         });
     }
@@ -88,7 +89,7 @@ export class ApiGateway {
             $.ajax({
                 type: "POST",
                 url: ApiRoutes.expand(route),
-                body: JSON.stringify(data)
+                body: JSON.stringify(data),
             }).done(resolve).fail(reject);
         });
     }
@@ -97,7 +98,7 @@ export class ApiGateway {
         return new Promise((resolve, reject) => {
             $.ajax({
                 type: "DELETE",
-                url: ApiRoutes.expand(route)
+                url: ApiRoutes.expand(route),
             }).done(resolve).fail(reject);
         });
     }
@@ -107,7 +108,7 @@ export class ApiGateway {
             $.ajax({
                 type: "PUT",
                 url: ApiRoutes.expand(route),
-                body: JSON.stringify(data)
+                body: JSON.stringify(data),
             }).done(resolve).fail(reject);
         });
     }
