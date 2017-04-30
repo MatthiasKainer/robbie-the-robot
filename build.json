@@ -18,7 +18,7 @@
                     "experimentalDecorators": true,
                     "sourceMap": true,
                     "jsx": "react",
-                    "fast" : "never"
+                    "fast": "never"
                 },
                 "src": "<%= config.sources.TypeScript.files %>"
             }
@@ -61,13 +61,32 @@
                 ],
                 "test": {
                     "options": {
-                        "mochaOptions": [ "--reporter", "spec", "--require", "babel-register"],
-                        "reportFormats": ["lcovonly"]
+                        "mochaOptions": [
+                            "--reporter",
+                            "spec",
+                            "--require",
+                            "babel-register"
+                        ],
+                        "reportFormats": [
+                            "lcovonly"
+                        ]
                     },
                     "src": [
                         "<%= config.sources.TypeScript.tests.unit %>"
                     ]
                 }
+            },
+            "integration-tests": {
+                "task": "cucumberjs",
+                "package": "grunt-cucumberjs",
+                "dependencies": [
+                    "cucumber",
+                    "chai"
+                ],
+                "options": {
+                    "format": "pretty"
+                },
+                "features" : []
             }
         }
     }
