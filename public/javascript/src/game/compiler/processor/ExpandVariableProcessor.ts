@@ -4,11 +4,7 @@ import { ExpandVariableNode } from "../../../ast/availableNodes";
 import { NodeProcessor } from "../nodeProcessor";
 
 export class ExpandVariableProcessor implements NodeProcessor {
-    private machine: Machine;
-
-    public constructor(machine: Machine) {
-        this.machine = machine;
-    }
+    public constructor(private machine: Machine) { }
 
     public canHandle(node: SyntaxNode): boolean {
         return node !== null && node.type === "ExpandVariableNode";
