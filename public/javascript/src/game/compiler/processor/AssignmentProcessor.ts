@@ -1,10 +1,10 @@
-import Machine from '../machine';
-import { SyntaxNode } from '../../../ast/node';
-import { AssignmentNode } from '../../../ast/availableNodes';
-import { NodeProcessor } from '../nodeProcessor';
+import Machine from "../machine";
+import { SyntaxNode } from "../../../ast/node";
+import { AssignmentNode } from "../../../ast/availableNodes";
+import { NodeProcessor } from "../nodeProcessor";
 
 export class AssignmentProcessor implements NodeProcessor {
-    machine: Machine;
+    private machine: Machine;
 
     public constructor(machine: Machine) {
         this.machine = machine;
@@ -15,9 +15,9 @@ export class AssignmentProcessor implements NodeProcessor {
     }
 
     public process(node: SyntaxNode): any {
-        let assignment = node as AssignmentNode;
-        let name = this.machine.run(assignment.variableName);
-        let value = this.machine.run(assignment.value);
+        const assignment = node as AssignmentNode;
+        const name = this.machine.run(assignment.variableName);
+        const value = this.machine.run(assignment.value);
         this.machine.getScope()
             .assignVariable(name, value);
         return true;
