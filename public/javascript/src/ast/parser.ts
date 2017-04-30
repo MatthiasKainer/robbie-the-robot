@@ -116,12 +116,12 @@ const position = (wordHistory: string[]) => {
 };
 
 export class ParsingService {
-    private language: string;
-    private parsers: Parser[];
-    private words: string[];
-    private wordHistory: string[] = [];
-    private currentParser: Parser = null;
-    private nodes: SyntaxNode[] = [];
+    public language: string;
+    public parsers: Parser[];
+    public words: string[];
+    public wordHistory: string[] = [];
+    public currentParser: Parser = null;
+    public nodes: SyntaxNode[] = [];
 
     public constructor(words: string[], language = "en", wordHistory: string[] = []) {
         this.words = words;
