@@ -1,7 +1,7 @@
-import { FunctionNode } from '../../ast/availableNodes';
-import { NodeProcessor } from './nodeProcessor';
-import { SyntaxNode } from '../../ast/node';
-import * as processors from './availableNodeProcessors';
+import { FunctionNode } from "../../ast/availableNodes";
+import { NodeProcessor } from "./nodeProcessor";
+import { SyntaxNode } from "../../ast/node";
+import * as processors from "./availableNodeProcessors";
 
 interface Variable {
     type?: string;
@@ -16,12 +16,12 @@ class Variables {
     }
 
     public put(name: string) {
-        if (this.has(name)) throw new Error(`Variable '${name}' was already defined in this scope`);
+        if (this.has(name)) { { throw new Error(`Variable "${name}" was already defined in this scope`); } }
         this.variables[name] = null;
     }
 
     public assign(name: string, content: any) {
-        if (!this.has(name)) throw new Error(`Variable '${name}' does not exist`);
+        if (!this.has(name)) { throw new Error(`Variable "${name}" does not exist`); }
         this.variables[name] = content;
     }
 
@@ -30,7 +30,7 @@ class Variables {
     }
 
     public get(name: string) {
-        if (!this.has(name)) throw new Error(`Variable '${name}' does not exist`);
+        if (!this.has(name)) { throw new Error(`Variable "${name}" does not exist`); }
         return this.variables[name] != null ? this.variables[name] : null;
     }
 
@@ -47,8 +47,9 @@ class Functions {
     }
 
     public put(functionNode: FunctionNode, force?: boolean) {
-        if (!force && this.has(functionNode.name))
-            throw new Error(`Function '${functionNode.name}' was already defined in this scope`);
+        if (!force && this.has(functionNode.name)) {
+            throw new Error(`Function "${functionNode.name}" was already defined in this scope`);
+        }
         this.functions[functionNode.name] = functionNode;
     }
 
@@ -57,7 +58,7 @@ class Functions {
     }
 
     public get(name: string) {
-        if (!this.has(name)) throw new Error(`Function '${name}' does not exist`);
+        if (!this.has(name)) { throw new Error(`Function "${name}" does not exist`); }
         return this.functions[name] || null;
     }
 
@@ -67,34 +68,35 @@ class Functions {
 }
 
 abstract class BaseScope {
-    protected _variables: Variables;
-    protected _functions: Functions;
     public parent: BaseScope;
+    protected baseVariables: Variables;
+    protected baseFunctions: Functions;
 
     protected constructor() {
-        this._variables = new Variables();
-        this._functions = new Functions();
+        this.baseVariables = new Variables();
+        this.baseFunctions = new Functions();
     }
 
     public variables() {
-        let variables = new Variables();
+        const variables = new Variables();
         if (this.parent) {
-            let parent = this.parent.variables();
+            const parent = this.parent.variables();
             Object.keys(parent.all()).forEach(variable => {
                 variables.put(variable);
                 variables.assign(variable, parent.get(variable));
             });
         }
-        Object.keys(this._variables.all()).forEach(variable => {
-            if (!variables.has(variable))
+        Object.keys(this.baseVariables.all()).forEach(variable => {
+            if (!variables.has(variable)) {
                 variables.put(variable);
-            variables.assign(variable, this._variables.get(variable));
+            }
+            variables.assign(variable, this.baseVariables.get(variable));
         });
         return variables;
     }
 
     public putVariable(name: string) {
-        this._variables.put(name);
+        this.baseVariables.put(name);
     }
 
     public getVariable(name: string) {
@@ -102,32 +104,17 @@ abstract class BaseScope {
     }
 
     public assignVariable(name: string, content: any | Variable) {
-        if (this._variables.has(name))
-            this._variables.assign(name, content);
-        else if (this.parent && this.parent.variables().has(name))
+        if (this.baseVariables.has(name)) {
+            this.baseVariables.assign(name, content);
+        } else if (this.parent && this.parent.variables().has(name)) {
             this.parent.assignVariable(name, content);
-        else {
-            throw new Error(`Variable '${name}' does not exist`);
+        } else {
+            throw new Error(`Variable "${name}" does not exist`);
         }
-    }
-
-    private functions() {
-        let functions = new Functions();
-        if (this.parent) {
-            let parentFunctions = this.parent.functions().all(); 
-            Object.keys(parentFunctions).forEach(variable => {
-                functions.put(parentFunctions[variable]);
-            });
-        }
-        Object.keys(this._functions.all()).forEach(variable => {
-            functions.put(this._functions.all()[variable], true);
-        });
-
-        return functions;
     }
 
     public putFunction(functionNode: FunctionNode) {
-        this._functions.put(functionNode);
+        this.baseFunctions.put(functionNode);
     }
 
     public getFunction(name: string) {
@@ -135,16 +122,27 @@ abstract class BaseScope {
     }
 
     public abstract log(): void;
+
+    private functions() {
+        const functions = new Functions();
+        if (this.parent) {
+            const parentFunctions = this.parent.functions().all();
+            Object.keys(parentFunctions).forEach(variable => {
+                functions.put(parentFunctions[variable]);
+            });
+        }
+        Object.keys(this.baseFunctions.all()).forEach(variable => {
+            functions.put(this.baseFunctions.all()[variable], true);
+        });
+
+        return functions;
+    }
 }
 
 class Scope extends BaseScope {
 
-    private constructor() {
-        super();
-    }
-
     public static create(outer?: Scope) {
-        let scope = new Scope();
+        const scope = new Scope();
         if (outer) {
             scope.parent = outer;
         }
@@ -152,20 +150,20 @@ class Scope extends BaseScope {
         return scope;
     }
 
+    private constructor() {
+        super();
+    }
+
     public log() {
-        console.log("Variables in scope: ")
-        console.log(JSON.stringify(this._variables.all()))
+        console.log("Variables in scope: ");
+        console.log(JSON.stringify(this.baseVariables.all()));
     }
 }
 
 class PrivateScope extends BaseScope {
 
-    private constructor() {
-        super();
-    }
-
     public static create(outer?: Scope | PrivateScope) {
-        let scope = new PrivateScope();
+        const scope = new PrivateScope();
         if (outer) {
             scope.parent = outer;
         }
@@ -173,9 +171,13 @@ class PrivateScope extends BaseScope {
         return scope;
     }
 
+    private constructor() {
+        super();
+    }
+
     public log() {
-        console.log("Variables in private scope: ")
-        console.log(this._variables.all())
+        console.log("Variables in private scope: ");
+        console.log(this.baseVariables.all());
     }
 }
 
@@ -183,8 +185,15 @@ export default class Machine {
 
     private nodeProcessors: NodeProcessor[];
     private scope: BaseScope;
-    private subscriptions : {
-        [stream : string] : ((event : any) => void)[]
+    private subscriptions: {
+        [stream: string]: Array<(event: any) => void>,
+    };
+
+    public constructor() {
+        this.nodeProcessors = Object.keys(processors).map(_ => {
+            return new processors[_](this) as NodeProcessor;
+        });
+        this.subscriptions = {};
     }
 
     public pushScope() {
@@ -200,36 +209,29 @@ export default class Machine {
     }
 
     public getScope() {
-        if (!this.scope) this.pushScope();
+        if (!this.scope) { this.pushScope(); }
         return this.scope;
     }
 
-    public constructor() {
-        this.nodeProcessors = Object.keys(processors).map(_ => {
-            return new processors[_](this) as NodeProcessor;
-        });
-        this.subscriptions = {};
-    }
-
     public run(node: SyntaxNode): any {
-        if (!node) return;;
-        let processor = this.nodeProcessors.find(_ => _.canHandle(node));
-        let result = processor ? processor.process(node) : null;
+        if (!node) { return; }
+        const processor = this.nodeProcessors.find(_ => _.canHandle(node));
+        const result = processor ? processor.process(node) : null;
         return result;
     }
 
-    public subscribe(stream : string, callback : (event : any) => void) {
-        if (!this.subscriptions[stream]) this.subscriptions[stream] = [];
+    public subscribe(stream: string, callback: (event: any) => void) {
+        if (!this.subscriptions[stream]) { this.subscriptions[stream] = []; }
         this.subscriptions[stream].push(callback);
         return this;
     }
 
-    public publish(stream : string, event : any) {
-        if (!this.subscriptions[stream]) return;
+    public publish(stream: string, event: any) {
+        if (!this.subscriptions[stream]) { return; }
         this.subscriptions[stream].forEach((_) => {
             _(event);
         });
-        
+
         return this;
     }
 }
