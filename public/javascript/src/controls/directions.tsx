@@ -52,7 +52,6 @@ export default class DirectionControls extends React.Component<DirectionProperti
     }
 
     public render() {
-        let bomb = "fa-bomb";
         let left = <button className="btn btn-secondary disabled"></button>;
         let right = <button className="btn btn-secondary disabled"></button>;
         let buttonStyle = getActionTypeColor(ActionType.Movement);
@@ -60,10 +59,12 @@ export default class DirectionControls extends React.Component<DirectionProperti
             let first = this.props.actions[0],
                 second = this.props.actions[1];
             left = <button 
-                className={`btn btn-outline-${getActionTypeColor(first)} fa fa-${getActionTypeIcon(first)}`} 
+                data-test={`action ${ActionType[first]}`}
+                className={`btn btn-outline-${getActionTypeColor(first)} fa fa-${getActionTypeIcon(first)}`}
                 onClick={e => this.setActionType(first)} 
                 disabled={this.state.actionType === first}></button>;
             right = <button 
+                data-test={`action ${ActionType[second]}`}
                 className={`btn btn-outline-${getActionTypeColor(second)} fa fa-${getActionTypeIcon(second)}`} 
                 onClick={e => this.setActionType(second)} 
                 disabled={this.state.actionType === second}></button>;

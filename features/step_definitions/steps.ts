@@ -12,6 +12,10 @@ defineSupportCode(function ({ Given, When, Then }) {
             callback();
         });
     });
+    
+    When('I choose action {action}', function (action) {
+        this.clickOn(`action ${action}`);
+    });
 
     When('I move {direction}', function (direction) {
         this.clickOn(`direction ${direction}`);

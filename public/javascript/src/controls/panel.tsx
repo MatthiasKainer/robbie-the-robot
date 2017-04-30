@@ -78,7 +78,7 @@ export default class Panel extends React.Component<PanelProperties, any> {
                     new RobotProcessor(this.props.map, this.props.robot)
                         .runCode(this.state.editor.getValue(), {
                             [ActionType[ActionType.Movement]] : (_) => this.props.onUpdate(_),
-                            [ActionType[ActionType.Attack]] : (_) => this.props.onUpdate(_)
+                            [ActionType[ActionType.Dig]] : (_) => this.props.onUpdate(_)
                         });
                     this.props.onStart();
                     }

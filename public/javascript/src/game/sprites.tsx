@@ -74,7 +74,7 @@ export class ExplosionSprite extends Sprite {
                 element.classList.add("explosion");
             }
         }, 50);
-        return (this.robot.currentAction && this.robot.currentAction.type === ActionType.Attack)
+        return (this.robot.currentAction && this.robot.currentAction.type === ActionType.Dig)
             ? <div key={key} className={`sprite exploder`}></div>
             : null;
     }

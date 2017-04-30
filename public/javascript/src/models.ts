@@ -20,14 +20,14 @@ export interface Robot {
 
 export enum ActionType {
     Movement,
-    Attack,
+    Dig,
     End
 }
 
 export function getActionTypeColor(type : ActionType) {
     let icon = "success";
     switch (type) {
-        case ActionType.Attack:
+        case ActionType.Dig:
             icon = "warning";
             break;
     }
@@ -38,7 +38,7 @@ export function getActionTypeColor(type : ActionType) {
 export function getActionTypeIcon(type: ActionType) {
     let icon = "arrows";
     switch (type) {
-        case ActionType.Attack:
+        case ActionType.Dig:
             icon = "rocket";
             break;
     }

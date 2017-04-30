@@ -139,7 +139,7 @@ export default class RobotProcessor {
                 if (console.debug)
                     console.debug(`Robot moved to ${JSON.stringify(result.position)}`);
                 return result;
-            case ActionType.Attack:
+            case ActionType.Dig:
                 return result;
         }
     }
@@ -166,7 +166,7 @@ export default class RobotProcessor {
 
         return new Machine()
             .subscribe("movement", (_) => onAction(_, ActionType.Movement))
-            .subscribe("attack", (_) => onAction(_, ActionType.Attack))
+            .subscribe("attack", (_) => onAction(_, ActionType.Dig))
             .run(robotScope.addCode(code).done());
     }
 
