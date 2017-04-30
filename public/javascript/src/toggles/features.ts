@@ -1,17 +1,17 @@
-import { ApiGateway, Routes } from '../net/api';
+import { ApiGateway, Routes } from "../net/api";
 export interface FeatureToggle {
-    name : string;
-    state : boolean;
+    name: string;
+    state: boolean;
 }
 
 export class FeatureToggleService {
-    api : ApiGateway = new ApiGateway();
+    public api: ApiGateway = new ApiGateway();
 
-    public all() : Promise<FeatureToggle[]> {
+    public all(): Promise<FeatureToggle[]> {
         return ApiGateway.get(new Routes.FeatureToggles());
     }
 
-    public get(name : string) : Promise<FeatureToggle> {
+    public get(name: string): Promise<FeatureToggle> {
         return ApiGateway.get(new Routes.FeatureToggle(name));
     }
 }
