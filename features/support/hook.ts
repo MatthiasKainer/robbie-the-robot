@@ -10,7 +10,7 @@ defineSupportCode(function ({ Before, After }) {
     After(function () {
         console.log("Shutting down server...");
         this.server.close();
-    })
+    });
 });
 
 defineSupportCode(function ({ setDefaultTimeout }) {
