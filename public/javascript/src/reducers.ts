@@ -94,11 +94,11 @@ export default handleActions<IState, Action<IState>>({
                 robot.currentAction = robotAction;
                 console.log(`Moving robot to field ${JSON.stringify(robot.position)}`);
                 break;
-            case ActionType.Attack:
+            case ActionType.Dig:
                 let fieldUnderAttack = robotProcessor.runNode(new ParsingService(
                     WordService
                         .create(`then attack in the direction ${Direction[robotAction.direction].toLowerCase()}`))
-                    .parse(), ActionType.Attack);
+                    .parse(), ActionType.Dig);
                 console.log(`Attacking field ${JSON.stringify(fieldUnderAttack)}`);
                 robot = Object.assign({}, robot);
                 robot.currentAction = robotAction;
