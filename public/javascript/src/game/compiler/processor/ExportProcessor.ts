@@ -1,10 +1,10 @@
-import { ExportNode } from '../../../ast/availableNodes';
-import { SyntaxNode } from '../../../ast/node';
-import Machine from '../machine';
-import { NodeProcessor } from '../nodeProcessor';
+import { ExportNode } from "../../../ast/availableNodes";
+import { SyntaxNode } from "../../../ast/node";
+import Machine from "../machine";
+import { NodeProcessor } from "../nodeProcessor";
 
 export class ExportProcessor implements NodeProcessor {
-    machine: Machine;
+    private machine: Machine;
 
     public constructor(machine: Machine) {
         this.machine = machine;
