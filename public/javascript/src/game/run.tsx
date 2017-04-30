@@ -18,8 +18,8 @@ export default class Act extends React.Component<ActProperties, any> {
         let { actions, onExecuteAction } = this.props;
         let nextAction = actions.shift();
 
-        setTimeout(() => {
-            console.log(`[ACT] execute ${ActionType[nextAction.type]} position callback`);
+        let timer = setTimeout(() => {
+            console.log(`[ACT] execute ${ActionType[nextAction.type]} position callback for ${Direction[nextAction.direction]} and timer ${timer}`);
             try {
                 onExecuteAction(nextAction);
             } catch (err) {
@@ -28,6 +28,7 @@ export default class Act extends React.Component<ActProperties, any> {
                 this.dead();
             }
         }, 1200);
+        console.log(`[ACT] registering ${ActionType[nextAction.type]} for ${Direction[nextAction.direction]} execution in timer ${timer}`);
     }
 
     public done() {

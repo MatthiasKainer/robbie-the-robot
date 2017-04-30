@@ -4,7 +4,7 @@
 
 Robbie the robot is a small, html based browser game for 3-6 year old children. Its aim is to help children develop a feeling for executing certain commands in advance before running them. 
 
-It is influenced by [Scratch](https://scratch.mit.edu/) which however proved to be too tricky for my little kids. 
+It is influenced by [Scratch](https://scratch.mit.edu/) which however proved to be too tricky for my little kids.
 
 You can see a live demo on [robbie-the-robot.herokuapp.com/](https://robbie-the-robot.herokuapp.com/)
 
