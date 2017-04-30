@@ -1,7 +1,7 @@
-import * as React from 'react';
-import TouchSpin from './touchspin';
-import { Action, ActionType, Direction, Event, GameState, getActionTypeColor, getActionTypeIcon } from '../models';
-import { STORE_ACTION } from '../actions';
+import * as React from "react";
+import TouchSpin from "./touchspin";
+import { Action, ActionType, Direction, Event, GameState, getActionTypeColor, getActionTypeIcon } from "../models";
+import { STORE_ACTION } from "../actions";
 
 interface ActionListItem extends Action {
     count: number;
@@ -22,58 +22,31 @@ interface HistoryProperties {
 
 export default class HistoryList extends React.Component<HistoryProperties, any> {
 
-    historyElement: HTMLDivElement;
+    private historyElement: HTMLDivElement;
 
     public handleRemove(index: number) {
         this.props.onRemoveStatement(index);
     }
 
-    private reduceHistoricMovements(previous: Action, current: Action, index: number, result: ActionsList) {
-        if (previous.direction === current.direction && previous.type === current.type) {
-            result.items[result.items.length - 1].count++;
-        } else {
-            result.items.push({
-                count: 1,
-                index,
-                direction: current.direction,
-                type: current.type
-            });
-        }
-
-        return result;
-    }
-
     public componentDidMount() {
-        if (this.props.gameState === GameState.RUNNING)
+        if (this.props.gameState === GameState.RUNNING) {
             this.scrollToTop();
-        else
+        } else {
             this.scrollToBotton();
+        }
     }
 
     public componentDidUpdate() {
-        if (this.props.gameState === GameState.RUNNING)
+        if (this.props.gameState === GameState.RUNNING) {
             this.scrollToTop();
-        else
+        } else {
             this.scrollToBotton();
-    }
-
-    private scrollToTop() {
-        if (this.props.events &&
-            this.props.events.length > 0 &&
-            this.props.gameState === GameState.RUNNING)
-            this.historyElement.scrollTop = 0;
-    }
-
-    private scrollToBotton() {
-        if (this.props.events &&
-            this.props.events.length > 0 &&
-            this.props.events[this.props.events.length - 1].name === STORE_ACTION)
-            this.historyElement.scrollTop = this.historyElement.scrollHeight;
+        }
     }
 
     public render() {
         let previous: Action;
-        let actionList: ActionsList = { items: [] };
+        const actionList: ActionsList = { items: [] };
         this.props.actions
             .filter(_ => _ != null)
             .forEach((item, index) => {
@@ -82,16 +55,15 @@ export default class HistoryList extends React.Component<HistoryProperties, any>
                         count: 1,
                         index: 0,
                         direction: item.direction,
-                        type: item.type
+                        type: item.type,
                     });
-                }
-                else {
+                } else {
                     this.reduceHistoricMovements(previous, item, index, actionList);
                 }
 
                 previous = item;
             });
-        let history = actionList.items
+        const history = actionList.items
             .map((action: ActionListItem) => {
                 let count: JSX.Element = <span />;
                 count = <div>
@@ -110,12 +82,12 @@ export default class HistoryList extends React.Component<HistoryProperties, any>
                     <div>
                         <i className="fa fa-trash-o" style={{ cursor: "pointer" }} onClick={e => this.handleRemove(action.index)}></i>
                     </div>
-                </li>
+                </li>;
             });
 
-        let style : React.CSSProperties = {
+        const style: React.CSSProperties = {
             height: "50vh",
-            overflow: "auto"
+            overflow: "auto",
         };
 
         return <div className="history" style={style} ref={(ele) => this.historyElement = ele}>
@@ -123,5 +95,36 @@ export default class HistoryList extends React.Component<HistoryProperties, any>
                 {history}
             </ul>
         </div>;
+    }
+
+    private scrollToTop() {
+        if (this.props.events &&
+            this.props.events.length > 0 &&
+            this.props.gameState === GameState.RUNNING) {
+            this.historyElement.scrollTop = 0;
+        }
+    }
+
+    private scrollToBotton() {
+        if (this.props.events &&
+            this.props.events.length > 0 &&
+            this.props.events[this.props.events.length - 1].name === STORE_ACTION) {
+            this.historyElement.scrollTop = this.historyElement.scrollHeight;
+        }
+    }
+
+    private reduceHistoricMovements(previous: Action, current: Action, index: number, result: ActionsList) {
+        if (previous.direction === current.direction && previous.type === current.type) {
+            result.items[result.items.length - 1].count++;
+        } else {
+            result.items.push({
+                count: 1,
+                index,
+                direction: current.direction,
+                type: current.type,
+            });
+        }
+
+        return result;
     }
 }
