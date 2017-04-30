@@ -1,11 +1,12 @@
-declare var $: any;
-import * as React from 'react';
-import { GameState } from '../models';
-import { Modal } from './utils/modal';
+declare const $: any;
+import * as React from "react";
+import { GameState } from "../models";
+import { Modal } from "./utils/modal";
 
 interface NotificationProperties {
-    gameState: GameState
+    gameState: GameState;
 }
+
 class Win extends React.Component<any, any> {
     public render() {
         return <Modal header="You won!" className={this.props.className}>
@@ -13,6 +14,7 @@ class Win extends React.Component<any, any> {
         </Modal>;
     }
 }
+
 class Loose extends React.Component<any, any> {
     public render() {
         return <Modal header="You lost!" className={this.props.className}>
@@ -23,11 +25,11 @@ class Loose extends React.Component<any, any> {
 
 export default class Notification extends React.Component<NotificationProperties, any> {
     public componentDidUpdate() {
-        $('.notification').modal('show');
+        $(".notification").modal("show");
     }
 
     public render() {
-        let { gameState } = this.props;
+        const { gameState } = this.props;
         let result = <span />;
         switch (gameState) {
             case GameState.WIN:
