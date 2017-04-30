@@ -47,7 +47,7 @@ export default class Board extends React.Component<BoardProperties, any> {
                     row: this.map.rows - 1
                 },
                 fields: this.map.fields,
-                actions: map.actions ? map.actions : []
+                actions: map.actions ? (map.actions as any[] as string[]).map((_ : string) => ActionType[_]) : []
             });
             this.setState(Object.assign(this.state, { loadingComplete : true}));
         });
