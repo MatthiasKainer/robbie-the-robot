@@ -15,6 +15,7 @@ interface BoardProperties {
     gameState: GameState;
     onMapSet(map: MapModel): void;
     onWin(): void;
+    onRendered() : void;
 }
 
 export default class Board extends React.Component<BoardProperties, any> {
@@ -22,7 +23,7 @@ export default class Board extends React.Component<BoardProperties, any> {
 
     public constructor() {
         super();
-        this.state = { initNotificationShown: false };
+        this.state = { loadingComplete: false, initNotificationShown: false };
     }
 
     public win() {
@@ -31,34 +32,39 @@ export default class Board extends React.Component<BoardProperties, any> {
 
     public componentWillMount() {
         console.log(`[Board] mounting board for level ${this.props.level}...`);
-        let map = new LevelLoader().map(this.props.level);
-        this.map = map;
-        this.props.robot.position = this.map.robot;
-        this.props.goal.position = this.map.goal;
-        this.props.onMapSet({
-            key: this.map.key,
-            name: this.map.name,
-            maxStars: this.map.goals.maxStars,
-            goals: this.map.goals.results,
-            template: this.props.level,
-            size: {
-                column: this.map.columns - 1,
-                row: this.map.rows - 1
-            },
-            fields: this.map.fields,
-            actions: map.actions ? map.actions.map((_ : string) => ActionType[_]) : []
+        new LevelLoader().map<Map>(this.props.level).then((map) => {
+            this.map = map;
+            this.props.robot.position = this.map.robot;
+            this.props.goal.position = this.map.goal;
+            this.props.onMapSet({
+                key: this.map.key,
+                name: this.map.name,
+                maxStars: this.map.goals.maxStars,
+                goals: this.map.goals.results,
+                template: this.props.level,
+                size: {
+                    column: this.map.columns - 1,
+                    row: this.map.rows - 1
+                },
+                fields: this.map.fields,
+                actions: map.actions ? map.actions : []
+            });
+            this.setState(Object.assign(this.state, { loadingComplete : true}));
         });
     }
 
     public componentDidUpdate() {
         this.state.initNotificationShown = true;
+        this.props.onRendered();
     }
 
     public render() {
-        const {robot, goal, gameState} = this.props;
+        if (!this.state.loadingComplete) return <span />;
+
+        const { robot, goal, gameState } = this.props;
         console.log(`[Board] Rendering Board with dimensions ${this.map.rows}*${this.map.columns}`);
 
-        let currentAction = this.props.actions && this.props.actions.length > 0 ? 
+        let currentAction = this.props.actions && this.props.actions.length > 0 ?
             this.props.actions[0].type : ActionType.Movement;
 
         let sprites: Sprite[] = [

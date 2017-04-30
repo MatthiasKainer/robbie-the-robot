@@ -74,13 +74,6 @@ class ApiRoutes {
 }
 
 export class ApiGateway {
-    public static getSync(route: Route): any {
-        return JSON.parse($.ajax({
-            type: "GET",
-            url: ApiRoutes.expand(route),
-            async: false
-        }).responseText);
-    }
     public static get(route: Route): Promise<any> {
         return new Promise((resolve, reject) => {
             $.ajax({
