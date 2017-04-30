@@ -143,7 +143,7 @@ then move in the direction down
             exception = err;
         }
         expect(exception).not.to.be.null;
-        expect(exception).to.contains("died because collision with");
+        expect(exception.message).to.contains("died because collision with");
     }
 
     @test "given the move down is too far, the game should end"() {
@@ -168,7 +168,7 @@ then move in the direction down
             }
         }
         expect(exception).not.to.be.null;
-        expect(exception).to.contains("died because outside the map:");
+        expect(exception.message).to.contains("died because outside the map:");
         // should be on the last valid place
         expect(robot.position.row).be.eq(state.map.size.row);
         expect(robot.position.column).be.eq(column);
@@ -200,7 +200,7 @@ then move in the direction down
         expect(robot.position.column).be.eq(column);
 
         expect(exception).not.to.be.null;
-        expect(exception).to.contains("died because outside the map:");
+        expect(exception.message).to.contains("died because outside the map:");
     }
 
     @test "given the move left is too far, the game should end"() {
@@ -227,7 +227,7 @@ then move in the direction down
         }
 
         expect(exception).not.to.be.null;
-        expect(exception).to.contains("died because outside the map:");
+        expect(exception.message).to.contains("died because outside the map:");
 
         expect(robot).not.to.be.null;
         // should be on the last valid place
@@ -262,6 +262,6 @@ then move in the direction down
         expect(robot.position.column).be.eq(state.map.size.column);
 
         expect(exception).not.to.be.null;
-        expect(exception).to.contains("died because outside the map:");
+        expect(exception.message).to.contains("died because outside the map:");
     }
 }

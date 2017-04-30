@@ -23,13 +23,13 @@ class CanHandle {
         expect(result).to.be.true;
     }
 
-    @test "it"s a different node type, it should have responded with cannot handle" () {
+    @test "it's a different node type, it should have responded with cannot handle" () {
         let node = new ClassNode("class");
         let result = this.processor.canHandle(node);
         expect(result).to.be.false;
     }
 
-    @test "it"s null, it should have responded with cannot handle" () {
+    @test "it's null, it should have responded with cannot handle" () {
         let node = null;
         let result = this.processor.canHandle(node);
         expect(result).to.be.false;
