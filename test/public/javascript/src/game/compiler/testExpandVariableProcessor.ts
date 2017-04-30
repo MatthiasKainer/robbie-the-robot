@@ -1,22 +1,22 @@
-import { SyntaxNode } from '../../../../../../public/javascript/src/ast/node';
-import Machine from '../../../../../../public/javascript/src/game/compiler/machine';
-import mocha = require('mocha');
+import { SyntaxNode } from "../../../../../../public/javascript/src/ast/node";
+import Machine from "../../../../../../public/javascript/src/game/compiler/machine";
+import mocha = require("mocha");
 import { suite, test, slow, timeout, skip, only } from "mocha-typescript";
-import chai = require('chai');
-import * as sinon from 'sinon';
+import chai = require("chai");
+import * as sinon from "sinon";
 import {
     AssignmentProcessor,
     ExpandVariableProcessor,
     SwitchProcessor,
     VariableProcessor
-} from './../../../../../../public/javascript/src/game/compiler/availableNodeProcessors';
+} from "./../../../../../../public/javascript/src/game/compiler/availableNodeProcessors";
 import {
     AnyValueNode,
     AssignmentNode,
     ExpandVariableNode,
     StringNode,
     VariableNode
-} from './../../../../../../public/javascript/src/ast/availableNodes';
+} from "./../../../../../../public/javascript/src/ast/availableNodes";
 const expect = chai.expect;
 
 let name = "name";
@@ -82,7 +82,7 @@ class Process {
             error = err;
         }
         expect(error).not.to.be.null;
-        expect(error.message).to.be.eq("Variable 'nonexisting' does not exist");
+        expect(error.message).to.be.eq("Variable \"nonexisting\" does not exist");
     }
 
     @test "access variable in inner scope should work"() {
@@ -105,6 +105,6 @@ class Process {
             error = err;
         }
         expect(error).not.to.be.null;
-        expect(error.message).to.be.eq("Variable 'name' does not exist");
+        expect(error.message).to.be.eq("Variable \"name\" does not exist");
     }
 }

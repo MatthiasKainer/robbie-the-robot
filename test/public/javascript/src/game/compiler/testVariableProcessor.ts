@@ -1,13 +1,13 @@
-import Machine from '../../../../../../public/javascript/src/game/compiler/machine';
-import mocha = require('mocha');
+import Machine from "../../../../../../public/javascript/src/game/compiler/machine";
+import mocha = require("mocha");
 import { suite, test, slow, timeout, skip, only } from "mocha-typescript";
-import chai = require('chai');
-import * as sinon from 'sinon';
+import chai = require("chai");
+import * as sinon from "sinon";
 import {
     SwitchProcessor,
     VariableProcessor
-} from './../../../../../../public/javascript/src/game/compiler/availableNodeProcessors';
-import { AnyValueNode, StringNode, VariableNode } from './../../../../../../public/javascript/src/ast/availableNodes';
+} from "./../../../../../../public/javascript/src/game/compiler/availableNodeProcessors";
+import { AnyValueNode, StringNode, VariableNode } from "./../../../../../../public/javascript/src/ast/availableNodes";
 const expect = chai.expect;
 
 let node = new VariableNode(new StringNode("name"), new StringNode("type"));
@@ -66,7 +66,7 @@ class Process {
             error = err;
         }
         expect(error).not.to.be.null;
-        expect(error.message).to.be.eq("Variable 'name' was already defined in this scope");
+        expect(error.message).to.be.eq("Variable \"name\" was already defined in this scope");
     }
     
     @test "an existing variable with the same name in an outer scope"() {       
