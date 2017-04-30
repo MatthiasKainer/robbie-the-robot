@@ -1,23 +1,23 @@
-import { ActionType, MapGoal, Position, Stars } from '../models';
+import { ActionType, MapGoal, Position, Stars } from "../models";
 
 export interface GoalResult {
-    stars : Stars,
+    stars: Stars;
 }
 
 export interface Goals {
-    maxStars : Stars,
-    results : MapGoal[]
+    maxStars: Stars;
+    results: MapGoal[];
 }
 
 export abstract class Map {
-    key : string;
-    name : string;
-    description : string;
-    rows : number;
-    columns : number;
-    robot : Position;
-    goal : Position;
-    goals : Goals;
-    fields : any[];
-    actions: ActionType[];
+    public key: string;
+    public name: string;
+    public description: string;
+    public rows: number;
+    public columns: number;
+    public robot: Position;
+    public goal: Position;
+    public goals: Goals;
+    public fields: any[];
+    public actions: ActionType[];
 }
