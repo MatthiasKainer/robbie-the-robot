@@ -8,6 +8,7 @@ import { Store, createStore } from "redux";
 import reducers from "./reducers";
 import Game from "./composition";
 
+prepareIfApp();
 const store: Store<any> = createStore(reducers);
 
 export default class App extends React.Component<any, any> {
@@ -39,4 +40,3 @@ class ModeChooser extends React.Component<any, any> {
 
 ReactDOM.render(<App />, document.getElementById("game"));
 ReactDOM.render(<ModeChooser />, document.querySelector("[data-nav=\"additional\"]"));
-prepareIfApp();

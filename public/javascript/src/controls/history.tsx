@@ -1,4 +1,4 @@
-import { isMobileApp } from '../game/utils/mobileApp';
+import { isMobileApp } from "../game/utils/mobileApp";
 import * as React from "react";
 import TouchSpin from "./touchspin";
 import { Action, ActionType, Direction, Event, GameState, getActionTypeColor, getActionTypeIcon } from "../models";
@@ -67,7 +67,7 @@ export default class HistoryList extends React.Component<HistoryProperties, any>
         const history = actionList.items
             .map((action: ActionListItem) => {
                 let count: JSX.Element = <span />;
-                count = <div className="col">
+                count = <div className="col-8">
                     <TouchSpin value={action.count}
                         onNumberChange={(value) => this.props.onChangeStatementCount(action.index, value)}
                         onNumberIncrease={() => this.props.onChangeStatementCount(action.index, action.count + 1)}
@@ -76,12 +76,12 @@ export default class HistoryList extends React.Component<HistoryProperties, any>
 
                 return <li className={`list-group-item container list-group-item-${getActionTypeColor(action.type)}`} key={action.index}>
                     <div className="row">
-                        <div className="col" style={{ whiteSpace: "nowrap" }}>
+                        <div className="col-2" style={{ whiteSpace: "nowrap" }}>
                             <i className={`fa fa-${getActionTypeIcon(action.type)}`}></i>&nbsp;
                         <i className={`fa fa-arrow-circle-o-${Direction[action.direction].toLowerCase()}`}></i>
                         </div>
                         {count}
-                        <div className="col">
+                        <div className="col-1">
                             <i className="fa fa-trash-o" style={{ cursor: "pointer" }} onClick={e => this.handleRemove(action.index)}></i>
                         </div>
                     </div>
