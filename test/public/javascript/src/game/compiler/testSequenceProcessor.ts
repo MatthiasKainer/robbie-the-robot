@@ -1,62 +1,61 @@
-import Machine from '../../../../../../public/javascript/src/game/compiler/machine';
-import mocha = require('mocha');
+import Machine from "../../../../../../public/javascript/src/game/compiler/machine";
+import mocha = require("mocha");
 import { suite, test, slow, timeout, skip, only } from "mocha-typescript";
-import chai = require('chai');
-import * as sinon from 'sinon';
+import chai = require("chai");
+import * as sinon from "sinon";
 import {
-    SequenceProcessor
-} from './../../../../../../public/javascript/src/game/compiler/availableNodeProcessors';
+    SequenceProcessor,
+} from "./../../../../../../public/javascript/src/game/compiler/availableNodeProcessors";
 import {
     AnyValueNode,
     ClassNode,
     SequenceNode,
-    StringNode
-} from './../../../../../../public/javascript/src/ast/availableNodes';
+    StringNode,
+} from "./../../../../../../public/javascript/src/ast/availableNodes";
 const expect = chai.expect;
 
 @suite("[SequenceProcessor] When requesting a node from the processor")
 class CanHandle {
-    machine : Machine;
-    processor : SequenceProcessor;
+    private machine: Machine;
+    private processor: SequenceProcessor;
 
-    before() {
+    public before() {
         this.machine = new Machine();
         this.processor = new SequenceProcessor(this.machine);
     }
 
-    @test "that it can handle, it should have responded with can handle"() {
-        let node = new SequenceNode();
-        let result = this.processor.canHandle(node);
+    @test public "that it can handle, it should have responded with can handle"() {
+        const node = new SequenceNode();
+        const result = this.processor.canHandle(node);
         expect(result).to.be.true;
     }
 
-    @test "that's not a SequenceNode, it should have responded with cannot handle"() {
-        let node = new AnyValueNode("class");
-        let result = this.processor.canHandle(node);
+    @test public "that's not a SequenceNode, it should have responded with cannot handle"() {
+        const node = new AnyValueNode("class");
+        const result = this.processor.canHandle(node);
         expect(result).to.be.false;
     }
 
-    @test "that's null, it should have responded with cannot handle"() {
-        let node = null;
-        let result = this.processor.canHandle(node);
+    @test public "that's null, it should have responded with cannot handle"() {
+        const result = this.processor.canHandle(null);
         expect(result).to.be.false;
     }
 }
 
 @suite("[SequenceProcessor] When requesting a node from the class processor")
 class Process {
-    machine : Machine;
-    processor : SequenceProcessor;
+    private machine: Machine;
+    private processor: SequenceProcessor;
 
-    before() {
+    public before() {
         this.machine = new Machine();
         this.processor = new SequenceProcessor(this.machine);
     }
 
-    @test "a perfect sequence"() {
-        let node = new SequenceNode(new StringNode("1"), new AnyValueNode(true));
+    @test public "a perfect sequence"() {
+        const node = new SequenceNode(new StringNode("1"), new AnyValueNode(true));
 
-        let result = this.processor.process(node);
+        const result = this.processor.process(node);
         expect(result).to.deep.eq(["1", true]);
     }
 }
