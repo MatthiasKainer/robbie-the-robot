@@ -109,8 +109,8 @@ class TransformToAst {
         const result = this.parser.parse();
         expect(result).to.be.deep.eq(new ExportSequenceNode(
             new VariableNode(new StringNode("robot")),
-            new AssignmentNode(new StringNode("robot"), new StringNode(`a string
-        spanning multiple lines and an\\" escaped \\" `))));
+            new AssignmentNode(new StringNode("robot"), new StringNode(`a string 
+         spanning multiple lines and an\\" escaped \\" `))));
     }
 
     @test public "given variable is created and assigned with a string"() {
