@@ -1,56 +1,54 @@
-import Machine from '../../../../../../public/javascript/src/game/compiler/machine';
-import mocha = require('mocha');
+import Machine from "../../../../../../public/javascript/src/game/compiler/machine";
+import mocha = require("mocha");
 import { suite, test, slow, timeout, skip, only } from "mocha-typescript";
-import chai = require('chai');
-import * as sinon from 'sinon';
+import chai = require("chai");
+import * as sinon from "sinon";
 import {
-    NumberProcessor
-} from './../../../../../../public/javascript/src/game/compiler/availableNodeProcessors';
+    NumberProcessor,
+} from "./../../../../../../public/javascript/src/game/compiler/availableNodeProcessors";
 import {
     NumberNode,
-    StringNode
-} from './../../../../../../public/javascript/src/ast/availableNodes';
+    StringNode,
+} from "./../../../../../../public/javascript/src/ast/availableNodes";
 const expect = chai.expect;
 
 @suite("[NumberProcessor] When requesting a node from the number processor")
 class CanHandle {
-    processor : NumberProcessor;
+    private processor: NumberProcessor;
 
-    before() {
+    public before() {
         this.processor = new NumberProcessor();
     }
 
-    @test "it can handle, it should have responded with can handle"() {
-        let node = new NumberNode(0);
-        let result = this.processor.canHandle(node);
+    @test public "it can handle, it should have responded with can handle"() {
+        const node = new NumberNode(0);
+        const result = this.processor.canHandle(node);
         expect(result).to.be.true;
     }
 
-    @test "it's a different node type, it should have responded with cannot handle"() {
-        let node = new StringNode("class");
-        let result = this.processor.canHandle(node);
+    @test public "it's a different node type, it should have responded with cannot handle"() {
+        const node = new StringNode("class");
+        const result = this.processor.canHandle(node);
         expect(result).to.be.false;
     }
 
-    @test "it's null, it should have responded with cannot handle"() {
-        let node = null;
-        let result = this.processor.canHandle(node);
+    @test public "it's null, it should have responded with cannot handle"() {
+        const result = this.processor.canHandle(null);
         expect(result).to.be.false;
     }
 }
 
 @suite("[NumberProcessor] When requesting a node from the number processor")
 class Process {
-    processor : NumberProcessor;
+    private processor: NumberProcessor;
 
-    before() {
+    public before() {
         this.processor = new NumberProcessor();
     }
 
-    @test "a perfect class"() {
-        let node = new NumberNode(1);
-
-        let result = this.processor.process(node);
-        expect(result).to.be.eq(1)
+    @test public "a perfect class"() {
+        const node = new NumberNode(1);
+        const result = this.processor.process(node);
+        expect(result).to.be.eq(1);
     }
 }
