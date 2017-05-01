@@ -1,6 +1,7 @@
 import { FeatureToggleService } from "./toggles/features";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import { prepareIfApp } from "./game/utils/mobileApp";
 
 import { Provider } from "react-redux";
 import { Store, createStore } from "redux";
@@ -38,3 +39,4 @@ class ModeChooser extends React.Component<any, any> {
 
 ReactDOM.render(<App />, document.getElementById("game"));
 ReactDOM.render(<ModeChooser />, document.querySelector("[data-nav=\"additional\"]"));
+prepareIfApp();
