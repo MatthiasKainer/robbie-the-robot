@@ -5,26 +5,25 @@ export interface Position {
 
 export interface Goal {
     position: Position;
-};
-
+}
 
 export enum Way {
     Click,
-    Code
+    Code,
 }
 
 export interface Robot {
     position: Position;
-    currentAction? : Action;
-};
+    currentAction?: Action;
+}
 
 export enum ActionType {
     Movement,
     Dig,
-    End
+    End,
 }
 
-export function getActionTypeColor(type : ActionType) {
+export function getActionTypeColor(type: ActionType) {
     let icon = "success";
     switch (type) {
         case ActionType.Dig:
@@ -50,40 +49,40 @@ export enum Direction {
     UP,
     DOWN,
     LEFT,
-    RIGHT
+    RIGHT,
 }
 
 export enum GameState {
     STOP,
     RUNNING,
     WIN,
-    LOOSE
+    LOOSE,
 }
 
 export interface Action {
     type: ActionType;
     direction: Direction;
-};
+}
 
 export enum Stars {
     ONE,
     TWO,
     THREE,
     FOUR,
-    FIVE
+    FIVE,
 }
 
 export type MapGoal = {
     stars: Stars,
     moves: number,
-    runs: number
-}
+    runs: number,
+};
 
 export type Field = {
     sprite: string,
     position: Position,
-    durability?: number
-}
+    durability?: number,
+};
 
 export type Map = {
     key: string,
@@ -93,24 +92,24 @@ export type Map = {
     maxStars: Stars,
     goals: MapGoal[],
     fields: Field[],
-    actions?: ActionType[]
-}
+    actions?: ActionType[],
+};
 
 export type Event = {
     name: string,
-    body: any
-}
-
-export interface IState {
-    actions?: Action[],
-    robot?: Robot,
-    goal?: Goal,
-    map?: Map,
-    gameState?: GameState,
-    events?: Event[]
+    body: any,
 };
 
+export interface IState {
+    actions?: Action[];
+    robot?: Robot;
+    goal?: Goal;
+    map?: Map;
+    gameState?: GameState;
+    events?: Event[];
+}
+
 export interface ChangeCountOfCommand {
-    index : number;
-    count : number;
+    index: number;
+    count: number;
 }
