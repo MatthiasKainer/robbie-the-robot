@@ -71,6 +71,12 @@ figure {
     font-size: 1.5rem;
 }
 
+@media only screen and (max-width: 700px) {
+    .history .list-group-item {
+        font-size: 1rem;
+    }
+}
+
 .history .list-group-item > div {
     flex-grow: 1;
     text-align: center;

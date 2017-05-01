@@ -1,3 +1,4 @@
+import { isMobileApp } from "../game/utils/mobileApp";
 declare const ace: any;
 import * as React from "react";
 import { Action, ActionType, Direction, Event, GameState, Map, Robot, Way } from "../models";
@@ -98,8 +99,17 @@ export default class Panel extends React.Component<PanelProperties, any> {
             onRemoveStatement={(index) => this.props.onRemoveStatement(index)}
             actions={this.props.actions} /> : <div />;
 
+        const backToLevels = <div>
+            <button
+                className="btn-sm btn-info btn-block"
+                onClick={(e: any) => location.replace("/levels")}>
+                Back to level overview
+            </button>
+        </div>;
+
         return <div className="controls">
             <input type="hidden" data-test="game state" value={GameState[this.props.gameState]} />
+            {isMobileApp() ? backToLevels : ""}
             {this.props.way === Way.Code ? codeControls : ""}
             {this.props.gameState === GameState.STOP ? programControls : ""}
             {this.props.gameState === GameState.LOOSE ? restartControls : ""}
