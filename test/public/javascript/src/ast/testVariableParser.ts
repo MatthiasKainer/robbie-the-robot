@@ -258,10 +258,4 @@ class TransformToAst {
         const result = this.parser.parse();
         expect(result).to.be.deep.eq(new VariableNode(new CallFunctionNode(new StringNode("name"))));
     }
-
-    public createWithType() {
-        const statement = "let robot as Robot";
-        new VariableNode(new StringNode("robot"), new StringNode("Robot"));
-    }
-
 }

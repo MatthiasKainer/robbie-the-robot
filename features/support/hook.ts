@@ -16,4 +16,3 @@ defineSupportCode(function ({ Before, After }) {
 defineSupportCode(function ({ setDefaultTimeout }) {
     setDefaultTimeout(60 * 1000);
 });
-
