@@ -130,7 +130,7 @@ class Game extends React.Component<any, GameBoardState> {
     }
 
     private setHeight() {
-        const screenHeight = $(window).height() - $("nav").height();
+        const screenHeight = $(window).height() - ($("nav").height() || 0);
         if ($(this.boardColumn).height() > screenHeight && this.state.boardCols > 5) {
             this.setState((Object.assign(this.state, { boardCols: this.state.boardCols - 1, controlCols: this.state.controlCols + 1 }) as any));
             setTimeout(() => this.setHeight(), 50);
