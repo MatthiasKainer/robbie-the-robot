@@ -1,6 +1,6 @@
-import { ParsingService, WordService } from '../../../../../public/javascript/src/ast/parser';
-import { WordParser } from '../../../../../public/javascript/src/ast/availableParsers';
-import { Operator } from '../../../../../public/javascript/src/ast/node';
+import { ParsingService, WordService } from "../../../../../public/javascript/src/ast/parser";
+import { WordParser } from "../../../../../public/javascript/src/ast/availableParsers";
+import { Operator } from "../../../../../public/javascript/src/ast/node";
 import {
     AnyValueNode,
     AssignmentNode,
@@ -17,16 +17,16 @@ import {
     SwitchComparisonNode,
     SwitchNode,
     UnwrapSequenceNode,
-    VariableNode
-} from '../../../../../public/javascript/src/ast/availableNodes';
+    VariableNode,
+} from "../../../../../public/javascript/src/ast/availableNodes";
 import { suite, test, slow, timeout, skip, only } from "mocha-typescript";
-import chai = require('chai');
-import * as sinon from 'sinon';
+import chai = require("chai");
+import * as sinon from "sinon";
 const expect = chai.expect;
 
 @suite("[Move Integration Test EN] When creating the move function in english")
 class MoveEnglish {
-    sentence = `
+    private sentence = `
 the robot is a Robot (
     the position is a Position (
         the row is 1
@@ -49,38 +49,45 @@ when move in the direction (
             robot.position.column is our robot.position.column + 1
         )
     )
-    
+
     export robot
 )
 
-then move in the direction up`; 
+then move in the direction up`;
 
-    expected = () => {
-        let positionData = new ClassNode("Position", {
+    @test public "given the word should start the parser"() {
+        const parser = new ParsingService(WordService.create(this.sentence), "en");
+        const result = parser.parse();
+        if (console.debug) { console.log(JSON.stringify(result, undefined, 2)); }
+        expect(result).to.be.deep.eq(this.expected());
+    }
+
+    private expected = () => {
+        const positionData = new ClassNode("Position", {
             "row": new NumberNode(1),
-            "column": new NumberNode(2)
+            "column": new NumberNode(2),
         });
 
-        let robotData = new ClassNode("Robot", {
-            "position": positionData
+        const robotData = new ClassNode("Robot", {
+            "position": positionData,
         });
 
-        let robotVariable = new VariableNode(new StringNode("robot"));
-        let assignedRobot = new AssignmentNode(new StringNode("robot"), robotData);
+        const robotVariable = new VariableNode(new StringNode("robot"));
+        const assignedRobot = new AssignmentNode(new StringNode("robot"), robotData);
 
-        let row = new UnwrapSequenceNode(new ExpandVariableNode(new StringNode("robot")),
+        const row = new UnwrapSequenceNode(new ExpandVariableNode(new StringNode("robot")),
             new ExpandVariableNode(new StringNode("position")),
             new ExpandVariableNode(new StringNode("row")));
-        let column = new UnwrapSequenceNode(new ExpandVariableNode(new StringNode("robot")),
+        const column = new UnwrapSequenceNode(new ExpandVariableNode(new StringNode("robot")),
             new ExpandVariableNode(new StringNode("position")),
             new ExpandVariableNode(new StringNode("column")));
 
-        let positionScope = (variable: string, operation: OperationNode) =>
+        const positionScope = (variable: string, operation: OperationNode) =>
             new UnwrapSequenceNode(new ExpandVariableNode(new StringNode("robot")),
-                        new ExpandVariableNode(new StringNode("position")),
-                        new AssignmentNode(new StringNode(variable), operation));
+                new ExpandVariableNode(new StringNode("position")),
+                new AssignmentNode(new StringNode(variable), operation));
 
-        let moveBody = new ExportSequenceNode(
+        const moveBody = new ExportSequenceNode(
             new SwitchNode(new ExpandVariableNode(new StringNode("direction")),
                 new SwitchComparisonNode(new StringNode("up"),
                     positionScope("row", new OperationNode(Operator.Substract, row, new NumberNode(1)))),
@@ -89,28 +96,21 @@ then move in the direction up`;
                 new SwitchComparisonNode(new StringNode("left"),
                     positionScope("column", new OperationNode(Operator.Substract, column, new NumberNode(1)))),
                 new SwitchComparisonNode(new StringNode("right"),
-                    positionScope("column", new OperationNode(Operator.Add, column, new NumberNode(1))))
+                    positionScope("column", new OperationNode(Operator.Add, column, new NumberNode(1)))),
             ), new ExportNode(new StringNode("robot")));
 
         // create function for movement
-        let move = new FunctionNode("move", moveBody, null,
+        const move = new FunctionNode("move", moveBody, null,
             new VariableNode(new StringNode("direction")));
 
-        return new ExportSequenceNode(robotVariable, assignedRobot, move, new CallFunctionNode(new StringNode("move"), 
+        return new ExportSequenceNode(robotVariable, assignedRobot, move, new CallFunctionNode(new StringNode("move"),
             new AssignmentNode(new StringNode("direction"), new StringNode("up"))));
-    }
-
-    @test "given the word should start the parser"() {
-        let parser = new ParsingService(WordService.create(this.sentence), "en");
-        let result = parser.parse();
-        if (console.debug) console.log(JSON.stringify(result, undefined, 2));
-        expect(result).to.be.deep.eq(this.expected());
     }
 }
 
 @suite("[Move Integration Test DE] When creating the move function in german")
 class MoveGerman {
-    sentence = `
+    private sentence = `
 der Roboter ist ein Roboter (
     die Position ist eine Position (
         die Reihe ist 1
@@ -133,38 +133,45 @@ wenn bewegen in die Richtung (
             Roboter.Position.Spalte ist unsere Roboter.Position.Spalte + 1
         )
     )
-    
+
     export Roboter
 )
 
-then move in the direction up`; 
+then move in the direction up`;
 
-    expected = () => {
-        let positionData = new ClassNode("Position", {
+    public start() {
+        const parser = new ParsingService(WordService.create(this.sentence), "en");
+        const result = parser.parse();
+        if (console.debug) { console.log(JSON.stringify(result, undefined, 2)); }
+        expect(result).to.be.deep.eq(this.expected());
+    }
+
+    private expected = () => {
+        const positionData = new ClassNode("Position", {
             "row": new NumberNode(1),
-            "column": new NumberNode(2)
+            "column": new NumberNode(2),
         });
 
-        let robotData = new ClassNode("Robot", {
-            "position": positionData
+        const robotData = new ClassNode("Robot", {
+            "position": positionData,
         });
 
-        let robotVariable = new VariableNode(new StringNode("robot"));
-        let assignedRobot = new AssignmentNode(new StringNode("robot"), robotData);
+        const robotVariable = new VariableNode(new StringNode("robot"));
+        const assignedRobot = new AssignmentNode(new StringNode("robot"), robotData);
 
-        let row = new UnwrapSequenceNode(new ExpandVariableNode(new StringNode("robot")),
+        const row = new UnwrapSequenceNode(new ExpandVariableNode(new StringNode("robot")),
             new ExpandVariableNode(new StringNode("position")),
             new ExpandVariableNode(new StringNode("row")));
-        let column = new UnwrapSequenceNode(new ExpandVariableNode(new StringNode("robot")),
+        const column = new UnwrapSequenceNode(new ExpandVariableNode(new StringNode("robot")),
             new ExpandVariableNode(new StringNode("position")),
             new ExpandVariableNode(new StringNode("column")));
 
-        let positionScope = (variable: string, operation: OperationNode) =>
+        const positionScope = (variable: string, operation: OperationNode) =>
             new UnwrapSequenceNode(new ExpandVariableNode(new StringNode("robot")),
-                        new ExpandVariableNode(new StringNode("position")),
-                        new AssignmentNode(new StringNode(variable), operation));
+                new ExpandVariableNode(new StringNode("position")),
+                new AssignmentNode(new StringNode(variable), operation));
 
-        let moveBody = new ExportSequenceNode(
+        const moveBody = new ExportSequenceNode(
             new SwitchNode(new ExpandVariableNode(new StringNode("direction")),
                 new SwitchComparisonNode(new StringNode("up"),
                     positionScope("row", new OperationNode(Operator.Substract, row, new NumberNode(1)))),
@@ -173,21 +180,14 @@ then move in the direction up`;
                 new SwitchComparisonNode(new StringNode("left"),
                     positionScope("column", new OperationNode(Operator.Substract, column, new NumberNode(1)))),
                 new SwitchComparisonNode(new StringNode("right"),
-                    positionScope("column", new OperationNode(Operator.Add, column, new NumberNode(1))))
+                    positionScope("column", new OperationNode(Operator.Add, column, new NumberNode(1)))),
             ), new ExportNode(new StringNode("robot")));
 
         // create function for movement
-        let move = new FunctionNode("move", moveBody, null,
+        const move = new FunctionNode("move", moveBody, null,
             new VariableNode(new StringNode("direction")));
 
-        return new ExportSequenceNode(robotVariable, assignedRobot, move, new CallFunctionNode(new StringNode("move"), 
+        return new ExportSequenceNode(robotVariable, assignedRobot, move, new CallFunctionNode(new StringNode("move"),
             new AssignmentNode(new StringNode("direction"), new StringNode("up"))));
-    }
-
-    public start() {
-        let parser = new ParsingService(WordService.create(this.sentence), "en");
-        let result = parser.parse();
-        if (console.debug) console.log(JSON.stringify(result, undefined, 2));
-        expect(result).to.be.deep.eq(this.expected());
     }
 }
