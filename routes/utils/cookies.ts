@@ -1,2 +1,2 @@
-export var recurringVisitor = "r";
-export var editingMode = "m";
+export const recurringVisitor = "r";
+export const editingMode = "m";
