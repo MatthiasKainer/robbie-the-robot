@@ -256,7 +256,7 @@ then move in the direction down
                 break;
             }
         }
-        
+
         // should be on the last valid place
         expect(robot.position.row).be.eq(row);
         expect(robot.position.column).be.eq(state.map.size.column);

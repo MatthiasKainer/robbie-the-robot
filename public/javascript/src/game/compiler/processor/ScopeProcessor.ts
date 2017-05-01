@@ -3,7 +3,6 @@ import { SyntaxNode } from "../../../ast/node";
 import Machine from "../machine";
 import { NodeProcessor } from "../nodeProcessor";
 
-
 export class ScopeProcessor implements NodeProcessor {
     public constructor(private machine: Machine) { }
 
