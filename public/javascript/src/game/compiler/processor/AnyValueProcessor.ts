@@ -1,6 +1,6 @@
-import { SyntaxNode } from '../../../ast/node';
-import { AnyValueNode } from '../../../ast/availableNodes';
-import { NodeProcessor } from '../nodeProcessor';
+import { SyntaxNode } from "../../../ast/node";
+import { AnyValueNode } from "../../../ast/availableNodes";
+import { NodeProcessor } from "../nodeProcessor";
 
 export class AnyValueProcessor implements NodeProcessor {
 

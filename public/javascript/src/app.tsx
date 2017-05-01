@@ -1,11 +1,11 @@
-import { FeatureToggleService } from './toggles/features';
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import { FeatureToggleService } from "./toggles/features";
+import * as React from "react";
+import * as ReactDOM from "react-dom";
 
-import { Provider } from 'react-redux';
-import { Store, createStore } from 'redux';
-import reducers from './reducers';
-import Game from './composition';
+import { Provider } from "react-redux";
+import { Store, createStore } from "redux";
+import reducers from "./reducers";
+import Game from "./composition";
 
 const store: Store<any> = createStore(reducers);
 
@@ -30,11 +30,11 @@ class ModeChooser extends React.Component<any, any> {
                 this.state.show = toggle ? toggle.state : false;
             });
     }
-    
+
     public render() {
         return this.state.show ? <a href="/toggleEditingMode">Toggle Editing Mode</a> : null;
     }
-} 
+}
 
 ReactDOM.render(<App />, document.getElementById("game"));
-ReactDOM.render(<ModeChooser />, document.querySelector('[data-nav="additional"]'))
+ReactDOM.render(<ModeChooser />, document.querySelector("[data-nav=\"additional\"]"));

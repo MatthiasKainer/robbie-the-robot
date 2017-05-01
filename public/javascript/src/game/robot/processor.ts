@@ -1,6 +1,6 @@
-import { FieldSprite } from '../sprites';
-import { ParsingService, WordService } from '../../ast/parser';
-import Machine from '../compiler/machine';
+import { FieldSprite } from "../sprites";
+import { ParsingService, WordService } from "../../ast/parser";
+import Machine from "../compiler/machine";
 import {
     AnyValueNode,
     AssignmentNode,
@@ -18,18 +18,17 @@ import {
     SwitchComparisonNode,
     SwitchNode,
     UnwrapSequenceNode,
-    VariableNode
-} from '../../ast/availableNodes';
-import { Operator, SyntaxNode } from '../../ast/node';
-import { Action, ActionType, Direction, GameState, IState, Map, Position, Robot } from '../../models';
-
+    VariableNode,
+} from "../../ast/availableNodes";
+import { Operator, SyntaxNode } from "../../ast/node";
+import { Action, ActionType, Direction, GameState, IState, Map, Position, Robot } from "../../models";
 
 class RobotAstScope {
 
     private root: SequenceNode;
 
     public constructor(robot: Robot) {
-        let code = `
+        const code = `
 the robot is a Robot (
     the position is a Position (
         the row is ${robot.position.row}
@@ -78,7 +77,7 @@ when move in the direction (
             robot.position.column is our robot.position.column + 1
         )
     )
-    
+
     notify movement our direction
     export robot
 )`;
@@ -102,64 +101,32 @@ when move in the direction (
 }
 
 export default class RobotProcessor {
-    robot: Robot;
-    map: Map;
+    public robot: Robot;
+    public map: Map;
 
     public constructor(map: Map, robot: Robot) {
         this.robot = robot;
         this.map = map;
     }
 
-    private onSameSpot(robot: Position, field: Position) {
-        return robot.column === field.column && robot.row == field.row;
-    }
-
-    private checkPointInsideMap(value: number, max: number) {
-        if (value < 0 || value > max) throw `died because outside the map: ${value} > ${max}`;
-    }
-
-    private checkCollision(robot: Robot) {
-        let fields = (this.map as any).fields;
-        if (!fields) return;
-
-        fields.forEach((field: any) => {
-            if (this.onSameSpot(robot.position, field.position))
-                throw `died because collision with ${field.sprite} on ${JSON.stringify(robot.position)}`;
-        });
-    }
-
-    private doRun(robotScope: RobotAstScope, type: ActionType) {
-        let result = new Machine().run(robotScope.done(type)) as Robot;
-        switch (type) {
-            case ActionType.Movement:
-                this.checkPointInsideMap(result.position.row, this.map.size.row);
-                this.checkPointInsideMap(result.position.column, this.map.size.column);
-                this.checkCollision(result);
-
-                if (console.debug)
-                    console.debug(`Robot moved to ${JSON.stringify(result.position)}`);
-                return result;
-            case ActionType.Dig:
-                return result;
-        }
-    }
-
     public runCode(code: string, registeredHandlers: { [key: string]: (movement: Action) => void }) {
-        let robotScope = new RobotAstScope({
+        const robotScope = new RobotAstScope({
             position: {
                 row: this.robot.position.row,
-                column: this.robot.position.column
-            }
+                column: this.robot.position.column,
+            },
         });
 
-        let onAction = (direction: string, type: ActionType) => {
+        const onAction = (direction: string, type: ActionType) => {
             direction = direction.toLocaleUpperCase();
-            if (console.debug)
+            if (console.debug) {
                 console.debug(`Subscription to "${ActionType[type]}" triggered with movement in direction "${direction}"`);
+            }
+
             if (registeredHandlers[ActionType[type]]) {
                 registeredHandlers[ActionType[type]]({
-                    type: type,
-                    direction: Direction[direction]
+                    type,
+                    direction: Direction[direction],
                 });
             }
         };
@@ -171,13 +138,49 @@ export default class RobotProcessor {
     }
 
     public runNode(node: SyntaxNode, type: ActionType = ActionType.Movement) {
-        let robotScope = new RobotAstScope({
+        const robotScope = new RobotAstScope({
             position: {
                 row: this.robot.position.row,
-                column: this.robot.position.column
-            }
+                column: this.robot.position.column,
+            },
         });
 
         return this.doRun(robotScope.add(node), type);
+    }
+
+    private onSameSpot(robot: Position, field: Position) {
+        return robot.column === field.column && robot.row === field.row;
+    }
+
+    private checkPointInsideMap(value: number, max: number) {
+        if (value < 0 || value > max) { throw new Error(`died because outside the map: ${value} > ${max}`); }
+    }
+
+    private checkCollision(robot: Robot) {
+        const fields = (this.map as any).fields;
+        if (!fields) { return; }
+
+        fields.forEach((field: any) => {
+            if (this.onSameSpot(robot.position, field.position)) {
+                throw new Error(`died because collision with ${field.sprite} on ${JSON.stringify(robot.position)}`);
+            }
+        });
+    }
+
+    private doRun(robotScope: RobotAstScope, type: ActionType) {
+        const result = new Machine().run(robotScope.done(type)) as Robot;
+        switch (type) {
+            case ActionType.Movement:
+                this.checkPointInsideMap(result.position.row, this.map.size.row);
+                this.checkPointInsideMap(result.position.column, this.map.size.column);
+                this.checkCollision(result);
+
+                if (console.debug) {
+                    console.debug(`Robot moved to ${JSON.stringify(result.position)}`);
+                }
+                return result;
+            case ActionType.Dig:
+                return result;
+        }
     }
 }

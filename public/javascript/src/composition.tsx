@@ -1,16 +1,16 @@
-import { ApiGateway, Routes } from './net/api';
-import { Tutorial } from './game/tutorial/intro';
-declare var $: any;
-import * as React from 'react';
-import Machine from './game/compiler/machine';
-import Panel from './controls/panel';
-import Board from './game/board';
-import Act from './game/run';
-import Notification from './game/notification';
-import { LevelForwarder, LevelRouter } from './game/levels';
-import { ImageLoader } from './imagePreloader';
-import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
+import { ApiGateway, Routes } from "./net/api";
+import { Tutorial } from "./game/tutorial/intro";
+declare const $: any;
+import * as React from "react";
+import Machine from "./game/compiler/machine";
+import Panel from "./controls/panel";
+import Board from "./game/board";
+import Act from "./game/run";
+import Notification from "./game/notification";
+import { LevelForwarder, LevelRouter } from "./game/levels";
+import { ImageLoader } from "./imagePreloader";
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
 import {
     changeStatementCount,
     killRobot,
@@ -21,9 +21,9 @@ import {
     stopRobot,
     storeAction,
     updateRobot,
-    win
-} from './actions';
-import { Action, GameState, Goal, IState, Map, Robot, Way, Event as EventBody } from './models';
+    win,
+} from "./actions";
+import { Action, GameState, Goal, IState, Map, Robot, Way, Event as EventBody } from "./models";
 
 interface AppProps {
     gameState: GameState;
@@ -36,49 +36,37 @@ interface AppProps {
 }
 
 interface GameBoardState {
-    actions?: Action[],
-    robot?: Robot,
-    goal?: Goal,
-    map?: Map,
-    gameState?: GameState,
-    events?: EventBody[]
+    actions?: Action[];
+    robot?: Robot;
+    goal?: Goal;
+    map?: Map;
+    gameState?: GameState;
+    events?: EventBody[];
     boardCols: number;
     controlCols: number;
-    editingMode : Way;
+    editingMode: Way;
 }
 
 class Game extends React.Component<any, GameBoardState> {
-    boardColumn: HTMLDivElement;
-    controlsColumn: HTMLDivElement;
+    public boardColumn: HTMLDivElement;
+    public controlsColumn: HTMLDivElement;
 
     public constructor() {
         super();
         this.state = {
             boardCols: 8,
             controlCols: 4,
-            editingMode: Way.Click
-        }
+            editingMode: Way.Click,
+        };
     }
 
-    private setHeight() {
-        let screenHeight = $(window).height() - $('nav').height();
-        if ($(this.boardColumn).height() > screenHeight && this.state.boardCols > 5) {
-            this.setState((Object.assign(this.state, { boardCols : this.state.boardCols-1, controlCols: this.state.controlCols+1 }) as any));
-            setTimeout(() => this.setHeight(), 50);
-        }
-        else if ($(this.boardColumn).height() <= (screenHeight /2) && this.state.controlCols > 2) {
-            this.setState((Object.assign(this.state, { boardCols : this.state.boardCols+1, controlCols: this.state.controlCols-1 }) as any));
-            setTimeout(() => this.setHeight(), 50);
-        }
-    }
-    
     public componentWillMount() {
         ApiGateway.get(new Routes.EditingMode())
-            .then((result : any) => 
-                this.setState((Object.assign(this.state, { 
-                    editingMode : result.way 
-                })) as any)
-            )
+            .then((result: any) =>
+                this.setState((Object.assign(this.state, {
+                    editingMode: result.way,
+                })) as any),
+            );
     }
 
     public componentDidMount() {
@@ -86,14 +74,14 @@ class Game extends React.Component<any, GameBoardState> {
         window.addEventListener("resize", () => setTimeout(() => this.setHeight(), 50));
     }
 
-    componentWillUnmount() {
+    public componentWillUnmount() {
         window.removeEventListener("resize", () => setTimeout(() => this.setHeight(), 50));
     }
 
     public render() {
         console.log("Rendering Game");
         const { dispatch, robot, goal } = this.props;
-        let level = LevelRouter.getCurrentLevel();
+        const level = LevelRouter.getCurrentLevel();
         return <div className="row">
             <ImageLoader />
             <div className={`col-${this.state.boardCols}`} ref={(div) => this.boardColumn = div}>
@@ -121,10 +109,10 @@ class Game extends React.Component<any, GameBoardState> {
                     events={this.props.events}
                     way={this.state.editingMode}
                     onMove={(movement: Action) => dispatch(storeAction(movement))}
-                    onChangeStatementCount={(index : number, value : number) => dispatch(changeStatementCount({ index, count : value }))}
+                    onChangeStatementCount={(index: number, value: number) => dispatch(changeStatementCount({ index, count: value }))}
                     onRemoveStatement={(index: number) => dispatch(removeStatement(index))}
                     onUpdate={(movement) => {
-                        dispatch(storeAction(movement))
+                        dispatch(storeAction(movement));
                     }}
                     onStart={() => dispatch(startRobot())} />
 
@@ -140,6 +128,17 @@ class Game extends React.Component<any, GameBoardState> {
             </div>
         </div>;
     }
+
+    private setHeight() {
+        const screenHeight = $(window).height() - $("nav").height();
+        if ($(this.boardColumn).height() > screenHeight && this.state.boardCols > 5) {
+            this.setState((Object.assign(this.state, { boardCols: this.state.boardCols - 1, controlCols: this.state.controlCols + 1 }) as any));
+            setTimeout(() => this.setHeight(), 50);
+        } else if ($(this.boardColumn).height() <= (screenHeight / 2) && this.state.controlCols > 2) {
+            this.setState((Object.assign(this.state, { boardCols: this.state.boardCols + 1, controlCols: this.state.controlCols - 1 }) as any));
+            setTimeout(() => this.setHeight(), 50);
+        }
+    }
 }
 
 const mapStateToProps = (state: IState) => {
@@ -150,7 +149,8 @@ const mapStateToProps = (state: IState) => {
         map: state.map,
         events: state.events,
         actions: state.actions,
-        gameState: state.gameState
+        gameState: state.gameState,
     });
-}
+};
+
 export default connect(mapStateToProps)(Game);

@@ -1,10 +1,10 @@
-declare var $ : any;
-import * as React from 'react';
+declare const $: any;
+import * as React from "react";
 
 interface ModalProps {
     header: string;
     className?: any;
-    hideFooter? : boolean;
+    hideFooter?: boolean;
 }
 
 interface OverlayProperties {
@@ -13,7 +13,7 @@ interface OverlayProperties {
 
 export class Overlay extends React.Component<OverlayProperties, any> {
     public render() {
-        return <Modal hideFooter={ true } className={"overlay modal-fullscreen " + this.props.className} header="">
+        return <Modal hideFooter={true} className={"overlay modal-fullscreen " + this.props.className} header="">
             {this.props.children}
         </Modal>;
     }
@@ -21,10 +21,10 @@ export class Overlay extends React.Component<OverlayProperties, any> {
 
 export class Modal extends React.Component<ModalProps, any> {
     public render() {
-        let footer = this.props.hideFooter ? "" :
-                    <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>;
+        const footer = this.props.hideFooter ? "" :
+            <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>;
         return <div className={"modal " + this.props.className}>
             <div className="modal-dialog modal-lg" role="document">
                 <div className="modal-content">

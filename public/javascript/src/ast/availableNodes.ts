@@ -1,4 +1,4 @@
-import { Comparator, Operator, SyntaxNode } from './node';
+import { Comparator, Operator, SyntaxNode } from "./node";
 
 /**
  * Creates a new private scope for the passed children
@@ -6,9 +6,9 @@ import { Comparator, Operator, SyntaxNode } from './node';
 export class PrivateScopeNode implements SyntaxNode {
     public type: string = "PrivateScopeNode";
     public parent: SyntaxNode;
-    public children : SyntaxNode[];
-    
-    constructor(...args : SyntaxNode[]) {
+    public children: SyntaxNode[];
+
+    constructor(...args: SyntaxNode[]) {
         this.children = args;
     }
 }
@@ -19,9 +19,9 @@ export class PrivateScopeNode implements SyntaxNode {
 export class ScopeNode implements SyntaxNode {
     public type: string = "ScopeNode";
     public parent: SyntaxNode;
-    public children : SyntaxNode[];
-    
-    constructor(...args : SyntaxNode[]) {
+    public children: SyntaxNode[];
+
+    constructor(...args: SyntaxNode[]) {
         this.children = args;
     }
 }
@@ -31,13 +31,13 @@ export class ScopeNode implements SyntaxNode {
  */
 export class FunctionNode implements SyntaxNode {
     public parent: SyntaxNode;
-    type: string = "FunctionNode";  
-    name : string;
-    arguments : VariableNode[];
-    returnType : string | SyntaxNode;
-    operation : SyntaxNode;  
+    public type: string = "FunctionNode";
+    public name: string;
+    public arguments: VariableNode[];
+    public returnType: string | SyntaxNode;
+    public operation: SyntaxNode;
 
-    public constructor(name : string, operation : SyntaxNode, returnType? : string | SyntaxNode, ...args : VariableNode[]) {
+    public constructor(name: string, operation: SyntaxNode, returnType?: string | SyntaxNode, ...args: VariableNode[]) {
         this.name = name;
         this.operation = operation;
         this.returnType = returnType;
@@ -50,11 +50,11 @@ export class FunctionNode implements SyntaxNode {
  */
 export class CallFunctionNode implements SyntaxNode {
     public parent: SyntaxNode;
-    type: string = "CallNode";
-    function : SyntaxNode;
-    arguments : AssignmentNode[];
+    public type: string = "CallNode";
+    public function: SyntaxNode;
+    public arguments: AssignmentNode[];
 
-    public constructor(fun : SyntaxNode, ...args : AssignmentNode[]) {
+    public constructor(fun: SyntaxNode, ...args: AssignmentNode[]) {
         this.function = fun;
         this.arguments = args;
     }
@@ -65,11 +65,11 @@ export class CallFunctionNode implements SyntaxNode {
  */
 export class OperationNode implements SyntaxNode {
     public parent: SyntaxNode;
-    type: string = "OperationNode";
-    operator: Operator;
-    left: SyntaxNode;
-    right : SyntaxNode;
-    constructor(operator : Operator, left : SyntaxNode, right : SyntaxNode) {
+    public type: string = "OperationNode";
+    public operator: Operator;
+    public left: SyntaxNode;
+    public right: SyntaxNode;
+    constructor(operator: Operator, left: SyntaxNode, right: SyntaxNode) {
         this.operator = operator;
         this.left = left;
         this.right = right;
@@ -81,12 +81,12 @@ export class OperationNode implements SyntaxNode {
  */
 export class ComparingNode implements SyntaxNode {
     public parent: SyntaxNode;
-    type: string = "ComparingNode";
-    comparator : Comparator;
-    left: SyntaxNode;
-    right : SyntaxNode;
+    public type: string = "ComparingNode";
+    public comparator: Comparator;
+    public left: SyntaxNode;
+    public right: SyntaxNode;
 
-    public constructor(comparator : Comparator, left : SyntaxNode, right : SyntaxNode) {
+    public constructor(comparator: Comparator, left: SyntaxNode, right: SyntaxNode) {
         this.comparator = comparator;
         this.left = left;
         this.right = right;
@@ -98,21 +98,21 @@ export class ComparingNode implements SyntaxNode {
  */
 export class SequenceNode implements SyntaxNode {
     public parent: SyntaxNode;
-    type: string = "SequenceNode";
-    children : SyntaxNode[];
-    public constructor(...children : SyntaxNode[]) {
+    public type: string = "SequenceNode";
+    public children: SyntaxNode[];
+    public constructor(...children: SyntaxNode[]) {
         this.children = children || [];
     }
 }
 
 export class LoopNode implements SyntaxNode {
     public parent: SyntaxNode;
-    type: string = "LoopNode";
-    from : SyntaxNode;
-    until : SyntaxNode;
-    body : SyntaxNode;
-    perform : SyntaxNode;
-    public constructor(body : SyntaxNode, until : SyntaxNode, from : SyntaxNode = null, perform : SyntaxNode = null) {
+    public type: string = "LoopNode";
+    public from: SyntaxNode;
+    public until: SyntaxNode;
+    public body: SyntaxNode;
+    public perform: SyntaxNode;
+    public constructor(body: SyntaxNode, until: SyntaxNode, from: SyntaxNode = null, perform: SyntaxNode = null) {
         this.body = body;
         this.until = until;
         this.from = from;
@@ -125,9 +125,9 @@ export class LoopNode implements SyntaxNode {
  */
 export class ExportSequenceNode implements SyntaxNode {
     public parent: SyntaxNode;
-    type: string = "ExportSequenceNode";
-    children : SyntaxNode[];
-    public constructor(...children : SyntaxNode[]) {
+    public type: string = "ExportSequenceNode";
+    public children: SyntaxNode[];
+    public constructor(...children: SyntaxNode[]) {
         this.children = children || [];
     }
 }
@@ -138,9 +138,9 @@ export class ExportSequenceNode implements SyntaxNode {
  */
 export class UnwrapSequenceNode implements SyntaxNode {
     public parent: SyntaxNode;
-    type: string = "UnwrapSequenceNode";
-    children : SyntaxNode[];
-    public constructor(...children : SyntaxNode[]) {
+    public type: string = "UnwrapSequenceNode";
+    public children: SyntaxNode[];
+    public constructor(...children: SyntaxNode[]) {
         this.children = children;
     }
 }
@@ -150,11 +150,11 @@ export class UnwrapSequenceNode implements SyntaxNode {
  */
 export class VariableNode implements SyntaxNode {
     public parent: SyntaxNode;
-    type: string = "VariableNode";
-    variableType : SyntaxNode;
-    name : SyntaxNode;
+    public type: string = "VariableNode";
+    public variableType: SyntaxNode;
+    public name: SyntaxNode;
 
-    public constructor(name : SyntaxNode, type? : SyntaxNode) {
+    public constructor(name: SyntaxNode, type?: SyntaxNode) {
         this.name = name;
         this.variableType = type;
     }
@@ -165,11 +165,11 @@ export class VariableNode implements SyntaxNode {
  */
 export class AssignmentNode implements SyntaxNode {
     public parent: SyntaxNode;
-    type: string = "AssignmentNode";
-    variableName : SyntaxNode;
-    value : SyntaxNode;
+    public type: string = "AssignmentNode";
+    public variableName: SyntaxNode;
+    public value: SyntaxNode;
 
-    public constructor(name : SyntaxNode, value : SyntaxNode) {
+    public constructor(name: SyntaxNode, value: SyntaxNode) {
         this.variableName = name;
         this.value = value;
     }
@@ -180,11 +180,11 @@ export class AssignmentNode implements SyntaxNode {
  */
 export class ExpandVariableNode implements SyntaxNode {
     public parent: SyntaxNode;
-    type: string = "ExpandVariableNode";
-    variableName : SyntaxNode;
-    node : SyntaxNode;
+    public type: string = "ExpandVariableNode";
+    public variableName: SyntaxNode;
+    public node: SyntaxNode;
 
-    public constructor(variableName : SyntaxNode) {
+    public constructor(variableName: SyntaxNode) {
         this.variableName = variableName;
     }
 }
@@ -194,9 +194,9 @@ export class ExpandVariableNode implements SyntaxNode {
  */
 export class NumberNode implements SyntaxNode {
     public parent: SyntaxNode;
-    type: string = "NumberNode";
-    value : number;
-    public constructor(value : number) {
+    public type: string = "NumberNode";
+    public value: number;
+    public constructor(value: number) {
         this.value = value;
     }
 }
@@ -206,10 +206,10 @@ export class NumberNode implements SyntaxNode {
  */
 export class StringNode implements SyntaxNode {
     public parent: SyntaxNode;
-    type: string = "StringNode";
-    value : string;
+    public type: string = "StringNode";
+    public value: string;
 
-    public constructor(value : string) {
+    public constructor(value: string) {
         this.value = value;
     }
 }
@@ -219,10 +219,10 @@ export class StringNode implements SyntaxNode {
  */
 export class AnyValueNode implements SyntaxNode {
     public parent: SyntaxNode;
-    type: string = "AnyValueNode";
-    value : any;
+    public type: string = "AnyValueNode";
+    public value: any;
 
-    public constructor(value : any) {
+    public constructor(value: any) {
         this.value = value;
     }
 }
@@ -233,10 +233,10 @@ export class AnyValueNode implements SyntaxNode {
 export class ClassNode implements SyntaxNode {
     public parent: SyntaxNode;
     public type: string = "ClassNode";
-    dataType : string;
-    fields : { [index:string] : ClassNode | SyntaxNode }
+    public dataType: string;
+    public fields: { [index: string]: ClassNode | SyntaxNode };
 
-    public constructor(dataType : string, fields? : { [index:string] : ClassNode | SyntaxNode }) {
+    public constructor(dataType: string, fields?: { [index: string]: ClassNode | SyntaxNode }) {
         this.dataType = dataType;
         this.fields = fields;
     }
@@ -248,10 +248,10 @@ export class ClassNode implements SyntaxNode {
 export class SwitchNode implements SyntaxNode {
     public parent: SyntaxNode;
     public type: string = "SwitchNode";
-    matches : SyntaxNode;
-    switches : SwitchComparisonNode[];
+    public matches: SyntaxNode;
+    public switches: SwitchComparisonNode[];
 
-    public constructor(matches : SyntaxNode, ...switches : SwitchComparisonNode[]) {
+    public constructor(matches: SyntaxNode, ...switches: SwitchComparisonNode[]) {
         this.matches = matches;
         this.switches = switches;
     }
@@ -262,11 +262,11 @@ export class SwitchNode implements SyntaxNode {
  */
 export class SwitchComparisonNode implements SyntaxNode {
     public parent: SyntaxNode;
-    type: string = "SwitchComparisonNode";
-    comparable : SyntaxNode;
-    operation : SyntaxNode;
+    public type: string = "SwitchComparisonNode";
+    public comparable: SyntaxNode;
+    public operation: SyntaxNode;
 
-    public constructor(compareable : SyntaxNode, operation? : SyntaxNode) {
+    public constructor(compareable: SyntaxNode, operation?: SyntaxNode) {
         this.comparable = compareable;
         this.operation = operation;
     }
@@ -277,10 +277,10 @@ export class SwitchComparisonNode implements SyntaxNode {
  */
 export class ExportNode implements SyntaxNode {
     public parent: SyntaxNode;
-    type: string = "ExportNode";
-    identifier : SyntaxNode;
+    public type: string = "ExportNode";
+    public identifier: SyntaxNode;
 
-    public constructor(identifier : SyntaxNode) {
+    public constructor(identifier: SyntaxNode) {
         this.identifier = identifier;
     }
 }
@@ -290,11 +290,11 @@ export class ExportNode implements SyntaxNode {
  */
 export class NotifyNode implements SyntaxNode {
     public parent: SyntaxNode;
-    type: string = "NotifyNode";
-    identifier : SyntaxNode;
-    data : SyntaxNode;
+    public type: string = "NotifyNode";
+    public identifier: SyntaxNode;
+    public data: SyntaxNode;
 
-    public constructor(identifier : SyntaxNode, data : SyntaxNode) {
+    public constructor(identifier: SyntaxNode, data: SyntaxNode) {
         this.identifier = identifier;
         this.data = data;
     }

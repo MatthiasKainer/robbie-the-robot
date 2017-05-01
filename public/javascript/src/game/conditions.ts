@@ -1,24 +1,24 @@
-import {  GameState, Position } from '../models';
+import { GameState, Position } from "../models";
 
-let isOnPosition = function(element : Position, target : Position) {
+const isOnPosition = function (element: Position, target: Position) {
     return element.column === target.column && element.row === target.row;
-}
+};
 
 abstract class Condition {
-    gameState: GameState;
-    onFullfilled : () => void;
+    public gameState: GameState;
+    public onFullfilled: () => void;
 
-    constructor(state: GameState, onFullfilled : () => void) {
+    constructor(state: GameState, onFullfilled: () => void) {
         this.onFullfilled = onFullfilled;
         this.gameState = state;
     }
 }
 
 export class WinCondition extends Condition {
-    robot : Position;
-    goal : Position;
+    public robot: Position;
+    public goal: Position;
 
-    constructor(goal: Position, robot : Position, state: GameState, onFullfilled : () => void) {
+    constructor(goal: Position, robot: Position, state: GameState, onFullfilled: () => void) {
         super(state, onFullfilled);
         this.robot = robot;
         this.goal = goal;
@@ -26,6 +26,6 @@ export class WinCondition extends Condition {
 
     public isFullfilled() {
         return isOnPosition(this.robot, this.goal) &&
-            this.gameState == GameState.STOP;
+            this.gameState === GameState.STOP;
     }
 }

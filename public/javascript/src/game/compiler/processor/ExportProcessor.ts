@@ -1,14 +1,10 @@
-import { ExportNode } from '../../../ast/availableNodes';
-import { SyntaxNode } from '../../../ast/node';
-import Machine from '../machine';
-import { NodeProcessor } from '../nodeProcessor';
+import { ExportNode } from "../../../ast/availableNodes";
+import { SyntaxNode } from "../../../ast/node";
+import Machine from "../machine";
+import { NodeProcessor } from "../nodeProcessor";
 
 export class ExportProcessor implements NodeProcessor {
-    machine: Machine;
-
-    public constructor(machine: Machine) {
-        this.machine = machine;
-    }
+    public constructor(private machine: Machine) { }
 
     public canHandle(node: SyntaxNode): boolean {
         return node !== null && node.type === "ExportNode";

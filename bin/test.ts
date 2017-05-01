@@ -1,4 +1,4 @@
 #!/usr/bin/env node
 
-var spawn = require('child_process').spawn;
-var child = spawn('tsc -p . && mocha /test/**/*.ts');
+const spawn = require("child_process").spawn;
+const child = spawn("tsc -p . && mocha /test/**/*.ts");

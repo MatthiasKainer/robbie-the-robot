@@ -1,12 +1,12 @@
-import * as React from 'react';
-import { ActionType, Direction, GameState, Map, Position, Robot } from '../models';
+import * as React from "react";
+import { ActionType, Direction, GameState, Map, Position, Robot } from "../models";
 
-let isOnPosition = function (element: Position, target: Position) {
+const isOnPosition = function (element: Position, target: Position) {
     return element.column === target.column && element.row === target.row;
-}
+};
 
 export abstract class Sprite {
-    position: Position;
+    public position: Position;
 
     constructor(position: Position) {
         this.position = position;
@@ -18,12 +18,12 @@ export abstract class Sprite {
 
     public break() { return false; }
 
-    abstract getElement(key: string): JSX.Element;
+    public abstract getElement(key: string): JSX.Element;
 }
 
 export class GoalSprite extends Sprite {
-    gameState: GameState;
-    robot: Position;
+    public gameState: GameState;
+    public robot: Position;
 
     constructor(position: Position, robot: Position, state: GameState) {
         super(position);
@@ -41,10 +41,11 @@ export class GoalSprite extends Sprite {
 }
 
 function calculatePosition(current: Position, direction: Direction) {
-    let position: Position = {
+    const position: Position = {
         row: current.row,
-        column: current.column
-    }
+        column: current.column,
+    };
+
     switch (direction) {
         case Direction.DOWN:
             position.row++; break;
@@ -59,7 +60,7 @@ function calculatePosition(current: Position, direction: Direction) {
 }
 
 export class ExplosionSprite extends Sprite {
-    robot: Robot;
+    public robot: Robot;
 
     constructor(robot: Robot) {
         super(calculatePosition(robot.position, robot.currentAction ? robot.currentAction.direction : null));
@@ -68,12 +69,12 @@ export class ExplosionSprite extends Sprite {
 
     public getElement(key: string): JSX.Element {
         setTimeout(() => {
-            let elements = document.querySelectorAll('.exploder');
-            for (let i = 0; i < elements.length; i++) {
-                let element = elements[i];
+            const elements = document.querySelectorAll(".exploder");
+            for (const element of elements) {
                 element.classList.add("explosion");
             }
         }, 50);
+
         return (this.robot.currentAction && this.robot.currentAction.type === ActionType.Dig)
             ? <div key={key} className={`sprite exploder`}></div>
             : null;
@@ -81,8 +82,8 @@ export class ExplosionSprite extends Sprite {
 }
 
 export class RobotSprite extends Sprite {
-    gameState: GameState;
-    action: ActionType;
+    public gameState: GameState;
+    public action: ActionType;
 
     constructor(position: Position, state: GameState, action: ActionType) {
         super(position);
@@ -93,10 +94,11 @@ export class RobotSprite extends Sprite {
     public getElement(key: string): JSX.Element {
         switch (this.gameState) {
             case GameState.RUNNING:
-                if (this.action === ActionType.Movement)
+                if (this.action === ActionType.Movement) {
                     return <div key={key} className="sprite loop robot run"></div>;
-                else
-                    return <div key={key} className="sprite loop robot tool"></div>
+                } else {
+                    return <div key={key} className="sprite loop robot tool"></div>;
+                }
             case GameState.LOOSE:
                 return <div key={key} className="sprite once robot die"></div>;
             case GameState.STOP:
@@ -108,8 +110,9 @@ export class RobotSprite extends Sprite {
 }
 
 export class FieldSprite extends Sprite {
-    name: string;
-    durability: number;
+    public name: string;
+    public durability: number;
+
     constructor(name: string, position: Position, durability: number) {
         super(position);
         this.name = name;

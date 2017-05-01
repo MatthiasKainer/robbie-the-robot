@@ -1,21 +1,17 @@
-import Machine from '../machine';
-import { SyntaxNode } from '../../../ast/node';
-import { SequenceNode } from '../../../ast/availableNodes';
-import { NodeProcessor } from '../nodeProcessor';
+import Machine from "../machine";
+import { SyntaxNode } from "../../../ast/node";
+import { SequenceNode } from "../../../ast/availableNodes";
+import { NodeProcessor } from "../nodeProcessor";
 
 export class ExportSequenceProcessor implements NodeProcessor {
-    machine: Machine;
-
-    public constructor(machine: Machine) {
-        this.machine = machine;
-    }
+    public constructor(private machine: Machine) { }
 
     public canHandle(node: SyntaxNode): boolean {
         return node !== null && node.type === "ExportSequenceNode";
     }
 
     public process(node: SyntaxNode): any {
-        let sequence = node as SequenceNode;
+        const sequence = node as SequenceNode;
         let result = null;
         sequence.children.find(_ => {
             if (_.type === "ExportNode") {

@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Action, ActionType, Direction, GameState, Robot } from '../models';
+import * as React from "react";
+import { Action, ActionType, Direction, GameState, Robot } from "../models";
 
 interface ActProperties {
     gameState: GameState;
@@ -15,10 +15,10 @@ export default class Act extends React.Component<ActProperties, any> {
     }
 
     public performAction() {
-        let { actions, onExecuteAction } = this.props;
-        let nextAction = actions.shift();
+        const { actions, onExecuteAction } = this.props;
+        const nextAction = actions.shift();
 
-        let timer = setTimeout(() => {
+        const timer = setTimeout(() => {
             console.log(`[ACT] execute ${ActionType[nextAction.type]} position callback for ${Direction[nextAction.direction]} and timer ${timer}`);
             try {
                 onExecuteAction(nextAction);
@@ -45,6 +45,6 @@ export default class Act extends React.Component<ActProperties, any> {
             this.done();
         }
 
-        return <input type="hidden" />
+        return <input type="hidden" />;
     }
 }

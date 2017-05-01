@@ -1,6 +1,6 @@
-import { SyntaxNode } from '../../../ast/node';
-import { NumberNode } from '../../../ast/availableNodes';
-import { NodeProcessor } from '../nodeProcessor';
+import { SyntaxNode } from "../../../ast/node";
+import { NumberNode } from "../../../ast/availableNodes";
+import { NodeProcessor } from "../nodeProcessor";
 
 export class NumberProcessor implements NodeProcessor {
 
