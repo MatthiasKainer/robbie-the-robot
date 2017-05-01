@@ -1,7 +1,11 @@
 const elementsToHide = ["nav", ".github-corner"];
 
+export function isMobileApp() {
+    return navigator.userAgent.match(/robbie-the-robot-app/i);
+}
+
 export function prepareIfApp() {
-    if (navigator.userAgent.match(/robbie-the-robot-app/i)) {
+    if (isMobileApp()) {
         elementsToHide.forEach(_ => {
             document.querySelector(_).parentNode.removeChild(document.querySelector(_));
         });
