@@ -65,10 +65,10 @@ export default class Panel extends React.Component<PanelProperties, any> {
         const programControls = this.props.way === Way.Click ? <div>
             <DirectionControls onMove={(direction) => this.handleMove(direction)} actions={this.props.map.actions} />
             <div className="play">
-                <button data-test="run program" className="btn-lg btn-primary btn-block fa fa-play" onClick={e => this.handleStart(e)}></button>
+                <button data-test="run program" className="btn btn-primary btn-block fa fa-play" onClick={e => this.handleStart(e)}></button>
             </div>
         </div> :
-            <button data-test="run program" className="btn-lg btn-primary btn-block fa fa-play"
+            <button data-test="run program" className="btn btn-primary btn-block fa fa-play"
                 onClick={e => {
                     /**
                      * Calling this twice is unefficient, but required to

@@ -10,7 +10,7 @@ interface TouchSpinProperties {
 
 export default class TouchSpin extends React.Component<TouchSpinProperties, any> {
     public render() {
-        return <div className={"input-group" + (isMobileApp() ? " input-group-sm" : "")}>
+        return <div className="input-group input-group-sm">
             <span className="input-group-btn">
                 <button className="btn btn-info" type="button" onClick={() => this.props.onNumberDecrease()}>-</button>
             </span>
