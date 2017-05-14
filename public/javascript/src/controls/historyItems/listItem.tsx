@@ -1,7 +1,8 @@
 import TouchSpin from "../touchspin";
-import { Action, ActionType, Direction, getActionTypeColor, getActionTypeIcon } from "../../models";
+import { Action, ActionType, Direction, getActionTypeColor, getActionTypeIcon, isScopedAction } from "../../models";
 import * as React from "react";
 import { Menu, MenuItemDivider, MenuItemLink } from "./menu";
+import { ScopedBlock } from "./scopeBlock";
 
 interface ListItemProperty {
     index: number;
@@ -21,6 +22,11 @@ export default class ListItem extends React.Component<ListItemProperty, any> {
             onNumberIncrease={() => this.props.onChangeStatementCount(index, count + 1)}
             onNumberDecrease={() => this.props.onChangeStatementCount(index, count - 1)} />;
 
+        let scope: string | JSX.Element = "";
+        if (isScopedAction(action.type)) {
+            scope = <ScopedBlock index={index} />;
+        }
+
         return <li className={`list-group-item container list-group-item-${getActionTypeColor(action.type)}`} key={index}>
             <div className="row">
                 <div className="col-2" style={{ whiteSpace: "nowrap" }}>
@@ -37,6 +43,7 @@ export default class ListItem extends React.Component<ListItemProperty, any> {
                     ]} />
                 </div>
             </div>
+            {scope}
         </li>;
     }
 

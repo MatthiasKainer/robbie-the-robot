@@ -23,6 +23,10 @@ export enum ActionType {
     End,
 }
 
+export function isScopedAction(type: ActionType) {
+    return false;
+}
+
 export function getActionTypeColor(type: ActionType) {
     let icon = "success";
     switch (type) {
