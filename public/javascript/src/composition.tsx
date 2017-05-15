@@ -137,9 +137,9 @@ class Game extends React.Component<any, GameBoardState> {
 
         if (screenSize === ScreenSizes.xs) {
             $(".controls").css("height", (screenHeight * 0.2) + "px");
+            $(this.boardColumn).css("overflow", "auto");
             const viewportHeight = screenHeight - ($(".controls").height() || 0);
             if ($(this.boardColumn).height() > viewportHeight) {
-                $(this.boardColumn).css("overflow", "auto");
                 $(this.boardColumn).css("height", viewportHeight + "px");
                 setTimeout(() => this.setHeight(), 50);
             }
