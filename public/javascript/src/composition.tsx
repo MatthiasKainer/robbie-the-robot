@@ -23,7 +23,7 @@ import {
     updateRobot,
     win,
 } from "./actions";
-import { Action, GameState, Goal, IState, Map, Robot, Way, Event as EventBody } from "./models";
+import { Action, GameState, Goal, IState, Map, Robot, WayOfInput, Event as EventBody } from "./models";
 
 interface AppProps {
     gameState: GameState;
@@ -44,7 +44,7 @@ interface GameBoardState {
     events?: EventBody[];
     boardCols: number;
     controlCols: number;
-    editingMode: Way;
+    editingMode: WayOfInput;
 }
 
 class Game extends React.Component<any, GameBoardState> {
@@ -56,7 +56,7 @@ class Game extends React.Component<any, GameBoardState> {
         this.state = {
             boardCols: 8,
             controlCols: 4,
-            editingMode: Way.Click,
+            editingMode: WayOfInput.Click,
         };
     }
 
@@ -66,7 +66,7 @@ class Game extends React.Component<any, GameBoardState> {
                 this.setState((Object.assign(this.state, {
                     editingMode: result.way,
                 })) as any),
-            );
+        );
     }
 
     public componentDidMount() {
@@ -84,7 +84,7 @@ class Game extends React.Component<any, GameBoardState> {
         const level = LevelRouter.getCurrentLevel();
         return <div className="row">
             <ImageLoader />
-            <div className={`col-${this.state.boardCols}`} ref={(div) => this.boardColumn = div}>
+            <div className={`col-sm-${this.state.boardCols}`} ref={(div) => this.boardColumn = div}>
                 <Board
                     actions={this.props.actions}
                     robot={robot}
@@ -96,7 +96,7 @@ class Game extends React.Component<any, GameBoardState> {
                     onRendered={() => this.setHeight()}
                 />
             </div>
-            <div className={`col-${this.state.controlCols}`} ref="controls">
+            <div className={`col-sm-${this.state.controlCols}`} ref="controls">
                 <LevelForwarder
                     gameState={this.props.gameState}
                     level={level} />
@@ -131,15 +131,47 @@ class Game extends React.Component<any, GameBoardState> {
 
     private setHeight() {
         const screenHeight = $(window).height() - ($("nav").height() || 0);
-        if ($(this.boardColumn).height() > screenHeight && this.state.boardCols > 5) {
-            this.setState((Object.assign(this.state, { boardCols: this.state.boardCols - 1, controlCols: this.state.controlCols + 1 }) as any));
-            setTimeout(() => this.setHeight(), 50);
-        } else if ($(this.boardColumn).height() <= (screenHeight / 2) && this.state.controlCols > 2) {
-            this.setState((Object.assign(this.state, { boardCols: this.state.boardCols + 1, controlCols: this.state.controlCols - 1 }) as any));
-            setTimeout(() => this.setHeight(), 50);
+        const minBoardColumns = 5;
+
+        const screenSize = getScreenSize();
+
+        if (screenSize === ScreenSizes.xs) {
+            $(".controls").css("height", (screenHeight * 0.2) + "px");
+            const viewportHeight = screenHeight - ($(".controls").height() || 0);
+            if ($(this.boardColumn).height() > viewportHeight) {
+                $(this.boardColumn).css("overflow", "auto");
+                $(this.boardColumn).css("height", viewportHeight + "px");
+                setTimeout(() => this.setHeight(), 50);
+            }
+        } else {
+            $(".controls").css("height", "50vh");
+            $(this.boardColumn).css("overflow", "");
+            if ($(this.boardColumn).height() > screenHeight && this.state.boardCols > minBoardColumns) {
+                this.setState((Object.assign(this.state, { boardCols: this.state.boardCols - 1, controlCols: this.state.controlCols + 1 }) as any));
+                setTimeout(() => this.setHeight(), 50);
+            } else if ($(this.boardColumn).height() <= (screenHeight / 2) && this.state.controlCols > 2) {
+                this.setState((Object.assign(this.state, { boardCols: this.state.boardCols + 1, controlCols: this.state.controlCols - 1 }) as any));
+                setTimeout(() => this.setHeight(), 50);
+            }
         }
     }
 }
+
+enum ScreenSizes {
+    xs,
+    sm,
+    med,
+}
+
+const getScreenSize = () => {
+    if ($(window).width() < 544) {
+        return ScreenSizes.xs;
+    } else if ($(window).width() >= 544 && $(window).width() < 768) {
+        return ScreenSizes.sm;
+    } else {
+        return ScreenSizes.med;
+    }
+};
 
 const mapStateToProps = (state: IState) => {
     console.log(`Mapping state "${JSON.stringify(state)}" to props`);

@@ -1,4 +1,4 @@
-import { Way } from "../public/javascript/src/models";
+import { WayOfInput } from "../public/javascript/src/models";
 import { editingMode, recurringVisitor } from "./utils/cookies";
 import * as express from "express";
 export let router = express.Router();
@@ -17,11 +17,11 @@ router.get("/", (req: express.Request, res: express.Response, next: express.Next
 
 router.get("/toggleEditingMode", (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const mode = (() => {
-        switch (req.cookies[editingMode] || Way.Click) {
-            case Way.Click:
-                return Way.Code;
-            case Way.Code:
-                return Way.Click;
+        switch (req.cookies[editingMode] || WayOfInput.Click) {
+            case WayOfInput.Click:
+                return WayOfInput.Code;
+            case WayOfInput.Code:
+                return WayOfInput.Click;
         }
     })();
 

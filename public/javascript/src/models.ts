@@ -7,7 +7,7 @@ export interface Goal {
     position: Position;
 }
 
-export enum Way {
+export enum WayOfInput {
     Click,
     Code,
 }

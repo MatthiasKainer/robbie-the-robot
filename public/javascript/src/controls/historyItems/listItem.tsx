@@ -1,4 +1,4 @@
-import TouchSpin from "../touchspin";
+import TouchSpin from "./touchspin";
 import { Action, ActionType, Direction, getActionTypeColor, getActionTypeIcon, isScopedAction } from "../../models";
 import * as React from "react";
 import { Menu, MenuItemDivider, MenuItemLink } from "./menu";

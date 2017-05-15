@@ -1,4 +1,4 @@
-import { isMobileApp } from "../game/utils/mobileApp";
+import { isMobileApp } from "../../game/utils/mobileApp";
 import * as React from "react";
 
 interface TouchSpinProperties {
