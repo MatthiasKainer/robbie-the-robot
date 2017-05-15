@@ -7,7 +7,7 @@ export interface Goal {
     position: Position;
 }
 
-export enum Way {
+export enum WayOfInput {
     Click,
     Code,
 }
@@ -21,6 +21,10 @@ export enum ActionType {
     Movement,
     Dig,
     End,
+}
+
+export function isScopedAction(type: ActionType) {
+    return false;
 }
 
 export function getActionTypeColor(type: ActionType) {
