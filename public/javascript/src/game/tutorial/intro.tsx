@@ -27,11 +27,11 @@ const textStyle = (image: string) => {
     };
 
     textStyle.backgroundImage = `url("/images/Tutorial/page${image}.png")`;
-    return <div key={image} style={textStyle} alt={image} />;
+    return <div key={image} style={textStyle} title={image} />;
 };
 
 class SpeechBubbleRight implements SpeechBubble {
-    public element = <div style={this.style()} alt="Intro" />;
+    public element = <div style={this.style()} title="Intro" />;
 
     private style(): React.CSSProperties {
         return Object.assign({}, robotStyle, { backgroundImage: "url(\"/images/Tutorial/robbie_bubble-right.png\")"});
@@ -39,7 +39,7 @@ class SpeechBubbleRight implements SpeechBubble {
 }
 
 class SpeechBubbleLeft implements SpeechBubble {
-    public element = <div style={this.style()} alt="Intro" />;
+    public element = <div style={this.style()} title="Intro" />;
 
     private style(): React.CSSProperties {
         return Object.assign({}, robotStyle, { backgroundImage: "url(\"/images/Tutorial/robbie_bubble-left.png\")"});
