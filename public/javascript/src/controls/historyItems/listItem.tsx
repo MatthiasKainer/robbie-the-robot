@@ -29,7 +29,7 @@ export default class ListItem extends React.Component<ListItemProperty, any> {
 
         return <li className={`list-group-item container list-group-item-${getActionTypeColor(action.type)}`} key={index}>
             <div className="row">
-                <div className="col-2" style={{ whiteSpace: "nowrap" }}>
+                <div className="col-2 actions" style={{ whiteSpace: "nowrap" }}>
                     {this.getIcon(action)}
                 </div>
                 <div className="col-8">
@@ -49,8 +49,8 @@ export default class ListItem extends React.Component<ListItemProperty, any> {
 
     private getIcon(action: Action) {
         return <span>
-            <i className={`fa fa-${getActionTypeIcon(action.type)}`}></i>&nbsp;
-            <i className={`fa fa-arrow-circle-o-${Direction[action.direction].toLowerCase()}`}></i>
+            <i className={`fa fa-arrow-circle-o-${Direction[action.direction].toLowerCase()}`}></i>&nbsp;
+            <i className={`fa fa-${getActionTypeIcon(action.type)}`}></i>
         </span>;
     }
 }

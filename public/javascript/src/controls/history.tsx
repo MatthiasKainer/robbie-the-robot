@@ -73,7 +73,7 @@ export default class HistoryList extends React.Component<HistoryProperties, any>
                     onRemove={(index) => this.handleRemove(index)} />);
 
         const style: React.CSSProperties = {
-            height: "50vh",
+            height: "100vh",
             overflow: "auto",
         };
 
