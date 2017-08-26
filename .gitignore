@@ -6,5 +6,6 @@ typings/
 .vscode
 tscommand-*
 npm-debug.log
+.DS_Store
 
 coverage/

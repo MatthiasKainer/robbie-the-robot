@@ -47,33 +47,8 @@ The specification has not been formulated thoroughly and may (and most probable 
 An example of the usage for this language as used in the game itself for movement is:
 
 ```robbielang
-the robot is a Robot (
-    the position is a Position (
-        the row is 1
-        the column is 1
-    )
-)
-
-when move in the direction (
-    if our direction (
-        up (
-            robot.position.row is our robot.position.row - 1
-        )
-        down (
-            robot.position.row is our robot.position.row + 1
-        )
-        left (
-            robot.position.column is our robot.position.column - 1
-        )
-        right (
-            robot.position.column is our robot.position.column + 1
-        )
-    )
-    
-    export robot
-)
-
 then move in the direction up
+then move in the direction right
 ```
 
 The first part `the robot is...` represents an assignment of the variable robot with a datastructure `Robot`, the same is done for `Position`.
@@ -89,31 +64,5 @@ robbielang can (in reminiscence to vb) be implemented in multiple languages. The
 In german, the language sounds like this:
 
 ```robbielang
-der Roboter ist ein Roboter (
-    die Position ist eine Position (
-        die Reihe ist 1
-        die Spalte ist 2
-    )
-)
-
-wenn bewege in die Richtung (
-    falls unsere Richtung (
-        hoch (
-            Roboter.Position.Reihe ist unser Roboter.Position.Reihe - 1
-        )
-        runter (
-            Roboter.Position.Reihe ist unser Roboter.Position.Reihe + 1
-        )
-        links (
-            Roboter.Position.Spalte ist unser Roboter.Position.Spalte - 1
-        )
-        rechts (
-            Roboter.Position.Spalte ist unser Roboter.Position.Spalte + 1
-        )
-    )
-    
-    sag Roboter
-)
-
 dann bewege in die Richtung hoch
 ```

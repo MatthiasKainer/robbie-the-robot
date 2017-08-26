@@ -16,6 +16,7 @@
                 "<%= config.directories['TypeScript'].src %>/public/javascript/**/*.tsx",
                 "<%= config.directories['TypeScript'].src %>/routes/**/*.ts",
                 "<%= config.directories['TypeScript'].src %>/test/**/*.ts",
+                "<%= config.directories['TypeScript'].src %>/test/**/*.tsx",
                 "<%= config.directories['TypeScript'].src %>/features/**/*.ts"
             ],
             "tests": {

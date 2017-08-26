@@ -51,11 +51,11 @@ export default class DirectionControls extends React.Component<DirectionProperti
 
         return <div className="btn-group btn-matrix btn-group" role="group">
             {left}
-            <button data-test="direction up" className={`btn btn-outline-${buttonStyle} fa fa-arrow-circle-o-up`} onClick={e => this.handleMove(e, Direction.UP)}></button>
+            <button data-test="direction up" className={`btn btn-lg btn-outline-${buttonStyle} fa fa-arrow-circle-o-up`} onClick={e => this.handleMove(e, Direction.UP)}></button>
             {right}
-            <button data-test="direction left" className={`btn btn-outline-${buttonStyle} fa fa-arrow-circle-o-left`} onClick={e => this.handleMove(e, Direction.LEFT)}></button>
-            <button data-test="direction down" className={`btn btn-outline-${buttonStyle} fa fa-arrow-circle-o-down`} onClick={e => this.handleMove(e, Direction.DOWN)}></button>
-            <button data-test="direction right" className={`btn btn-outline-${buttonStyle} fa fa-arrow-circle-o-right`} onClick={e => this.handleMove(e, Direction.RIGHT)}></button>
+            <button data-test="direction left" className={`btn btn-lg btn-outline-${buttonStyle} fa fa-arrow-circle-o-left`} onClick={e => this.handleMove(e, Direction.LEFT)}></button>
+            <button data-test="direction down" className={`btn btn-lg btn-outline-${buttonStyle} fa fa-arrow-circle-o-down`} onClick={e => this.handleMove(e, Direction.DOWN)}></button>
+            <button data-test="direction right" className={`btn btn-lg btn-outline-${buttonStyle} fa fa-arrow-circle-o-right`} onClick={e => this.handleMove(e, Direction.RIGHT)}></button>
         </div>;
     }
 

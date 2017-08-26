@@ -30,9 +30,7 @@ figure {
 .btn-matrix > .btn {
     flex-grow: 1;
     width: 33%;
-}
-.btn-matrix.btn-group-lg > .btn  {
-    font-size: 2.25rem;
+    font-size: 2vw;
 }
 .btn-matrix > .btn:nth-child(3n+4) {
   clear: left;
@@ -80,6 +78,17 @@ figure {
 .history .list-group-item > div {
     flex-grow: 1;
     text-align: center;
+}
+.history .list-group-item * {
+    font-size:1.5vw;
+}
+
+.history .list-group-item .actions {
+    height: 2vw;
+    line-height: 2.6vw;
+}
+.history .list-group-item .actions > span > i {
+    font-size:2vw;
 }
 
 .history .list-group-item > div:first-child {
