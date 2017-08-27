@@ -29,5 +29,14 @@
             "sprite": "mud",
             "position" : { "row": 2, "column": 2 }
         }
-    ]
+    ],
+    "tutorial": {
+        "pages" : [
+            {
+                "target": "[data-selector='stone'], [data-selector='mud']",
+                "duration": 5000,
+                "audio": "walls-please-avoid.wav"
+            }
+        ]
+    }
 }

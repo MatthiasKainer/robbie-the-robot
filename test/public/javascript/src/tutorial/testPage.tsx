@@ -52,6 +52,8 @@ class One {
         expect(this.page.contains(<Element target={this.target} />)).to.be.true;
         expect(this.page.find(`[data-test="tutorial-page"]`).length).to.equal(1);
         expect((Page.prototype.playAudio as sinon.SinonSpy).called).to.equal(false);
+        this.clock.tick(600);
+        expect((Page.prototype.playAudio as sinon.SinonSpy).calledOnce).to.equal(true);
         this.clock.tick(2000);
         expect((Page.prototype.playAudio as sinon.SinonSpy).calledOnce).to.equal(true);
         expect(this.page.contains(<Element target={this.target} />)).to.be.false;
@@ -93,9 +95,10 @@ class Multiple {
     @test public "it should play all elements and hide the tutorial"() {
         expect(this.page.contains(<Element target={this.target + "1"} />)).to.be.true;
         expect(this.page.find(`[data-test="tutorial-page"]`).length).to.equal(1);
-        expect((Page.prototype.playAudio as sinon.SinonSpy).called).to.equal(false);
-        this.clock.tick(2000);
+        expect((Page.prototype.playAudio as sinon.SinonSpy).calledOnce).to.equal(false);
+        this.clock.tick(600);
         expect((Page.prototype.playAudio as sinon.SinonSpy).calledOnce).to.equal(true);
+        this.clock.tick(1000);
         expect(this.page.contains(<Element target={this.target + "2"} />)).to.be.true;
         expect(this.page.find(`[data-test="tutorial-page"]`).length).to.equal(1);
         this.clock.tick(2000);

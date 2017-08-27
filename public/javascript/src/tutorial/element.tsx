@@ -5,30 +5,62 @@ interface ElementProps {
     target: string;
 }
 
-interface ElementState {
+interface OverlayState {
     top: number;
     left: number;
     width: number;
     height: number;
 }
 
+interface ElementState {
+    elements: OverlayState[];
+}
+
+class Overlay extends React.Component<OverlayState> {
+
+    public render() {
+        return <div style={Object.assign({
+            position: "absolute",
+            background: "white",
+            opacity: 1
+        }, this.props)}></div>;
+    }
+}
+
 export default class Element extends React.Component<ElementProps, ElementState> {
 
-    public constructor() {
-        super();
+    interval: any;
+
+    public constructor(props: ElementProps) {
+        super(props);
         this.state = {
-            top: 0,
-            left: 0,
-            width: 0,
-            height: 0
+            elements: []
         };
     }
 
+    private lock() {
+        clearInterval(this.interval);
+        this.interval = setInterval(() => {
+            const elements = [...document.querySelectorAll(this.props.target)];
+            this.setState({
+                elements: elements.map(element => {
+                    if (!this.props.target || !element) return;
+                    const { top, left, width, height } = element.getBoundingClientRect();
+                    return { top, left, width, height };
+                })
+            });
+        }, 500);
+    }
+
+    componentDidMount() {
+        this.lock();
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
+    }
+
     public render() {
-        return <div style={Object.assign({ 
-            position: "absolute", 
-            background: "white", 
-            opacity:1 
-        }, this.state)}></div>;
+        return <div>{this.state.elements.map(_ => <Overlay top={_.top} left={_.left} width={_.width} height={_.height} />)}</div>;
     }
 }

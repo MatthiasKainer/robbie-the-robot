@@ -5,11 +5,6 @@ export let router = express.Router();
 
 /* GET home page. */
 router.get("/", (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    if (!req.cookies[recurringVisitor]) {
-        res.cookie(recurringVisitor, true);
-        return res.redirect("/tutorial");
-    }
-
     res.render("index", {
         title: "robbiebot",
     });

@@ -56,5 +56,96 @@
             "position" : { "row": 2, "column": 0 },
             "durability": 10000
         }
-    ]
+    ],
+    "tutorial": {
+        "pages" : [
+            {
+                "target": "[data-selector='stone'], [data-selector='mud'], [data-selector='ice']",
+                "duration": 4000,
+                "audio": "blocked-but-new-tool.wav"
+            },
+            {
+                "target": "[data-selector='Dig']",
+                "duration": 2500,
+                "audio": "dynamite.wav"
+            },
+            {
+                "actions" : {
+                    "click": "[data-selector='Dig']"
+                },
+                "target": "[data-selector='Dig']",
+                "duration": 3000,
+                "audio": "select-dynamite.wav"
+            },
+            {
+                "actions" : {
+                    "click": "[data-selector='down']"
+                },
+                "target": "[data-selector='down']",
+                "duration": 3000,
+                "audio": "and-then-in-the-direction-of-the-obstacle.wav"
+            },
+            {
+                "actions" : {
+                    "click": "[data-selector='Movement']"
+                },
+                "target": "[data-selector='Movement']",
+                "duration": 6000,
+                "audio": "exploding-does-not-move.wav"
+            },
+            {
+                "actions" : {
+                    "click": "[data-selector='down']"
+                },
+                "target": "[data-selector='down']",
+                "duration": 3000,
+                "audio": "and-then-in-the-direction.wav"
+            },
+            {
+                "target": "[data-selector='history']",
+                "duration": 4000,
+                "audio": "distinguish-the-actions-by-color.wav"
+            },
+            {
+                "target": "[data-selector='icon']",
+                "duration": 1000,
+                "audio": "distinguish-the-actions-by-icon.wav"
+            },
+            {
+                "actions" : {
+                    "click": ["[data-selector='open-menu']", "[data-selector='trash']"]
+                },
+                "target": "[data-selector='stone'], [data-selector='mud'], [data-selector='ice']",
+                "duration": 500,
+                "audio": "based-on-terrain-different-amount-of-dynamit.wav"
+            },
+            {
+                "actions" : {
+                    "click": ["[data-selector='open-menu']", "[data-selector='trash']"]
+                },
+                "target": "[data-selector='stone'], [data-selector='mud'], [data-selector='ice']",
+                "duration": 1000
+            },
+            {
+                "target": "[data-selector='ice']",
+                "duration": 2000,
+                "audio": "ice.wav"
+            },
+            {
+                "target": "[data-selector='mud']",
+                "duration": 1000,
+                "audio": "mud.wav"
+            },
+            {
+                "target": "[data-selector='stone']",
+                "duration": 2500,
+                "audio": "stone.wav"
+            },
+            {
+                "target": "[data-selector='map']",
+                "duration": 1000,
+                "audio": "thats-all-good-luck.wav"
+            }
+        ]
+    }
 }

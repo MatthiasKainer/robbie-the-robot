@@ -41,7 +41,7 @@ export class LevelRouter {
         }
     }
 
-    private static regex = /\/levels\/(\w+)\/*/g;
+    private static regex = /\/levels\/(\w+)\/*/;
 }
 
 const styles = ["primary", "success", "info", "warning", "danger"];

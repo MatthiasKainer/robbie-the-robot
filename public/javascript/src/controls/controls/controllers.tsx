@@ -70,7 +70,7 @@ class RunControllers extends React.Component<ControllersProperties, any> {
     }
 
     public render() {
-        const play = <button data-test="run program" className="btn btn-primary btn-block fa fa-play"
+        const play = <button data-test="run program" data-selector="run" className="btn btn-primary btn-block fa fa-play"
             onClick={(e) => this.onRun()} />;
         return play;
     }

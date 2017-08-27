@@ -77,7 +77,7 @@ export default class HistoryList extends React.Component<HistoryProperties, any>
             overflow: "auto",
         };
 
-        return <div className="history" style={style} ref={(ele) => this.historyElement = ele}>
+        return <div className="history" data-selector="history" style={style} ref={(ele) => this.historyElement = ele}>
             <ul className="list-group">
                 {history}
             </ul>
