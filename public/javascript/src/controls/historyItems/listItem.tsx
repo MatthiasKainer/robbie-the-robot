@@ -3,6 +3,9 @@ import { Action, ActionType, Direction, getActionTypeColor, getActionTypeIcon, i
 import * as React from "react";
 import { Menu, MenuItemDivider, MenuItemLink } from "./menu";
 import { ScopedBlock } from "./scopeBlock";
+import { SortableHandle } from 'react-sortable-hoc';
+
+const DragHandle = SortableHandle(() => <span>::</span>); 
 
 interface ListItemProperty {
     index: number;
@@ -41,6 +44,9 @@ export default class ListItem extends React.Component<ListItemProperty, any> {
                             <span><i data-selector="trash" className="fa fa-trash-o" /></span>
                         </MenuItemLink>
                     </Menu>
+                </div>
+                <div className="col-1">
+                    <DragHandle />
                 </div>
             </div>
             {scope}
