@@ -13,6 +13,7 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import {
     changeStatementCount,
+    changeStatementOrdering,
     killRobot,
     performAction,
     removeStatement,
@@ -110,6 +111,7 @@ class Game extends React.Component<any, GameBoardState> {
                     way={this.state.editingMode}
                     onMove={(movement: Action) => dispatch(storeAction(movement))}
                     onChangeStatementCount={(index: number, value: number) => dispatch(changeStatementCount({ index, count: value }))}
+                    onActionOrderingChanged={(oldIndex: number, newIndex: number) => dispatch(changeStatementOrdering({ oldIndex, newIndex }))}
                     onRemoveStatement={(index: number) => dispatch(removeStatement(index))}
                     onUpdate={(movement) => {
                         dispatch(storeAction(movement));

@@ -117,3 +117,8 @@ export interface ChangeCountOfCommand {
     index: number;
     count: number;
 }
+
+export interface ChangeOrderOfCommand {
+    oldIndex: number;
+    newIndex: number;
+}
