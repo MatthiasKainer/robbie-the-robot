@@ -29,18 +29,18 @@ export default class ListItem extends React.Component<ListItemProperty, any> {
 
         return <li className={`list-group-item container list-group-item-${getActionTypeColor(action.type)}`} key={index}>
             <div className="row">
-                <div className="col-2 actions" style={{ whiteSpace: "nowrap" }}>
+                <div data-selector="icon" className="col-2 actions" style={{ whiteSpace: "nowrap" }}>
                     {this.getIcon(action)}
                 </div>
-                <div className="col-8">
+                <div className="col-8" data-selector="spinner">
                     {spinner}
                 </div>
-                <div className="col-1">
-                    <Menu items={[
-                        new MenuItemLink(
-                            <span><i className="fa fa-trash-o" /></span>,
-                            e => this.props.onRemove(index)),
-                    ]} />
+                <div className="col-1" data-selector="menu">
+                    <Menu>
+                        <MenuItemLink onClick={e => this.props.onRemove(index)}>
+                            <span><i data-selector="trash" className="fa fa-trash-o" /></span>
+                        </MenuItemLink>
+                    </Menu>
                 </div>
             </div>
             {scope}

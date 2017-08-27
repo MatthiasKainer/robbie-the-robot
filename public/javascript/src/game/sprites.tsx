@@ -36,7 +36,7 @@ export class GoalSprite extends Sprite {
     public getElement(key: string): JSX.Element {
         return isOnPosition(this.robot, this.position) ?
             <div key={key} className="sprite loop goal success"></div> :
-            <div key={key} className="sprite loop goal idle"></div>;
+            <div key={key} data-selector="goal" className="sprite loop goal idle"></div>;
     }
 }
 
@@ -102,7 +102,7 @@ export class RobotSprite extends Sprite {
             case GameState.LOOSE:
                 return <div key={key} className="sprite once robot die"></div>;
             case GameState.STOP:
-                return <div key={key} data-test="robot" className="sprite loop robot idle"></div>;
+                return <div key={key} data-test="robot" data-selector="robot" className="sprite loop robot idle"></div>;
         }
 
         return <div className="sprite loop robot idle"></div>;
@@ -120,6 +120,6 @@ export class FieldSprite extends Sprite {
     }
 
     public getElement(key: string): JSX.Element {
-        return <div key={key} className={`sprite ground ${this.name} durability-${this.durability}`}></div>;
+        return <div key={key} data-selector={this.name} className={`sprite ground ${this.name} durability-${this.durability}`}></div>;
     }
 }

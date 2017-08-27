@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import { Store, createStore } from "redux";
 import reducers from "./reducers";
 import Game from "./composition";
+import TutorialApp from './tutorial/app';
 
 prepareIfApp();
 const store: Store<any> = createStore(reducers);
@@ -39,4 +40,5 @@ class ModeChooser extends React.Component<any, any> {
 }
 
 ReactDOM.render(<App />, document.getElementById("game"));
+ReactDOM.render(<TutorialApp />, document.getElementById("panel-container"));
 ReactDOM.render(<ModeChooser />, document.querySelector("[data-nav=\"additional\"]"));

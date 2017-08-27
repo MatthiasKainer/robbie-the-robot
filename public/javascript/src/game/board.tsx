@@ -106,7 +106,7 @@ export default class Board extends React.Component<BoardProperties, any> {
             if (condition.isFullfilled()) { condition.onFullfilled(); }
         });
 
-        return <div className="board">
+        return <div className="board" data-selector="board">
             {rows}
         </div>;
     }

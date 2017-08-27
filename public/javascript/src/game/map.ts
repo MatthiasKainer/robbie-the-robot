@@ -9,6 +9,16 @@ export interface Goals {
     results: MapGoal[];
 }
 
+interface Page {
+    duration: number;
+    audio?: string;
+    target: string;
+}
+
+export interface Tutorial {
+    pages: Page[];
+}
+
 export abstract class Map {
     public key: string;
     public name: string;
@@ -20,4 +30,5 @@ export abstract class Map {
     public goals: Goals;
     public fields: any[];
     public actions: ActionType[];
+    public tutorial?: Tutorial;
 }

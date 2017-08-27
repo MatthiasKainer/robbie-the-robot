@@ -1,18 +1,107 @@
 {
-    "name" : "Tutorial",
-    "columns" : 4,
-    "rows" : 4,
-    "robot" : { 
-        "row": 1, "column": 1 
+    "name": "Tutorial",
+    "columns": 4,
+    "rows": 4,
+    "robot": {
+        "row": 1,
+        "column": 1
     },
-    "goal" : { 
-        "row" : 3, "column" : 3 
+    "goal": {
+        "row": 3,
+        "column": 3
     },
-    "goals" : {
-        "maxStars" : 2,
-        "results" : [
-            { "stars" : 2, "moves" : 6, "runs" : 1 },
-            { "stars" : 1, "moves" : 10, "runs" : 2 }
+    "goals": {
+        "maxStars": 2,
+        "results": [
+            {
+                "stars": 2,
+                "moves": 6,
+                "runs": 1
+            },
+            {
+                "stars": 1,
+                "moves": 10,
+                "runs": 2
+            }
+        ]
+    },
+    "tutorial": {
+        "pages" : [
+            {
+                "target": "[data-selector='robot']",
+                "duration": 2000,
+                "audio": "hi-im-robbie-the-robot.wav"
+            },
+            {
+                "target": "[data-selector='board']",
+                "duration": 2500,
+                "audio": "welcome-to-my-game.wav"
+            },
+            {
+                "target": "[data-selector='goal']",
+                "duration": 3000,
+                "audio": "help-me-reach-kitten.wav"
+            },
+            {
+                "target": "[data-selector='robot']",
+                "duration": 2000,
+                "audio": "robots-love-kittens.wav"
+            },
+            {
+                "target": "[data-selector='robot']",
+                "duration": 3000,
+                "audio": "i-need-you-to-program-me.wav"
+            },
+            {
+                "target": "[data-selector='controls']",
+                "duration": 5500,
+                "audio": "input-by-controls-and-cursor-keys.wav"
+            },
+            {
+                "actions" : {
+                    "click": "[data-selector='controls'] [data-selector='up']"
+                },
+                "target": "[data-selector='history']",
+                "duration": 6000,
+                "audio": "input-command-shown-in-history.wav"
+            },
+            {
+                "target": "[data-selector='icon']",
+                "duration": 4000,
+                "audio": "each-step-shows-you-the-command.wav"
+            },
+            {
+                "target": "[data-selector='spinner']",
+                "duration": 5000,
+                "audio": "the-number-of-times-the-command-will-be-called.wav"
+            },
+            {
+                "actions" : {
+                    "click": "[data-selector='open-menu']"
+                },
+                "target": "[data-selector='open-menu']",
+                "duration": 4000,
+                "audio": "menu-with-additional-options.wav"
+            },
+            {
+                "actions" : {
+                    "click": "[data-selector='trash']"
+                },
+                "target": "[data-selector='run']",
+                "duration": 5000,
+                "audio": "run-by-click-on-execute.wav"
+            },
+            {
+                "target": "[data-selector='run']",
+                "duration": 9000,
+                "audio": "click-as-often-but-receive-all-stars-only.wav"
+            },
+            {
+                "target": "body",
+                "duration": 2000,
+                "audio": "lets-start.wav"
+            }
+            
         ]
     }
 }

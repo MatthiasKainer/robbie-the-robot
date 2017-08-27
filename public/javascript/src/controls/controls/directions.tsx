@@ -37,11 +37,13 @@ export default class DirectionControls extends React.Component<DirectionProperti
             const second = this.props.actions[1];
             left = <button
                 data-test={`action ${ActionType[first]}`}
+                data-selector={ActionType[first]}
                 className={`btn btn-outline-${getActionTypeColor(first)} fa fa-${getActionTypeIcon(first)}`}
                 onClick={e => this.setActionType(first)}
                 disabled={this.state.actionType === first}></button>;
             right = <button
                 data-test={`action ${ActionType[second]}`}
+                data-selector={ActionType[second]}
                 className={`btn btn-outline-${getActionTypeColor(second)} fa fa-${getActionTypeIcon(second)}`}
                 onClick={e => this.setActionType(second)}
                 disabled={this.state.actionType === second}></button>;
@@ -49,12 +51,12 @@ export default class DirectionControls extends React.Component<DirectionProperti
             buttonStyle = getActionTypeColor(this.state.actionType);
         }
 
-        return <div className="btn-group btn-matrix btn-group" role="group">
+        return <div data-selector="controls" className="btn-group btn-matrix btn-group" role="group">
             {left}
-            <button data-test="direction up" className={`btn btn-lg btn-outline-${buttonStyle} fa fa-arrow-circle-o-up`} onClick={e => this.handleMove(e, Direction.UP)}></button>
+            <button data-test="direction up" data-selector="up" className={`btn btn-lg btn-outline-${buttonStyle} fa fa-arrow-circle-o-up`} onClick={e => this.handleMove(e, Direction.UP)}></button>
             {right}
             <button data-test="direction left" className={`btn btn-lg btn-outline-${buttonStyle} fa fa-arrow-circle-o-left`} onClick={e => this.handleMove(e, Direction.LEFT)}></button>
-            <button data-test="direction down" className={`btn btn-lg btn-outline-${buttonStyle} fa fa-arrow-circle-o-down`} onClick={e => this.handleMove(e, Direction.DOWN)}></button>
+            <button data-test="direction down" data-selector="down" className={`btn btn-lg btn-outline-${buttonStyle} fa fa-arrow-circle-o-down`} onClick={e => this.handleMove(e, Direction.DOWN)}></button>
             <button data-test="direction right" className={`btn btn-lg btn-outline-${buttonStyle} fa fa-arrow-circle-o-right`} onClick={e => this.handleMove(e, Direction.RIGHT)}></button>
         </div>;
     }
