@@ -25,7 +25,7 @@ export default class DirectionControls extends React.Component<DirectionProperti
     }
 
     public handleMove(event: any, direction: Direction) {
-        this.props.onMove({ direction, type: this.state.actionType });
+        this.props.onMove({ direction, type: this.state.actionType, nesting: 0 });
     }
 
     public render() {

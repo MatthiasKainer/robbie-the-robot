@@ -1,6 +1,6 @@
 import { isMobileApp } from "../game/utils/mobileApp";
 import * as React from "react";
-import { Action, Event, GameState } from "../models";
+import { Action, Event, GameState, isScopedActionBegin, isScopedActionClose } from "../models";
 import { STORE_ACTION } from "../actions";
 import ListItem from "./historyItems/listItem";
 import { SortableContainer, SortableElementProps, SortableElement, arrayMove, SortEnd } from 'react-sortable-hoc';
@@ -93,6 +93,7 @@ export default class HistoryList extends React.Component<HistoryProperties, any>
                         index: 0,
                         direction: item.direction,
                         type: item.type,
+                        nesting: 0,
                     });
                 } else {
                     this.reduceHistoricMovements(previous, item, index, actionList);
@@ -132,11 +133,20 @@ export default class HistoryList extends React.Component<HistoryProperties, any>
         if (previous.direction === current.direction && previous.type === current.type) {
             result.items[result.items.length - 1].count++;
         } else {
+            let nesting = previous.nesting;
+            if (isScopedActionBegin(previous.type)) {
+                nesting++;
+            }
+            if (isScopedActionClose(previous.type)) {
+                nesting--;
+            }
+
             result.items.push({
                 count: 1,
                 index,
                 direction: current.direction,
                 type: current.type,
+                nesting,
             });
         }
 

@@ -23,7 +23,11 @@ export enum ActionType {
     End,
 }
 
-export function isScopedAction(type: ActionType) {
+export function isScopedActionBegin(type: ActionType) {
+    return false;
+}
+
+export function isScopedActionClose(type: ActionType) {
     return false;
 }
 
@@ -66,6 +70,7 @@ export enum GameState {
 export interface Action {
     type: ActionType;
     direction: Direction;
+    nesting: number;
 }
 
 export enum Stars {

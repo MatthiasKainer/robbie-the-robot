@@ -32,7 +32,6 @@ export default class Act extends React.Component<ActProperties, any> {
     }
 
     public done() {
-        this.props.onExecuteAction({ type : ActionType.End, direction : Direction.DOWN });
         this.props.onComplete();
     }
 

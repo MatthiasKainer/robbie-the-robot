@@ -127,6 +127,7 @@ export default class RobotProcessor {
                 registeredHandlers[ActionType[type]]({
                     type,
                     direction: Direction[direction],
+                    nesting: 0,
                 });
             }
         };
