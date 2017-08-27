@@ -19,6 +19,7 @@ interface HistoryProperties {
     events: Event[];
     onChangeStatementCount(index: number, value: number): void;
     onRemoveStatement(index: number): any;
+    onActionOrderingChanged(oldIndex: number, newIndex: number): void;
 }
 
 export default class HistoryList extends React.Component<HistoryProperties, any> {

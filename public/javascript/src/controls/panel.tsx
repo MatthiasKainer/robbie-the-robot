@@ -18,6 +18,7 @@ interface PanelProperties {
     onMove(action: Action): any;
     onRemoveStatement(index: number): any;
     onChangeStatementCount(index: number, value: number): void;
+    onActionOrderingChanged(oldIndex: number, newIndex: number): void;
     onUpdate(action: Action): any;
     onStart(): any;
 }
@@ -69,6 +70,7 @@ export default class Panel extends React.Component<PanelProperties, any> {
             events={this.props.events}
             gameState={this.props.gameState}
             onChangeStatementCount={(index, value) => this.props.onChangeStatementCount(index, value)}
+            onActionOrderingChanged={(oldIndex, newIndex) => this.props.onActionOrderingChanged(oldIndex, newIndex)}
             onRemoveStatement={(index) => this.props.onRemoveStatement(index)}
             actions={this.props.actions} /> : <div />;
 

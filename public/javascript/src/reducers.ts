@@ -12,6 +12,7 @@ import {
     Action as RobotAction,
     ActionType,
     ChangeCountOfCommand,
+    ChangeOrderOfCommand,
     Direction,
     GameState,
     IState,
@@ -20,6 +21,7 @@ import {
 } from "./models";
 import {
     CHANGE_STATEMENT_COUNT,
+    CHANGE_STATEMENT_ORDER,
     DIE,
     PERFORM_ACTION,
     REMOVE_STATEMENT,
@@ -138,6 +140,21 @@ export default handleActions<IState, Action<IState>>({
             actions: state.actions,
             map: state.map,
             robot,
+            goal: state.goal,
+            events: [...state.events, { name: UPDATE_ROBOT, body: action.payload }],
+        };
+    },
+    [CHANGE_STATEMENT_ORDER]: (state: IState, action: Action<ChangeOrderOfCommand>): IState => {
+        const actions = [...state.actions];
+        const {newIndex, oldIndex} = action.payload;
+        if (oldIndex >= actions.length || oldIndex < 0) return state;
+        if (newIndex >= actions.length || newIndex < 0) return state;
+
+        return {
+            gameState: state.gameState,
+            actions: actions.splice(newIndex, 0, actions.splice(oldIndex, 1)[0]),
+            map: state.map,
+            robot: state.robot,
             goal: state.goal,
             events: [...state.events, { name: UPDATE_ROBOT, body: action.payload }],
         };
