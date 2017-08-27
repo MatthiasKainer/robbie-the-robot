@@ -20,15 +20,17 @@ export interface Robot {
 export enum ActionType {
     Movement,
     Dig,
+    LoopStart,
+    LoopEnd,
     End,
 }
 
 export function isScopedActionBegin(type: ActionType) {
-    return false;
+    return type === ActionType.LoopStart;
 }
 
 export function isScopedActionClose(type: ActionType) {
-    return false;
+    return type === ActionType.LoopEnd;
 }
 
 export function getActionTypeColor(type: ActionType) {
@@ -36,6 +38,10 @@ export function getActionTypeColor(type: ActionType) {
     switch (type) {
         case ActionType.Dig:
             icon = "warning";
+            break;
+        case ActionType.LoopStart:
+        case ActionType.LoopEnd:
+            icon = "error";
             break;
     }
 
@@ -47,6 +53,12 @@ export function getActionTypeIcon(type: ActionType) {
     switch (type) {
         case ActionType.Dig:
             icon = "rocket";
+            break;
+        case ActionType.LoopStart:
+            icon = "fa-hourglass-start";
+            break;
+        case ActionType.LoopEnd:
+            icon = "fa-hourglass-end";
             break;
     }
 

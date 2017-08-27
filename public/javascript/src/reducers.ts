@@ -116,6 +116,8 @@ export default handleActions<IState, Action<IState>>({
 
                 map = Object.assign({}, map);
                 break;
+            case ActionType.LoopStart:
+            case ActionType.LoopEnd:
             case ActionType.End:
                 robot = Object.assign({}, robot);
                 robot.currentAction = robotAction;
