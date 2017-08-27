@@ -145,14 +145,35 @@ export default handleActions<IState, Action<IState>>({
         };
     },
     [CHANGE_STATEMENT_ORDER]: (state: IState, action: Action<ChangeOrderOfCommand>): IState => {
-        const actions = [...state.actions];
-        const {newIndex, oldIndex} = action.payload;
+        let { newIndex, oldIndex } = action.payload;
+        let actions = [...state.actions];
+        const equal = (a: RobotAction, b: RobotAction) => a && b && a.direction === b.direction && a.type === b.type;
         if (oldIndex >= actions.length || oldIndex < 0) return state;
         if (newIndex >= actions.length || newIndex < 0) return state;
 
+        for (let i = 0; i < Math.max(oldIndex, newIndex, actions.length); i++) {
+            let next = actions[i+1];
+            if (!equal(next, actions[i])) {
+                continue;
+            }
+
+            if (i < oldIndex) oldIndex++;
+            if (i < newIndex) newIndex++;
+        }
+
+        // find number of items to move
+        let count = 1;
+        for (let i = oldIndex + 1; i < actions.length; i++) {
+            if (!equal(actions[i], actions[oldIndex])) break;
+            count++;
+        }
+
+        const elements = actions.splice(oldIndex, count);
+        actions.splice(newIndex, 0, ...elements);
+
         return {
             gameState: state.gameState,
-            actions: actions.splice(newIndex, 0, actions.splice(oldIndex, 1)[0]),
+            actions,
             map: state.map,
             robot: state.robot,
             goal: state.goal,

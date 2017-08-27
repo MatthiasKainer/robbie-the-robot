@@ -3,10 +3,21 @@ import * as React from "react";
 import { Action, Event, GameState } from "../models";
 import { STORE_ACTION } from "../actions";
 import ListItem from "./historyItems/listItem";
+import { SortableContainer, SortableElementProps, SortableElement, arrayMove, SortEnd } from 'react-sortable-hoc';
 
 interface ActionListItem extends Action {
     count: number;
     index: number;
+}
+
+interface ActionItemContainer {
+    action: ActionListItem;
+    parent: HistoryList;
+}
+
+interface ActionsListContainer {
+    items: ActionListItem[];
+    parent: HistoryList;
 }
 
 interface ActionsList {
@@ -21,6 +32,25 @@ interface HistoryProperties {
     onRemoveStatement(index: number): any;
     onActionOrderingChanged(oldIndex: number, newIndex: number): void;
 }
+
+const SortableItem = SortableElement<ActionItemContainer>(({action, parent}) =>
+    <ListItem
+        action={action}
+        index={action.index}
+        count={action.count}
+        onChangeStatementCount={(index, newCount) => parent.props.onChangeStatementCount(index, newCount)}
+        onRemove={(index) => parent.handleRemove(index)} />
+);
+
+const SortableList = SortableContainer<ActionsListContainer>(({ parent, items }) => {
+    return (
+        <ul className="list-group">
+            {items.map((action: ActionListItem, index: number) => (
+                <SortableItem key={`item-${action.index}`} index={action.index} action={action} parent={parent} />
+            ))}
+        </ul>
+    );
+});
 
 export default class HistoryList extends React.Component<HistoryProperties, any> {
 
@@ -46,6 +76,11 @@ export default class HistoryList extends React.Component<HistoryProperties, any>
         }
     }
 
+    onSortEnd(result: SortEnd) {
+        console.log(`[HistoryList] Reorder actions from ${JSON.stringify(result)}`);
+        this.props.onActionOrderingChanged(result.oldIndex, result.newIndex);
+    }
+
     public render() {
         let previous: Action;
         const actionList: ActionsList = { items: [] };
@@ -65,13 +100,7 @@ export default class HistoryList extends React.Component<HistoryProperties, any>
 
                 previous = item;
             });
-        const history = actionList.items
-            .map((action: ActionListItem) => <ListItem
-                    action={action}
-                    index={action.index}
-                    count={action.count}
-                    onChangeStatementCount={(index, newCount) => this.props.onChangeStatementCount(index, newCount)}
-                    onRemove={(index) => this.handleRemove(index)} />);
+        const history = <SortableList useDragHandle parent={this} items={actionList.items} onSortEnd={(result) => this.onSortEnd(result)} />
 
         const style: React.CSSProperties = {
             height: "100vh",
@@ -79,9 +108,7 @@ export default class HistoryList extends React.Component<HistoryProperties, any>
         };
 
         return <div className="history" data-selector="history" style={style} ref={(ele) => this.historyElement = ele}>
-            <ul className="list-group">
-                {history}
-            </ul>
+            {history}
         </div>;
     }
 
