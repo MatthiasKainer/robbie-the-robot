@@ -3,10 +3,15 @@ import * as React from "react";
 import { Action, Event, GameState } from "../models";
 import { STORE_ACTION } from "../actions";
 import ListItem from "./historyItems/listItem";
+import { SortableContainer, SortableElementProps, SortableElement, arrayMove } from 'react-sortable-hoc';
 
 interface ActionListItem extends Action {
     count: number;
     index: number;
+}
+
+interface ActionItemContainer {
+    action: ActionListItem;
 }
 
 interface ActionsList {
@@ -21,6 +26,25 @@ interface HistoryProperties {
     onRemoveStatement(index: number): any;
     onActionOrderingChanged(oldIndex: number, newIndex: number): void;
 }
+
+const SortableItem = SortableElement<ActionItemContainer>(({action}) =>
+    <ListItem
+        action={action}
+        index={action.index}
+        count={action.count}
+        onChangeStatementCount={(index, newCount) => this.props.onChangeStatementCount(index, newCount)}
+        onRemove={(index) => this.handleRemove(index)} />
+);
+
+const SortableList = SortableContainer<ActionsList>(({ items }) => {
+    return (
+        <ul className="list-group">
+            {items.map((action: ActionListItem, index: number) => (
+                <SortableItem key={`item-${index}`} index={index} action={action} />
+            ))}
+        </ul>
+    );
+});
 
 export default class HistoryList extends React.Component<HistoryProperties, any> {
 
@@ -65,13 +89,14 @@ export default class HistoryList extends React.Component<HistoryProperties, any>
 
                 previous = item;
             });
-        const history = actionList.items
+        const history = <SortableList items={actionList.items} />
+        /*actionList.items
             .map((action: ActionListItem) => <ListItem
-                    action={action}
-                    index={action.index}
-                    count={action.count}
-                    onChangeStatementCount={(index, newCount) => this.props.onChangeStatementCount(index, newCount)}
-                    onRemove={(index) => this.handleRemove(index)} />);
+                action={action}
+                index={action.index}
+                count={action.count}
+                onChangeStatementCount={(index, newCount) => this.props.onChangeStatementCount(index, newCount)}
+                onRemove={(index) => this.handleRemove(index)} />);*/
 
         const style: React.CSSProperties = {
             height: "100vh",
@@ -79,9 +104,7 @@ export default class HistoryList extends React.Component<HistoryProperties, any>
         };
 
         return <div className="history" data-selector="history" style={style} ref={(ele) => this.historyElement = ele}>
-            <ul className="list-group">
-                {history}
-            </ul>
+            {history}
         </div>;
     }
 
