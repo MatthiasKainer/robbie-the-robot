@@ -58,8 +58,8 @@ const initialState: IState = {
     events: [],
 };
 
-export default handleActions<IState, Action<IState>>({
-    [SET_MAP]: (state: IState, action: Action<Map>): IState => {
+export default handleActions<IState, Action<any>>({
+    [SET_MAP]: (state: IState, action: Action<any>)=> {
         console.log(`Map set to ${JSON.stringify(action.payload)}`);
         return {
             gameState: state.gameState,
@@ -70,7 +70,7 @@ export default handleActions<IState, Action<IState>>({
             events: [...state.events, { name: SET_MAP, body: action.payload }],
         };
     },
-    [STORE_ACTION]: (state: IState, action: Action<RobotAction>): IState => {
+    [STORE_ACTION]: (state: IState, action: Action<any>): IState => {
         console.log(`Appending action ${action.payload}`);
         return {
             gameState: state.gameState,
@@ -81,7 +81,7 @@ export default handleActions<IState, Action<IState>>({
             events: [...state.events, { name: STORE_ACTION, body: action.payload }],
         };
     },
-    [PERFORM_ACTION]: (state: IState, action: Action<RobotAction>): IState => {
+    [PERFORM_ACTION]: (state: IState, action: Action<any>): IState => {
         console.log(`Performing action ${ActionType[action.payload.type]} in direction ${Direction[action.payload.direction]}`);
         const robotProcessor = new RobotProcessor(state.map, state.robot);
         const robotAction = action.payload;
@@ -133,7 +133,7 @@ export default handleActions<IState, Action<IState>>({
             events: [...state.events, { name: PERFORM_ACTION, body: action.payload }],
         };
     },
-    [UPDATE_ROBOT]: (state: IState, action: Action<Robot>): IState => {
+    [UPDATE_ROBOT]: (state: IState, action: Action<any>): IState => {
         console.log(`Executing robot movement ${JSON.stringify(action.payload)}`);
         const robot = action.payload;
 
@@ -146,7 +146,7 @@ export default handleActions<IState, Action<IState>>({
             events: [...state.events, { name: UPDATE_ROBOT, body: action.payload }],
         };
     },
-    [CHANGE_STATEMENT_ORDER]: (state: IState, action: Action<ChangeOrderOfCommand>): IState => {
+    [CHANGE_STATEMENT_ORDER]: (state: IState, action: Action<any>): IState => {
         let { newIndex, oldIndex } = action.payload;
         let actions = [...state.actions];
         const equal = (a: RobotAction, b: RobotAction) => a && b && a.direction === b.direction && a.type === b.type;
@@ -182,7 +182,7 @@ export default handleActions<IState, Action<IState>>({
             events: [...state.events, { name: UPDATE_ROBOT, body: action.payload }],
         };
     },
-    [CHANGE_STATEMENT_COUNT]: (state: IState, action: Action<ChangeCountOfCommand>): IState => {
+    [CHANGE_STATEMENT_COUNT]: (state: IState, action: Action<any>): IState => {
         console.log(`Changing count to ${action.payload.count} on action with index ${action.payload.index}`);
         const change = action.payload;
         let actions = [...state.actions];
@@ -209,7 +209,7 @@ export default handleActions<IState, Action<IState>>({
             events: [...state.events, { name: CHANGE_STATEMENT_COUNT, body: action.payload }],
         };
     },
-    [REMOVE_STATEMENT]: (state: IState, action: Action<number>): IState => {
+    [REMOVE_STATEMENT]: (state: IState, action: Action<any>): IState => {
         console.log(`Removing Statement ${JSON.stringify(action.payload)}`);
         const movements = state.actions.filter((_, index) => {
             return index !== action.payload;
@@ -224,7 +224,7 @@ export default handleActions<IState, Action<IState>>({
             events: [...state.events, { name: REMOVE_STATEMENT, body: action.payload }],
         };
     },
-    [START]: (state: IState, action: Action<Robot>): IState => {
+    [START]: (state: IState, action: Action<any>): IState => {
         return {
             gameState: GameState.RUNNING,
             actions: state.actions,
@@ -234,7 +234,7 @@ export default handleActions<IState, Action<IState>>({
             events: [...state.events, { name: START, body: action.payload }],
         };
     },
-    [STOP]: (state: IState, action: Action<Robot>): IState => {
+    [STOP]: (state: IState, action: Action<any>): IState => {
         return {
             gameState: GameState.STOP,
             actions: state.actions,
@@ -244,7 +244,7 @@ export default handleActions<IState, Action<IState>>({
             events: [...state.events, { name: STOP, body: action.payload }],
         };
     },
-    [DIE]: (state: IState, action: Action<Robot>): IState => {
+    [DIE]: (state: IState, action: Action<any>): IState => {
         console.log("A loose was triggered!");
         return {
             gameState: GameState.LOOSE,
@@ -255,7 +255,7 @@ export default handleActions<IState, Action<IState>>({
             events: [...state.events, { name: DIE, body: action.payload }],
         };
     },
-    [WIN]: (state: IState, action: Action<boolean>): IState => {
+    [WIN]: (state: IState, action: Action<any>): IState => {
         console.log("A win was triggered!");
         return {
             gameState: GameState.WIN,
