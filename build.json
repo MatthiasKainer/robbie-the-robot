@@ -3,7 +3,7 @@
     "compile": {
         "typescript": {
             "task": "ts",
-            "package": "grunt-ts",
+            "package": "grunt-ts@6.0.0-beta.16",
             "default": {
                 "options": {
                     "target": "es6",
