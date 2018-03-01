@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "mocha-typescript-watch --tsc tsc test/**/*.js"
+    "test": "node ./node_modules/mocha-typescript/bin/watch --tsc tsc test/**/*.js"
   },
   "dependencies": {
     "@types/async": "2.0.38",
@@ -41,6 +41,7 @@
   "devDependencies": {
     "@types/chai": "3.4.35",
     "@types/cucumber": "2.0.1",
+    "@types/deep-freeze": "^0.1.1",
     "@types/enzyme": "2.8.6",
     "@types/mocha": "2.2.41",
     "@types/sinon": "1.16.35",
@@ -52,6 +53,7 @@
     "babelify": "7.3.0",
     "chai": "3.4.1",
     "cucumber": "2.0.0-rc.9",
+    "deep-freeze": "0.0.1",
     "enzyme": "2.9.1",
     "istanbul": "1.0.0-alpha.2",
     "jsdom": "11.2.0",
