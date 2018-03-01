@@ -64,7 +64,7 @@ export default handleActions<IState, Action<any>>({
         return {
             gameState: state.gameState,
             actions: state.actions,
-            map: Object.assign({}, action.payload),
+            map: {...action.payload},
             robot: state.robot,
             goal: state.goal,
             events: [...state.events, { name: SET_MAP, body: action.payload }],
@@ -72,6 +72,10 @@ export default handleActions<IState, Action<any>>({
     },
     [STORE_ACTION]: (state: IState, action: Action<any>): IState => {
         console.log(`Appending action ${action.payload}`);
+        if (!action.payload) {
+            return state;
+        }
+
         return {
             gameState: state.gameState,
             actions: [...state.actions, action.payload],
@@ -117,6 +121,7 @@ export default handleActions<IState, Action<any>>({
                 map = Object.assign({}, map);
                 break;
             case ActionType.LoopStart:
+                // 
             case ActionType.LoopEnd:
             case ActionType.End:
                 robot = Object.assign({}, robot);
@@ -135,7 +140,9 @@ export default handleActions<IState, Action<any>>({
     },
     [UPDATE_ROBOT]: (state: IState, action: Action<any>): IState => {
         console.log(`Executing robot movement ${JSON.stringify(action.payload)}`);
-        const robot = action.payload;
+        if (!action.payload) { return state; }
+
+        const robot = {...action.payload};
 
         return {
             gameState: state.gameState,
@@ -153,33 +160,43 @@ export default handleActions<IState, Action<any>>({
         if (oldIndex >= actions.length || oldIndex < 0) return state;
         if (newIndex >= actions.length || newIndex < 0) return state;
 
-        for (let i = 0; i < Math.max(oldIndex, newIndex, actions.length); i++) {
-            let next = actions[i+1];
-            if (!equal(next, actions[i])) {
-                continue;
-            }
-
-            if (i < oldIndex) oldIndex++;
-            if (i < newIndex) newIndex++;
-        }
+        console.log(`Moving item at index ${oldIndex} to ${newIndex}`);
 
         // find number of items to move
-        let count = 1;
+        let itemsToMove = 1;
         for (let i = oldIndex + 1; i < actions.length; i++) {
             if (!equal(actions[i], actions[oldIndex])) break;
-            count++;
+            itemsToMove++;
         }
 
-        const elements = actions.splice(oldIndex, count);
+        // find "true" index to move
+        const indexMap = [
+            0
+        ];
+        for (let i = 1, index = 0; i<actions.length; i++) {
+            console.log(`i: ${i}, index: ${index} - equal(actions[i], actions[i-1])=${equal(actions[i], actions[i-1])}`);
+            if (equal(actions[i], actions[i-1])) {
+                indexMap[index] = i;
+            } else {
+                index++;
+                indexMap[index] = i;
+            }
+        }
+
+        newIndex = newIndex == 0 ? 0 : indexMap[newIndex];
+
+        console.log(`index map: ${JSON.stringify(indexMap)}; new index ${newIndex}`);
+
+        const elements = actions.splice(oldIndex, itemsToMove);
         actions.splice(newIndex, 0, ...elements);
 
         return {
             gameState: state.gameState,
-            actions,
+            actions: [...actions],
             map: state.map,
             robot: state.robot,
             goal: state.goal,
-            events: [...state.events, { name: UPDATE_ROBOT, body: action.payload }],
+            events: [...state.events, { name: CHANGE_STATEMENT_ORDER, body: action.payload }],
         };
     },
     [CHANGE_STATEMENT_COUNT]: (state: IState, action: Action<any>): IState => {
@@ -217,7 +234,7 @@ export default handleActions<IState, Action<any>>({
 
         return {
             gameState: state.gameState,
-            actions: movements,
+            actions: [...movements],
             map: state.map,
             robot: state.robot,
             goal: state.goal,

@@ -19,6 +19,7 @@ interface PageProps {
 
 export class Page extends React.Component<PageProps, PageProps> {
     timeouts: NodeJS.Timer[];
+    audio: HTMLAudioElement;
 
     public constructor(props: PageProps) {
         super(props);
@@ -29,8 +30,8 @@ export class Page extends React.Component<PageProps, PageProps> {
     playAudio(file: string) {
         if (!file) return;
         try {
-            var audio = new Audio(`/audio/en/${file}`);
-            audio.play();
+            this.audio = new Audio(`/audio/en/${file}`);
+            this.audio.play();
         } catch (e) {
             console.log("[Tutorial] Could not play audio. Hopefully people get the idea from the overlays.")
         }
@@ -64,12 +65,27 @@ export class Page extends React.Component<PageProps, PageProps> {
         }, this.state.elements[0].duration + 1000));
     }
 
+    checkIfAbort(event: KeyboardEvent) {
+        if (event.keyCode === 27) {
+            this.setState(Object.assign({}, { elements: [] }));
+            if (this.audio) {
+                this.audio.pause();
+                this.audio.remove();
+            }
+        }
+    }
+
     componentWillReceiveProps(nextProps: PageProps) {
         this.setState(nextProps);
     }
 
     componentDidMount() {
         this.incrementState();
+        document.addEventListener("keydown", (e) => this.checkIfAbort(e), false);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener("keydown", (e : any) => this.checkIfAbort(e), false);
     }
 
     componentDidUpdate() {

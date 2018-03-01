@@ -128,6 +128,12 @@ export interface IState {
     map?: Map;
     gameState?: GameState;
     events?: Event[];
+    scoping?: ScopedActions;
+}
+
+export interface ScopedActions {
+    scopeHolder: Action;
+    actions: Action[];
 }
 
 export interface ChangeCountOfCommand {
