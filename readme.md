@@ -1,6 +1,6 @@
 # Robbie The Robot
 
-[![travisci-build](https://api.travis-ci.org/MatthiasKainer/robbie-the-robot.svg?branch=master)](https://travis-ci.org/1and1/itBldz) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3c0a3e5e57fc404f88ce2ffd04428865)](https://www.codacy.com/app/MatthiasKainer/robbie-the-robot?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=MatthiasKainer/robbie-the-robot&amp;utm_campaign=Badge_Grade) [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/3c0a3e5e57fc404f88ce2ffd04428865)](https://www.codacy.com/app/MatthiasKainer/robbie-the-robot?utm_source=github.com&utm_medium=referral&utm_content=MatthiasKainer/robbie-the-robot&utm_campaign=Badge_Coverage)
+[![travisci-build](https://api.travis-ci.org/MatthiasKainer/robbie-the-robot.svg?branch=master)](https://travis-ci.org/MatthiasKainer/robbie-the-robot) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3c0a3e5e57fc404f88ce2ffd04428865)](https://www.codacy.com/app/MatthiasKainer/robbie-the-robot?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=MatthiasKainer/robbie-the-robot&amp;utm_campaign=Badge_Grade) [![Test Coverage](https://api.codeclimate.com/v1/badges/fe23b000b25d90946da8/test_coverage)](https://codeclimate.com/github/MatthiasKainer/robbie-the-robot/test_coverage)
 
 Robbie the robot is a small, html based browser game for 3-6 year old children. Its aim is to help children develop a feeling for executing certain commands in advance before running them. 
 
