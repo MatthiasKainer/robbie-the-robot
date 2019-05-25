@@ -58,7 +58,7 @@
     "istanbul": "1.0.0-alpha.2",
     "jsdom": "11.2.0",
     "jsdom-global": "3.0.2",
-    "mocha": "^6.1.4",
+    "mocha": "^3.0.1",
     "mocha-typescript": "1.0.23",
     "react-addons-test-utils": "15.6.0",
     "sinon": "1.16.1",
