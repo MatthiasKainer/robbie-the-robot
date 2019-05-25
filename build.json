@@ -57,8 +57,8 @@
                 "task": "mocha_istanbul",
                 "package": "grunt-mocha-istanbul",
                 "dependencies": [
-                    "istanbul@v1.0.0-alpha.2",
-                    "mocha",
+                    "istanbul",
+                    "mocha@3.0.1",
                     "chai",
                     "sinon"
                 ],
