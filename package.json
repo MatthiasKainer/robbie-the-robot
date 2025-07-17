@@ -28,7 +28,7 @@
     "cookie-parser": "1.4.7",
     "debug": "^4.3.1",
     "express": "^4.21.2",
-    "morgan": "^1.9.1",
+    "morgan": "^1.10.1",
     "pug": "^3.0.3",
     "react": "15.4.2",
     "react-dom": "15.4.2",
