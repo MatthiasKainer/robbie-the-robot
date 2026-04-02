@@ -27,7 +27,7 @@
     "codacy-coverage": "^3.4.0",
     "cookie-parser": "1.4.7",
     "debug": "^4.3.1",
-    "express": "^4.21.2",
+    "express": "^4.22.1",
     "morgan": "^1.10.1",
     "pug": "^3.0.3",
     "react": "15.4.2",
